@@ -1,0 +1,6 @@
+//authentication module should provide the login service it's the equivalent to passport.authenticate
+module.exports = logout = (req,res)=>{
+ req.logout();
+ res.clearCookie('U_SID');
+ res.json({status:'ok',source:'logout',message:'You have been logged out!'});
+}

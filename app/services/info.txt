@@ -1,0 +1,4 @@
+A service is a named function.
+A service may export a permissionNotRequired = false to indicate that the service does not require a permission to bypass authorization
+
+  

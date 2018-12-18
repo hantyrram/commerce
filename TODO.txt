@@ -1,0 +1,2 @@
+Refactor so that we can handle brea(d) navigation,use pluralize module
+use the LoginPage component on the render of login.jsx feature so we can maintain state.
