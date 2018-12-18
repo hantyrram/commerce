@@ -1,0 +1,3 @@
+[submodule "commerceclient"]
+	path = commerceclient
+	url = https://github.com/hantyrram/commerceclient
