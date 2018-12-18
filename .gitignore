@@ -2,8 +2,7 @@
 
 # dependencies
 /node_modules
-/clientapp/node_modules
-/clientapp/.gitignore
+/clientapp
 
 
 # testing
