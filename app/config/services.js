@@ -15,5 +15,6 @@ module.exports = [
  '/local_modules/authentication/authenticate',
  '/local_modules/authentication/login',
  '/local_modules/authentication/logout',
+ '/app/services/test/test'
 ]
 

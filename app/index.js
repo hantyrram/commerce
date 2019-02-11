@@ -74,11 +74,8 @@ global.errorsHandlers = ()=>{
  * @param {Array} services - Array of services
  */
 const init = (app)=>{
-
  
  app.use(express.static(process.cwd()+'/tempimages'));//just to serve the favicon temporarily
- app.get('/',function(req,res){res.json({message:'Welcome to home page',services: getServices().map(s=> {return {name: s.name,label:s.label}}) });});
- 
  
  app.use(express.json());
  app.use(cookieParser());
@@ -137,7 +134,7 @@ const init = (app)=>{
   }
   
  }
-
+//  console.log(app._router.stack);
  app.use(errorsHandlers());
 
 }

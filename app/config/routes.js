@@ -42,6 +42,9 @@ const permissions = [
  {path:'/permissions/:name',method:'delete',serviceProvider:'permission_delete'},
 ]
 
+const test = [
+  {path:'/test/test',method:'get',serviceProvider:'test'}
+]
 /**
  * Prefixes all paths with the API_VERSION.
  * @param {array} routes Arrays of routes
@@ -58,6 +61,6 @@ function prefixPath(prefix,...routes){
   return allRoutes;
 }
 
-let routes = prefixPath(API_VERSION,authentication,user,role,permissions);
+let routes = prefixPath(API_VERSION,authentication,user,role,permissions,test);
 
 module.exports = routes;

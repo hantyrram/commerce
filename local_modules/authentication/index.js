@@ -56,6 +56,7 @@ module.exports.deserializeUser = (fn)=>{
 module.exports.init = (options = {})=>{
  //save the authenticatedUser,nope?
  let loginURL = options.loginURL || '/apiv1/login';
+ let logoutURL = options.logoutURL || '/apiv1/logout';
  let successRedirect = options.successRedirect || '/';
  let useInternalLoginService = options.useInternalLoginService || false;
  
@@ -93,7 +94,7 @@ module.exports.init = (options = {})=>{
   req.logout = logout;
   
   if(!req.session || !req.session.user){
-   if(req.path !== loginURL){
+   if(req.path !== loginURL && req.path !== logoutURL){
     next({status:'nok',source:'authenticate',type:'AUTHENTICATION_ERROR',errMsg:'Authentication Failed'});
     return;
    }
