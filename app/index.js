@@ -10,6 +10,7 @@ const sessionOnRedis = require('../local_modules/session-on-redis');
 const authentication = require('../local_modules/authentication');
 //Policy Based Authorization
 const authorization = require('../local_modules/authorization');
+global.Artifact = require('./Artifact');
 global.Rule = require('../local_modules/authorization').Rule;
 global.Policy = require('../local_modules/authorization').Policy;
 global.PolicyViolation = require('../local_modules/authorization').PolicyViolation;
