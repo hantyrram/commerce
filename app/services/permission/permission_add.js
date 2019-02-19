@@ -2,8 +2,12 @@
 module.exports = permission_add = async (req,res,next)=>{
   let col = req.app.get('db').collection('permissions');
   try {
+    console.log('Add Reached');
+    console.log(req.user);
     //ops is array of objects inserted with ._id set
-    let {ops} = await col.insertOne(req.body); 
+    let initialDate = new Date();
+    let entity = Object.assign(req.body,{createdBy:req.user.username,createdOn:initialDate,modifiedOn:initialDate});
+    let {ops} = await col.insertOne(entity);
     const permission = ops[0];
     console.log(ops);
     // const permission = {
@@ -20,6 +24,7 @@ module.exports = permission_add = async (req,res,next)=>{
       next(error);
       return;
     }
+    console.log(error);
     next({error:'Server Error'})
   }
 }
