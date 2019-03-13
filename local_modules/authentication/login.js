@@ -1,4 +1,8 @@
-//aa module's local login service
+
+/**
+ * @module authentication/login
+ * @desc default login @see{@link{Types~service}}
+ */
 const ObjectID = require('mongodb').ObjectID;
 module.exports = login = async(req,res)=>{
   console.log({body:req.body});
@@ -13,7 +17,6 @@ module.exports = login = async(req,res)=>{
    } catch (error) {
      console.log({loginServiceError:error});
    }
-   
 }
 
 module.exports.permissionNotRequired = true;

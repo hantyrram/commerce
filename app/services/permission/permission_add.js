@@ -1,4 +1,9 @@
 
+/**
+ * @type {Types~service}
+ * @func permission_add
+ * @desc Adds a new permission.
+ */
 module.exports = permission_add = async (req,res,next)=>{
   let col = req.app.get('db').collection('permissions');
   try {
@@ -12,7 +17,7 @@ module.exports = permission_add = async (req,res,next)=>{
     console.log(ops);
     // const permission = {
     //   id: ops[0]._id,
-    //   name: ops[0].name,
+    //   name: ops[0].name,0
     //   label:ops[0].label
     // }
     res.status(201).json({status:'ok',source:'permission_add',data:{permission:permission}});
