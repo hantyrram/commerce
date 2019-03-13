@@ -19,7 +19,8 @@ global._5xxResponse = require('./responses/5xx');
 
 let serverStarted = false;
 /**
- * Mongo DB database
+ * @type {Object} 
+ * @desc Mongo DB database
  */
 let db;
 
@@ -33,7 +34,7 @@ let db;
 }
 
 /**
- * 
+ * @global
  * @param {string} name of the middleware.
  * @return {function} the middleware with the given name.
  */
@@ -45,6 +46,7 @@ global.getMiddleware = (name)=>{
 }
 
 /**
+ * @global
  * @returns {Array} - The array of services as defined on the services config
  */
 global.getServices = () => {
@@ -107,6 +109,8 @@ const init = (app)=>{
 //   }
 //  });
  //end authorization 
+ app.use(getMiddleware('handleNonXHR'));
+ app.use(getMiddleware('attachArtifactToResponse'))
  app.use(getMiddleware('attachCurrentServiceToReq'));
  app.use(authentication.init({loginURL:'/'+config.API_VERSION+'/login'})); 
  // let attachCurrentServiceToReq = require('./middlewares/attachCurrentServiceToReq');
