@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: app/services/user/user_browse.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,33 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: app/services/user/user_browse.js</h1>
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @type {Types~service}
+ * @func user_browse
+ * @desc Retrieves users.
+ */
+module.exports = user_browse = async (req,res)=>{
+   await req.app.get('db').collection('users').find({}).project({'username':1}).toArray(function(error,documents){
+    if(error){
+      next(error);
+      return;
+    }
+    res.status(200).json({status:'ok',data:{data:documents}});
+   });
+}
 
-
-    <h3> </h3>
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
+module.exports.label = 'View Users';</code></pre>
+        </article>
+    </section>
 
 
 

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: app/services/user/user_add.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,36 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: app/services/user/user_add.js</h1>
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @type {Types~service}
+ * @func user_add
+ * @desc Adds a role to a particular user.
+ */
+module.exports = user_add = async (req,res)=>{
+ let user = req.body;
+ //validate user;
+ try {
+  let result = await req.app.get('db').collection('users').insertOne(user);
+  res.json({status:'ok',message:'User Created Successfully', data:{userID: result.insertedId}});
+ } catch (error) {
+  console.log(error);
+  next(error);
+ }
+}
 
-
-    <h3> </h3>
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
+module.exports.label = 'Add New User';
+</code></pre>
+        </article>
+    </section>
 
 
 

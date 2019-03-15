@@ -28,9 +28,9 @@
 
 <header>
     
-        <h2><span class="attribs"><span class="type-signature"></span></span>Artifact<span class="signature">(status, source, third)</span><span class="type-signature"></span></h2>
+        <h2><span class="attribs"><span class="type-signature"></span></span>Artifact<span class="signature">(status, source, message, data)</span><span class="type-signature"></span></h2>
         
-            <div class="class-description">The standard object sent by a service as a response. All service sends artifact.</div>
+            <div class="class-description">The object produced as a result of each service, which is sent to the client.</div>
         
     
 </header>
@@ -45,7 +45,7 @@
     
 
     
-    <h4 class="name" id="Artifact"><span class="type-signature"></span>new Artifact<span class="signature">(status, source, third)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="Artifact"><span class="type-signature"></span>new Artifact<span class="signature">(status, source, message, data)</span><span class="type-signature"></span></h4>
     
 
     
@@ -101,7 +101,7 @@
 
             
 
-            <td class="description last">The status of the operation, values can only be either 'ok' or 'nok'. If value is 'ok' itmeans the intended operation has succeed. If 'nok' the operation failed.</td>
+            <td class="description last">REQUIRED!  The status of a particular operation value's can only be either 'ok' or 'nok'.</td>
         </tr>
 
     
@@ -124,23 +124,20 @@
 
             
 
-            <td class="description last">The name of the service that generated this Artifact.</td>
+            <td class="description last">REQUIRED! The name of the service which is the source of this Artifact.</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>third</code></td>
+                <td class="name"><code>message</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type"><a href="Artifact.html#~error">Artifact~error</a></span>
-|
-
-<span class="param-type">Object</span>
+<span class="param-type">Artifact.Message</span>
 
 
             
@@ -150,7 +147,30 @@
 
             
 
-            <td class="description last">If status = 'nok' then the third param should be a <a href="Artifact.html#~error">Artifact~error</a>.If status = 'ok', the service may provide some data as a result of completing the operation. E.g. a service that adds a particular entity may need to return the saved entity updated with ._id property to the client. Thiscan be done by putting the entity as a property of artifact.data (example: artifact.data = {entity: entityWithId}).If status = 'nok' Artifact instance will have the error property, if status = 'ok' Artifact instance will havethe data property.</td>
+            <td class="description last">The message.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>data</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The payload.</td>
         </tr>
 
     
@@ -191,7 +211,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Artifact.js.html">Artifact.js</a>, <a href="Artifact.js.html#line23">line 23</a>
+        <a href="app_Artifact.js.html">app/Artifact.js</a>, <a href="app_Artifact.js.html#line33">line 33</a>
     </li></ul></dd>
     
 
@@ -239,36 +259,58 @@
     
 
     
-        <h3 class="subsection-title">Type Definitions</h3>
 
+    
+</article>
+
+</section>
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        <h2><span class="attribs"><span class="type-signature"></span></span>Artifact<span class="signature">(status, source, third, message<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h2>
         
-                
-<h4 class="name" id="~error">error</h4>
+            <div class="class-description">The standard object sent by a service as a response. All service sends artifact.</div>
+        
+    
+</header>
 
+<article>
+    <div class="container-overview">
+    
+        
 
+    
+    <h2>Constructor</h2>
+    
 
-
-
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">Object</span>
-
-
-        </li>
-    </ul>
-
-
-
-
-
-    <h5 class="subsection-title">Properties:</h5>
+    
+    <h4 class="name" id="Artifact"><span class="type-signature"></span>new Artifact<span class="signature">(status, source, third, message<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
+    
 
     
 
-<table class="props">
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
     <thead>
     <tr>
         
@@ -278,7 +320,11 @@
         <th>Type</th>
 
         
+        <th>Attributes</th>
+        
 
+        
+        <th>Default</th>
         
 
         <th class="last">Description</th>
@@ -290,7 +336,7 @@
 
         <tr>
             
-                <td class="name"><code>type</code></td>
+                <td class="name"><code>status</code></td>
             
 
             <td class="type">
@@ -303,10 +349,98 @@
             </td>
 
             
+                <td class="attributes">
+                
 
+                
+
+                
+                </td>
             
 
-            <td class="description last">A string representing the specific error.</td>
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">The status of the operation, values can only be either 'ok' or 'nok'. If value is 'ok' itmeans the intended operation has succeed. If 'nok' the operation failed.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>source</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">The name of the service that generated this Artifact.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>third</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Artifact~error</span>
+|
+
+<span class="param-type">Object</span>
+|
+
+<span class="param-type">null</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">If status = 'nok' then the third param should be a Artifact~error.If status = 'ok', the service may provide some data as a result of completing the operation. E.g. a service that adds a particular entity may need to return the saved entity updated with ._id property to the client. Thiscan be done by putting the entity as a property of artifact.data (example: artifact.data = {entity: entityWithId}).If status = 'nok' Artifact instance will have the error property, if status = 'ok' Artifact instance will havethe data property.</td>
         </tr>
 
     
@@ -326,15 +460,33 @@
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
 
+                
+
+                
+                </td>
             
 
-            <td class="description last">The error message.</td>
+            
+                <td class="default">
+                
+                    ''
+                
+                </td>
+            
+
+            <td class="description last">An optional message.</td>
         </tr>
 
     
     </tbody>
 </table>
+
+
 
 
 
@@ -368,7 +520,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Artifact.js.html">Artifact.js</a>, <a href="Artifact.js.html#line1">line 1</a>
+        <a href="app_Artifact.js.html">app/Artifact.js</a>, <a href="app_Artifact.js.html#line85">line 85</a>
     </li></ul></dd>
     
 
@@ -384,7 +536,37 @@
 
 
 
-            
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
     
 
     
@@ -398,13 +580,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Artifact.html">Artifact</a></li></ul><h3>Namespaces</h3><ul><li><a href="Types.html">Types</a></li></ul><h3>Global</h3><ul><li><a href="global.html#db">db</a></li><li><a href="global.html#getMiddleware">getMiddleware</a></li><li><a href="global.html#getServices">getServices</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#start">start</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-Authentication.html">Authentication</a></li></ul><h3>Classes</h3><ul><li><a href="Artifact.html">Artifact</a></li><li><a href="Message.html">Message</a></li><li><a href="Policy.html">Policy</a></li><li><a href="Rule.html">Rule</a></li></ul><h3>Namespaces</h3><ul><li><a href="HT.html">HT</a></li><li><a href="Services.html">Services</a></li></ul><h3>Global</h3><ul><li><a href="global.html#condition">condition</a></li><li><a href="global.html#config">config</a></li><li><a href="global.html#db">db</a></li><li><a href="global.html#deserializeUserRoles">deserializeUserRoles</a></li><li><a href="global.html#destroy">destroy</a></li><li><a href="global.html#done">done</a></li><li><a href="global.html#ERROR">ERROR</a></li><li><a href="global.html#genuuidV4">genuuidV4</a></li><li><a href="global.html#get">get</a></li><li><a href="global.html#getMiddleware">getMiddleware</a></li><li><a href="global.html#getServices">getServices</a></li><li><a href="global.html#handleNonXHR">handleNonXHR</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#ObjectID">ObjectID</a></li><li><a href="global.html#on">on</a></li><li><a href="global.html#prefixPath">prefixPath</a></li><li><a href="global.html#set">set</a></li><li><a href="global.html#start">start</a></li><li><a href="global.html#SUCCESS">SUCCESS</a></li><li><a href="global.html#user_add">user_add</a></li><li><a href="global.html#user_add_role">user_add_role</a></li><li><a href="global.html#user_browse">user_browse</a></li><li><a href="global.html#user_edit">user_edit</a></li><li><a href="global.html#user_read">user_read</a></li><li><a href="global.html#user_read_permissions">user_read_permissions</a></li><li><a href="global.html#userRolesDeserializer">userRolesDeserializer</a></li><li><a href="global.html#WARNING">WARNING</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Wed Mar 13 2019 23:01:09 GMT+0300 (Arabian Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Fri Mar 15 2019 18:58:57 GMT+0300 (Arab Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

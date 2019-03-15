@@ -1,6 +1,5 @@
 
 /**
- * @module authentication/login
  * @desc default login @see{@link{Types~service}}
  */
 const ObjectID = require('mongodb').ObjectID;

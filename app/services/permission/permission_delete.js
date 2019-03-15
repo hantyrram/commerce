@@ -1,4 +1,9 @@
 
+/**
+ * @func permission_delete
+ * @memberof Services
+ * @desc Retrieves permissions.
+ */
 module.exports = permission_delete = async (req,res,next)=>{
   let col = req.app.get('db').collection('permissions');
     try {

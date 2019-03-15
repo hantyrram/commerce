@@ -5,3 +5,7 @@
 
 
 // module.exports = [].concat(user,store);
+
+/**
+ * @namespace Services
+ */

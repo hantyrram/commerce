@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: app/services/user/user_read.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,27 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: app/services/user/user_read.js</h1>
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @type {Types~service}
+ * @func user_read
+ * @desc Retrieves a single user, with the given username.
+ */
+module.exports = user_read = async (req,res,next)=>{
+  let result = await req.app.get('db').collection('users').findOne({username:req.params.username});
 
-
-    <h3> </h3>
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
+  res.json({status:'ok',data:result});
+}</code></pre>
+        </article>
+    </section>
 
 
 

@@ -1,6 +1,6 @@
 
 /**
- * @module authentication
+ * @module Authentication
  */
 
 /**
@@ -21,8 +21,8 @@ let serializer;
 let deserializer;
 
 /**
- * @module authentication/serializeUser
- * Sets the serializer function.
+ * Sets the serializer to be used by this module.
+ * @func
  * @param {function} fn - The serializer function.
  */  
 module.exports.serializeUser = (fn)=>{
@@ -31,6 +31,7 @@ module.exports.serializeUser = (fn)=>{
 
 /**
  * Sets the deserializer function
+ * @func
  * @param {function} fn - The deserializer function.
  */
 module.exports.deserializeUser = (fn)=>{
@@ -40,6 +41,8 @@ module.exports.deserializeUser = (fn)=>{
 
 
 /**
+ * Initializes the Authentication module with some options. 
+ * @func 
  * @param {object} options - The options object. With the following properties:
  * @param {string} options.loginURL - The login URL.
  * @param {string} options.logoutURL - The logout URL.
@@ -52,6 +55,7 @@ module.exports.deserializeUser = (fn)=>{
  * 
  * deserializeUser = <required> A function that accepts the data that has been set during serialization e.g. user or user.id,
  * and a done function.
+ * @return {function} - An Express Middleware function.
  */
 module.exports.init = (options = {})=>{
  //save the authenticatedUser,nope?
@@ -59,15 +63,20 @@ module.exports.init = (options = {})=>{
  let logoutURL = options.logoutURL || '/apiv1/logout';
  let successRedirect = options.successRedirect || '/';
  let useInternalLoginService = options.useInternalLoginService || false;
- 
-
-
  return (req,res,next)=>{
   //if no session, go to /login
   //test remove this line
   // req.session.user = "5bca58d4e7179a4377ff835d";
   console.log('@authentication',{sessionID:req.session.id})
 
+  /**
+  * @func login
+  * @inner
+  * @desc The login function that will be attached to the req object when the login URL is accessed. This function can be called on a login service, after the service checks if the user sent by the client is a valid user or not.
+  * @param {string|null} errMsg - The message that will be attached on the login response if the user is receieved is not a valid user or if there is any other error.
+  * @param {Object} user - The user found on the database.
+ 
+  */
   let login = (errMsg,user)=>{
     let userObject = user;
     if(user === null){
@@ -75,6 +84,8 @@ module.exports.init = (options = {})=>{
       next({status:'nok',source:'login',type:'AUTHENTICATION_ERROR',errMsg:errMsg});
       return;
     }
+  
+    
     let serializationDoneCallback = (user)=>{
       req.session.user = user;
       req.session.save();
@@ -86,6 +97,12 @@ module.exports.init = (options = {})=>{
   }//login end
   
 
+ /**
+  * Destroys the session and clears the cookie. 
+  * @func logout
+  * @inner
+  * @desc The logout function that will be attached to the req object.
+  */
   let logout = ()=>{
     req.session.destroy();
     res.clearCookie(req.session.cookie.name);
@@ -133,6 +150,8 @@ module.exports.init = (options = {})=>{
 
 
 /**
- * @typedef {function} authentication~serializationDoneCallback
- * @d
+ * The function passed to the serializer that MUST be invoked and supplied with a user identifier
+ * that will be attached to the session.
+ * @typedef {function} Authentication~serializationDoneCallback
+ * @param {Object} user
  */

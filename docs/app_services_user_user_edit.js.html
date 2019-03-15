@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: app/services/user/user_edit.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,37 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: app/services/user/user_edit.js</h1>
 
     
 
 
 
     
-
-
-    <h3> </h3>
-
-
-
-
-
-
-
-
-
-
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>const ObjectID = require('mongodb').ObjectID;
+/**
+ * @type {Types~service}
+ * @func user_edit
+ * @desc Updates a particular user.
+ */
+module.exports = user_edit = (req,res,next)=>{
+  console.log(req.body);
+  console.log(req.params.userID);
+  let findAndModifyCallback = function(error,result){
     
-
-
-
-
-
+    res.json({status:'ok',data:{value:result.value,lastErrorObject:result.lastErrorObject,ok:result.ok}}); 
+  }
+  
+  req.app.get('db').collection('users').findOneAndUpdate(
+    {_id:ObjectID(req.params.userID)},
+    {$set: req.body},
+    findAndModifyCallback
+  );
+}</code></pre>
+        </article>
+    </section>
 
 
 

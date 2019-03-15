@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: app/services/user/user_read_permissions.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,36 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: app/services/user/user_read_permissions.js</h1>
 
     
 
 
 
     
-
-
-    <h3> </h3>
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @type {Types~service}
+ * @func user_read_permissions
+ * @desc Retrieves the user's permissions.
+ */
+module.exports = user_read_permissions = async (req,res,next)=>{
+  //get the username
+  try {
+    let user = await req.app.get('db').collection('users').findOne({username:req.params.username},{projection:{'roles':1}});
+    let userRoles = await req.app.get('db').collection('roles').find({name:{$in:user.roles}},{projection:{'permissions':1}}).toArray();
+    let userPermissions = [];
+    userRoles.forEach(role=>{
+      userPermissions = userPermissions.concat(role.permissions);
+    });
+    res.json({status:'ok',source:'user_read_permissions',data:{permissions:userPermissions}});
+  } catch (error) {
+    console.log(error);
+  }
+}</code></pre>
+        </article>
+    </section>
 
 
 
