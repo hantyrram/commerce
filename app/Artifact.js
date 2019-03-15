@@ -1,18 +1,30 @@
 /**
-<<<<<<< HEAD
  * Used when a service operation succeeded and without warning.
+ * @memberof Artifact.Message
+ * @static
+ * @const
  */
 const SUCCESS = 'success';
 /**
  * Used when a service operation failed.
+ * @memberof Artifact.Message
+ * @static
+ * @const
  */
 const ERROR = 'error';
+
 /**
  * Used when a service operation succeeded but there is warning.
+ * @memberof Artifact.Message
+ * @static
+ * @const
  */
 const WARNING = 'warning';
 /**
  * The message object used in creating Artifacts.
+ * @memberof Artifact
+ * @static
+ * 
  */
 class Message{
  constructor(type,text){
@@ -26,37 +38,33 @@ Object.defineProperty(Message,'SUCCESS',{value: SUCCESS,writable:false,configura
 Object.defineProperty(Message,'ERROR',{value: ERROR,writable:false,configurable:false});
 Object.defineProperty(Message,'WARNING',{value: WARNING,writable:false,configurable:false});
 
+// /**
+//  * @classdesc The object produced as a result of each service, which is sent to the client.
+//  * @constructor
+//  * @param {string} status - REQUIRED!  The status of a particular operation value's can only be either 'ok' or 'nok'.
+//  * @param {string} source - REQUIRED! The name of the service which is the source of this Artifact.
+//  * @param {Artifact.Message} message - The message.
+//  * @param {object} data - The payload.
+//  */
+// class Artifact{
 
-/**
- * The object produced as a result of each service, which is sent to the client.
- */
-class Artifact{
- /**
-  * 
-  * @param {string} status - REQUIRED!  The status of a particular operation value's can only be either 'ok' or 'nok'.
-  * @param {string} source - REQUIRED! The name of the service which is the source of this Artifact.
-  * @param {Artifact.Message} message - The message.
-  * @param {object} data - The payload.
-  */
- constructor(status,source,message,data){
-  if(status !== 'ok' || status !== 'nok' || !source){
-   throw new Error('@Artifact: Invalid Artifact Status or Source');
-  }
-  if(message && !(message instanceof Artifact.Message)){
-   throw new Error('@Artifact: Invalid Message');
-  }
-  this.status = status;
-  this.source = source;
-  this.message = message;
-  this.data = data;
- }
-}
+//  constructor(status,source,message,data){
+//   if(status !== 'ok' || status !== 'nok' || !source){
+//    throw new Error('@Artifact: Invalid Artifact Status or Source');
+//   }
+//   if(message && !(message instanceof Artifact.Message)){
+//    throw new Error('@Artifact: Invalid Message');
+//   }
+//   this.status = status;
+//   this.source = source;
+//   this.message = message;
+//   this.data = data;
+//  }
+// }
 
-Object.defineProperty(Artifact,'Message',{value:Message,writable:false,configurable:false});
-Object.defineProperty(Artifact,'OK',{value:'ok',writable:false,configurable:false});
-Object.defineProperty(Artifact,'NOK',{value:'nok',writable:false,configurable:false});
 
-module.exports = Artifact
+
+// module.exports = Artifact
 
 
 
@@ -88,7 +96,7 @@ class Artifact{
   if(typeof source !== 'string') throw new Error('Invalid source');
   if(typeof third !== 'object') throw new Error('Invalid data or error provided');
   if(status === 'nok'){
-   //third must be an error
+   //third MUST be an Artifact~error
    if(!third['type']) throw new Error('Invalid error type');
    if(!third['message']) throw new Error('Invalid error message');
   }
@@ -98,5 +106,9 @@ class Artifact{
   this.message = message;
  }
 }
+
+Object.defineProperty(Artifact,'Message',{value:Message,writable:false,configurable:false});
+Object.defineProperty(Artifact,'OK',{value:'ok',writable:false,configurable:false});
+Object.defineProperty(Artifact,'NOK',{value:'nok',writable:false,configurable:false});
 
 module.exports = Artifact;

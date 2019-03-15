@@ -1,8 +1,11 @@
 
-/**
- * @desc default login @see{@link{Types~service}}
- */
+
 const ObjectID = require('mongodb').ObjectID;
+/**
+ * @type {HT~service}
+ * @module Authentication/login
+ * @desc logs in a user.
+ */
 module.exports = login = async(req,res)=>{
   console.log({body:req.body});
    try {     

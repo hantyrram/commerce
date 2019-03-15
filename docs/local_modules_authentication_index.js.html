@@ -32,26 +32,32 @@
  */
 
 /**
-* @func serializer
-* A function which allows the user of this module to decide which part of the user 
+* @typedef {function} Authentication~serializer
+* @param {Object} user - The User to be serialized into the session.
+* @param {Authentication~serializationDoneCallback} 
+* @desc A function which allows the user of this module to decide which part of the user 
 * data will be saved on the session, serializer MUST call the serializationDoneCallback passed to 
 * it with the user identifier.
 */
+
 let serializer;
 
 
 /**
-* @func deserializer
+* @typedef {function} Authentication~deserializer
+* @param {Object} user - The previously serialized user data.
+* @param {@callback} done - The callback once the user is deserialized.
 * @desc Deserializer function, hydrates a user, given a user identifier (e.g. user.id) previously provided during serialization,
 * saved on the session. 
 * 
 */
+
 let deserializer;
 
 /**
  * Sets the serializer to be used by this module.
  * @func
- * @param {function} fn - The serializer function.
+ * @param {Authentication~serializer} fn - The serializer function.
  */  
 module.exports.serializeUser = (fn)=>{
  serializer = fn;
@@ -60,7 +66,7 @@ module.exports.serializeUser = (fn)=>{
 /**
  * Sets the deserializer function
  * @func
- * @param {function} fn - The deserializer function.
+ * @param {Authentication~deserializer} fn - The deserializer function.
  */
 module.exports.deserializeUser = (fn)=>{
  deserializer = fn;
@@ -193,13 +199,13 @@ module.exports.init = (options = {})=>{
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-Authentication.html">Authentication</a></li></ul><h3>Classes</h3><ul><li><a href="Artifact.html">Artifact</a></li><li><a href="Message.html">Message</a></li><li><a href="Policy.html">Policy</a></li><li><a href="Rule.html">Rule</a></li></ul><h3>Namespaces</h3><ul><li><a href="HT.html">HT</a></li><li><a href="Services.html">Services</a></li></ul><h3>Global</h3><ul><li><a href="global.html#condition">condition</a></li><li><a href="global.html#config">config</a></li><li><a href="global.html#db">db</a></li><li><a href="global.html#deserializeUserRoles">deserializeUserRoles</a></li><li><a href="global.html#destroy">destroy</a></li><li><a href="global.html#done">done</a></li><li><a href="global.html#ERROR">ERROR</a></li><li><a href="global.html#genuuidV4">genuuidV4</a></li><li><a href="global.html#get">get</a></li><li><a href="global.html#getMiddleware">getMiddleware</a></li><li><a href="global.html#getServices">getServices</a></li><li><a href="global.html#handleNonXHR">handleNonXHR</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#ObjectID">ObjectID</a></li><li><a href="global.html#on">on</a></li><li><a href="global.html#prefixPath">prefixPath</a></li><li><a href="global.html#set">set</a></li><li><a href="global.html#start">start</a></li><li><a href="global.html#SUCCESS">SUCCESS</a></li><li><a href="global.html#user_add">user_add</a></li><li><a href="global.html#user_add_role">user_add_role</a></li><li><a href="global.html#user_browse">user_browse</a></li><li><a href="global.html#user_edit">user_edit</a></li><li><a href="global.html#user_read">user_read</a></li><li><a href="global.html#user_read_permissions">user_read_permissions</a></li><li><a href="global.html#userRolesDeserializer">userRolesDeserializer</a></li><li><a href="global.html#WARNING">WARNING</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-Authentication.html">Authentication</a></li><li><a href="module-Authentication_authenticate.html">Authentication/authenticate</a></li><li><a href="module-Authentication_login.html">Authentication/login</a></li><li><a href="module-Authentication_logout.html">Authentication/logout</a></li><li><a href="module-authorization.html">authorization</a></li><li><a href="module-session-on-redis.html">session-on-redis</a></li><li><a href="module-session-on-redis_sessionCipher.html">session-on-redis/sessionCipher</a></li></ul><h3>Classes</h3><ul><li><a href="Artifact.html">Artifact</a></li><li><a href="Artifact.Message.html">Message</a></li><li><a href="Policy.html">Policy</a></li><li><a href="PolicyViolation.html">PolicyViolation</a></li><li><a href="Rule.html">Rule</a></li></ul><h3>Namespaces</h3><ul><li><a href="HT.html">HT</a></li><li><a href="Services.html">Services</a></li></ul><h3>Global</h3><ul><li><a href="global.html#config">config</a></li><li><a href="global.html#db">db</a></li><li><a href="global.html#destroy">destroy</a></li><li><a href="global.html#genuuidV4">genuuidV4</a></li><li><a href="global.html#get">get</a></li><li><a href="global.html#getMiddleware">getMiddleware</a></li><li><a href="global.html#getServices">getServices</a></li><li><a href="global.html#handleNonXHR">handleNonXHR</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#prefixPath">prefixPath</a></li><li><a href="global.html#set">set</a></li><li><a href="global.html#start">start</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Fri Mar 15 2019 18:58:56 GMT+0300 (Arab Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Fri Mar 15 2019 23:37:08 GMT+0300 (Arabian Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

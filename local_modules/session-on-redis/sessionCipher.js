@@ -5,6 +5,16 @@ iv.fill('6y7YYhng56YqwR58');
 // const cipher = crypto.createCipheriv('aes-192-cbc',process.env.COOKIE_SECRET,iv);
 // const decipher = crypto.createDecipheriv('aes-192-cbc',process.env.COOKIE_SECRET,iv);
 
+/**
+ * @module session-on-redis/sessionCipher
+ */
+
+/**
+ * 
+ * @inner
+ * @param {string} rawStr - The string to encrypt.
+ * @return {Promise} - A Promise that resolves to the encrypted form of rawStr.
+ */
 function encrypted(rawStr){
  const cipher = crypto.createCipheriv('aes-192-cbc',process.env.COOKIE_SECRET,iv);
  return new Promise((resolve,reject)=>{
@@ -25,6 +35,12 @@ function encrypted(rawStr){
    });
 }
 
+/**
+ * 
+ * @inner
+ * @param {string} encryptedString - The encrypted string returned by @see {sessionCipher}.
+ * @return {Promise} - A Promise that resolves to the decrypted form of encryptedString.
+ */
 function decrypted(encryptedString){
  const decipher = crypto.createDecipheriv('aes-192-cbc',process.env.COOKIE_SECRET,iv);
  return new Promise((resolve,reject)=>{
@@ -36,11 +52,21 @@ function decrypted(encryptedString){
    });
 }
 
-
+/**
+ * @func
+ * @param {string} data 
+ * @return {Promise} - A Promise that resolves to an encrypted string.
+ * @desc Encrypts the string.
+ */
 module.exports.encrypt = async function(data){
  return await encrypted(data);
 }
 
+/**
+ * @func
+ * @param {string} encryptedData - The encrypted string returned by @see {encrypt}
+ * @return {Promise} - A Promise that resolves to the decrypted string.
+ */
 module.exports.decrypt = async function(encryptedData){
  return await decrypted(encryptedData);
 }

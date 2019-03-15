@@ -4,26 +4,32 @@
  */
 
 /**
-* @func serializer
-* A function which allows the user of this module to decide which part of the user 
+* @typedef {function} Authentication~serializer
+* @param {Object} user - The User to be serialized into the session.
+* @param {Authentication~serializationDoneCallback} 
+* @desc A function which allows the user of this module to decide which part of the user 
 * data will be saved on the session, serializer MUST call the serializationDoneCallback passed to 
 * it with the user identifier.
 */
+
 let serializer;
 
 
 /**
-* @func deserializer
+* @typedef {function} Authentication~deserializer
+* @param {Object} user - The previously serialized user data.
+* @param {@callback} done - The callback once the user is deserialized.
 * @desc Deserializer function, hydrates a user, given a user identifier (e.g. user.id) previously provided during serialization,
 * saved on the session. 
 * 
 */
+
 let deserializer;
 
 /**
  * Sets the serializer to be used by this module.
  * @func
- * @param {function} fn - The serializer function.
+ * @param {Authentication~serializer} fn - The serializer function.
  */  
 module.exports.serializeUser = (fn)=>{
  serializer = fn;
@@ -32,7 +38,7 @@ module.exports.serializeUser = (fn)=>{
 /**
  * Sets the deserializer function
  * @func
- * @param {function} fn - The deserializer function.
+ * @param {Authentication~deserializer} fn - The deserializer function.
  */
 module.exports.deserializeUser = (fn)=>{
  deserializer = fn;

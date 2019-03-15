@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: app/services/permission/permission_delete.js</title>
+    <title>JSDoc: Module: Authentication/logout</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,42 +17,130 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: app/services/permission/permission_delete.js</h1>
+    <h1 class="page-title">Module: Authentication/logout</h1>
 
     
 
 
 
-    
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>
-/**
- * @func permission_delete
- * @memberof Services
- * @desc Retrieves permissions.
- */
-module.exports = permission_delete = async (req,res,next)=>{
-  let col = req.app.get('db').collection('permissions');
-    try {
-    //ops is array of objects inserted with ._id set
-      let permissionName = req.params.name;
-      let {result} = await col.deleteOne({name:permissionName}); 
-      if(result.ok === 1 &amp;&amp; result.n > 0){
-        res.status(200).json({status:'ok',source:'permission_delete',message:`${permissionName} has been deleted!`});
-      }else{
-        next({status:'nok',type:'DELETE_OP_ERROR',errMsg:`There was a problem deleting the ${permission.name} permission`});
-      }
-    } catch (error) {
-     next(error);
-      return;
-    }
-  
-  }
 
-module.exports.label = 'Delete A Permission';</code></pre>
-        </article>
-    </section>
+<section>
+
+<header>
+    
+        
+            
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description">logs out a user.</div>
+        
+
+        
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="local_modules_authentication_logout.js.html">local_modules/authentication/logout.js</a>, <a href="local_modules_authentication_logout.js.html#line2">line 2</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
 
 
 

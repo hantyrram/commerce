@@ -1,4 +1,9 @@
 //authentication module should provide the login service it's the equivalent to passport.authenticate
+/**
+ * @type {HT~service}
+ * @module Authentication/logout
+ * @desc logs out a user.
+ */
 module.exports = logout = (req,res)=>{
  req.logout();
  res.clearCookie('U_SID');

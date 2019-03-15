@@ -1,7 +1,8 @@
 /**
- * @type {Types~service}
+ * @type {HT~service}
  * @func user_add
- * @desc Adds a role to a particular user.
+ * @memberof Services
+ * @desc Adds a new user..
  */
 module.exports = user_add = async (req,res)=>{
  let user = req.body;
