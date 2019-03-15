@@ -1,3 +1,8 @@
+/**
+ * @type {Types~service}
+ * @func user_add
+ * @desc Adds a role to a particular user.
+ */
 module.exports = user_add = async (req,res)=>{
  let user = req.body;
  //validate user;

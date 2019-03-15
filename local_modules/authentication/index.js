@@ -1,23 +1,27 @@
 
 /**
-* @var function
-* A function which allows the user of gives the user of this module to decide which part of the user 
+ * @module authentication
+ */
+
+/**
+* @func serializer
+* A function which allows the user of this module to decide which part of the user 
 * data will be saved on the session, serializer MUST call the serializationDoneCallback passed to 
 * it with the user identifier.
-* 
 */
-
 let serializer;
 
 
 /**
-* Deserializer function, hydrates a user, given a user identifier (e.g. user.id) previously provided during serialization,
+* @func deserializer
+* @desc Deserializer function, hydrates a user, given a user identifier (e.g. user.id) previously provided during serialization,
 * saved on the session. 
 * 
 */
 let deserializer;
 
 /**
+ * @module authentication/serializeUser
  * Sets the serializer function.
  * @param {function} fn - The serializer function.
  */  
@@ -36,22 +40,18 @@ module.exports.deserializeUser = (fn)=>{
 
 
 /**
- * @param {object} - The options object. With the following properties:
- * 
- * loginURL = The login url.
- * 
- * successRedirect = The path the user will be redirected to when the authentication is successful. This will be
+ * @param {object} options - The options object. With the following properties:
+ * @param {string} options.loginURL - The login URL.
+ * @param {string} options.logoutURL - The logout URL.
+ * @param {string} options.successRedirect - The path the user will be redirected to when the authentication is successful. This will be
  * included on the payload, sent to the client.
- * 
- * deserializeUser = <required> A function that accepts the data that has been set during serialization e.g. user or user.id,
- * and a done function.
- * 
- * useInternalLoginService = if true, authentication will terminate on this module, response/error response
+ * @param {boolean} options.useInternalLoginService - if true, authentication will terminate on this module, response/error response
  * will be sent next will not be called. If false the validationn logic will be delegated to a login service. 
  * A login service will provide a user to the "done" callback passed on the function fn at req.login(fn)
  * if user is null AuthError is passed to next(),else allow req to proceed so next() is called.
- * Default = 
  * 
+ * deserializeUser = <required> A function that accepts the data that has been set during serialization e.g. user or user.id,
+ * and a done function.
  */
 module.exports.init = (options = {})=>{
  //save the authenticatedUser,nope?
@@ -131,3 +131,8 @@ module.exports.init = (options = {})=>{
  }
 }
 
+
+/**
+ * @typedef {function} authentication~serializationDoneCallback
+ * @d
+ */

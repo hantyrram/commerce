@@ -1,4 +1,10 @@
 const ObjectID = require('mongodb').ObjectID;
+
+/**
+ * @type {Types~service} 
+ * @func user_add_role
+ * @desc Adds a role to a particular user.
+ */
 module.exports = user_add_role= async (req,res,next)=>{
   let {name} = req.body;
   if(!name){

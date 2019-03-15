@@ -1,3 +1,8 @@
+/**
+ * @type {Types~service}
+ * @func user_read_permissions
+ * @desc Retrieves the user's permissions.
+ */
 module.exports = user_read_permissions = async (req,res,next)=>{
   //get the username
   try {

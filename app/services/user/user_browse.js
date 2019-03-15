@@ -1,3 +1,8 @@
+/**
+ * @type {Types~service}
+ * @func user_browse
+ * @desc Retrieves users.
+ */
 module.exports = user_browse = async (req,res)=>{
    await req.app.get('db').collection('users').find({}).project({'username':1}).toArray(function(error,documents){
     if(error){

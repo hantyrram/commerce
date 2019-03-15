@@ -1,4 +1,9 @@
 
+/**
+ * @type {Types~service}
+ * @func permission_add
+ * @desc Adds a new permission.
+ */
 module.exports = permission_add = async (req,res,next)=>{
   let col = req.app.get('db').collection('permissions');
   try {
@@ -7,6 +12,7 @@ module.exports = permission_add = async (req,res,next)=>{
     let entity = Object.assign(req.body,{createdBy:req.user.username,createdOn:initialDate,modifiedOn:initialDate});
     let {ops} = await col.insertOne(entity);
     const permission = ops[0];
+<<<<<<< HEAD
 
     let artifact = new Artifact(
      Artifact.OK,
@@ -16,6 +22,15 @@ module.exports = permission_add = async (req,res,next)=>{
     );
     res.status(201).json(artifact);
 
+=======
+    console.log(ops);
+    // const permission = {
+    //   id: ops[0]._id,
+    //   name: ops[0].name,0
+    //   label:ops[0].label
+    // }
+    res.status(201).json({status:'ok',source:'permission_add',data:{permission:permission}});
+>>>>>>> ccd31ec1d8a649b6ee0f0632a95814e209c85b8f
   } catch (error) {
     if(error.code === 11000){//UniqueIndexViolation
       //find the field that violates the index
