@@ -24,7 +24,7 @@ class Rule{
  * @param {Object} request - The request object.
  * @return {boolean} - true if the request meets certain conditions defined by the rule, otherwise false.
  */
- condition = (request)=>{
+ condition(request){
   throw new Error('condition() not implemented');
  }
 
