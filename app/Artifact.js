@@ -48,9 +48,18 @@ class ArtifactError{
  }
 }
 
-Object.defineProperty(Message,'SUCCESS',{value: SUCCESS,writable:false,configurable:false});
-Object.defineProperty(Message,'ERROR',{value: ERROR,writable:false,configurable:false});
-Object.defineProperty(Message,'WARNING',{value: WARNING,writable:false,configurable:false});
+Object.defineProperty(ArtifactMessage,'SUCCESS',{value: SUCCESS,writable:false,configurable:false});
+Object.defineProperty(ArtifactMessage,'ERROR',{value: ERROR,writable:false,configurable:false});
+Object.defineProperty(ArtifactMessage,'WARNING',{value: WARNING,writable:false,configurable:false});
+
+/**
+ * @inner 
+ * @enum
+ */
+const STATUS = {
+ ok : 'ok',
+ nok: 'nok'
+}
 
 /*
  * @typedef {Object} Artifact~error
@@ -76,13 +85,17 @@ Object.defineProperty(Message,'WARNING',{value: WARNING,writable:false,configura
  */
 class Artifact{
  constructor(status,source,third,message = ''){
-  if(!(status in ['ok','nok'])) throw new Error('Invalid status, values can only be either no or nok');
+  if(!(status in STATUS)) throw new Error('Invalid status, values can only be either ok or nok');
   if(typeof source !== 'string') throw new Error('Invalid source');
   if(typeof third !== 'object') throw new Error('Invalid data or error provided');
   if(status === 'nok'){
    //third MUST be an Artifact~error
-   if(!third['type']) throw new Error('Invalid error type');
-   if(!third['message']) throw new Error('Invalid error message');
+  if( !(third instanceof ArtifactError))
+   //allow if third has the same prototype as ArtifactError
+   if(!third['type'] || !third['message']){
+    throw new Error('Invalid third parameter. MUST be of type ArtifactError');
+   }
+   
   }
   this.status = status;
   this.source = source;
