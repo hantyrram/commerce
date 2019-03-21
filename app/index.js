@@ -10,6 +10,7 @@ const sessionOnRedis = require('../local_modules/session-on-redis');
 const authentication = require('../local_modules/authentication');
 //Policy Based Authorization
 const authorization = require('../local_modules/authorization');
+global.Artifact = require('./Artifact');
 global.Rule = require('../local_modules/authorization').Rule;
 global.Policy = require('../local_modules/authorization').Policy;
 global.PolicyViolation = require('../local_modules/authorization').PolicyViolation;
@@ -112,7 +113,8 @@ const init = (app)=>{
  app.use(getMiddleware('handleNonXHR'));
  app.use(getMiddleware('attachArtifactToResponse'))
  app.use(getMiddleware('attachCurrentServiceToReq'));
- app.use(authentication.init({loginURL:'/'+config.API_VERSION+'/login'})); 
+ 
+ app.use(authentication.init({ Artifact: global.Artifact, loginURL:`/${config.API_VERSION}/login` })); 
  // let attachCurrentServiceToReq = require('./middlewares/attachCurrentServiceToReq');
  // app.use(attachCurrentServiceToReq);
   

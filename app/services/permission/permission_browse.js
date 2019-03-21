@@ -1,6 +1,6 @@
 /**
- * @type {Types~service}
  * @func permission_browse
+ * @memberof Services
  * @desc Retrieves permissions.
  */
 module.exports = permission_browse = async (req,res,next)=>{

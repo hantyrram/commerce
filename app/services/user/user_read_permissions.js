@@ -1,5 +1,6 @@
 /**
  * @type {Types~service}
+ * @memberof Services
  * @func user_read_permissions
  * @desc Retrieves the user's permissions.
  */

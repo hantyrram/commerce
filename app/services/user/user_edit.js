@@ -1,8 +1,9 @@
 const ObjectID = require('mongodb').ObjectID;
 /**
- * @type {Types~service}
+ * @type {HT~service}
  * @func user_edit
- * @desc Updates a particular user.
+ * @memberof Services
+ * @desc Updates a user.
  */
 module.exports = user_edit = (req,res,next)=>{
   console.log(req.body);

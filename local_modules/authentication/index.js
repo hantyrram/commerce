@@ -1,29 +1,35 @@
 
 /**
- * @module authentication
+ * @module Authentication
  */
 
 /**
-* @func serializer
-* A function which allows the user of this module to decide which part of the user 
+* @typedef {function} Authentication~serializer
+* @param {Object} user - The User to be serialized into the session.
+* @param {Authentication~serializationDoneCallback} 
+* @desc A function which allows the user of this module to decide which part of the user 
 * data will be saved on the session, serializer MUST call the serializationDoneCallback passed to 
 * it with the user identifier.
 */
+
 let serializer;
 
 
 /**
-* @func deserializer
+* @typedef {function} Authentication~deserializer
+* @param {Object} user - The previously serialized user data.
+* @param {@callback} done - The callback once the user is deserialized.
 * @desc Deserializer function, hydrates a user, given a user identifier (e.g. user.id) previously provided during serialization,
 * saved on the session. 
 * 
 */
+
 let deserializer;
 
 /**
- * @module authentication/serializeUser
- * Sets the serializer function.
- * @param {function} fn - The serializer function.
+ * Sets the serializer to be used by this module.
+ * @func
+ * @param {Authentication~serializer} fn - The serializer function.
  */  
 module.exports.serializeUser = (fn)=>{
  serializer = fn;
@@ -31,7 +37,8 @@ module.exports.serializeUser = (fn)=>{
 
 /**
  * Sets the deserializer function
- * @param {function} fn - The deserializer function.
+ * @func
+ * @param {Authentication~deserializer} fn - The deserializer function.
  */
 module.exports.deserializeUser = (fn)=>{
  deserializer = fn;
@@ -40,6 +47,8 @@ module.exports.deserializeUser = (fn)=>{
 
 
 /**
+ * Initializes the Authentication module with some options. 
+ * @func 
  * @param {object} options - The options object. With the following properties:
  * @param {string} options.loginURL - The login URL.
  * @param {string} options.logoutURL - The logout URL.
@@ -52,22 +61,30 @@ module.exports.deserializeUser = (fn)=>{
  * 
  * deserializeUser = <required> A function that accepts the data that has been set during serialization e.g. user or user.id,
  * and a done function.
+ * @param {Artifact} options.Artifact - The Artifact constructor to use for the response.
+ * @return {function} - An Express Middleware function.
  */
 module.exports.init = (options = {})=>{
  //save the authenticatedUser,nope?
+ let {Artifact} = options;
  let loginURL = options.loginURL || '/apiv1/login';
  let logoutURL = options.logoutURL || '/apiv1/logout';
  let successRedirect = options.successRedirect || '/';
  let useInternalLoginService = options.useInternalLoginService || false;
- 
-
-
  return (req,res,next)=>{
   //if no session, go to /login
   //test remove this line
   // req.session.user = "5bca58d4e7179a4377ff835d";
   console.log('@authentication',{sessionID:req.session.id})
 
+  /**
+  * @func login
+  * @inner
+  * @desc The login function that will be attached to the req object when the login URL is accessed. This function can be called on a login service, after the service checks if the user sent by the client is a valid user or not.
+  * @param {string|null} errMsg - The message that will be attached on the login response if the user is receieved is not a valid user or if there is any other error.
+  * @param {Object} user - The user found on the database.
+ 
+  */
   let login = (errMsg,user)=>{
     let userObject = user;
     if(user === null){
@@ -75,10 +92,16 @@ module.exports.init = (options = {})=>{
       next({status:'nok',source:'login',type:'AUTHENTICATION_ERROR',errMsg:errMsg});
       return;
     }
+  
+    
     let serializationDoneCallback = (user)=>{
       req.session.user = user;
       req.session.save();
-      res.json({status:'ok',source:'login',message:'Login Success!',data:{user : {id:userObject._id,username:userObject.username}}});
+      console.log(Artifact.OK);
+      let message = new Artifact.ArtifactMessage(Artifact.ArtifactMessage.SUCCESS,'Login Success!');
+      let artifact = new Artifact(Artifact.OK,'login',{ entity: userObject }, message);
+      // res.json({status:'ok',source:'login',message:'Login Success!',data:{entity : {_id:userObject._id,username:userObject.username}}});
+      res.json(artifact);
       return;
     } 
     //allow module user to determines which property of the user to save to session. e.g. ID
@@ -86,6 +109,12 @@ module.exports.init = (options = {})=>{
   }//login end
   
 
+ /**
+  * Destroys the session and clears the cookie. 
+  * @func logout
+  * @inner
+  * @desc The logout function that will be attached to the req object.
+  */
   let logout = ()=>{
     req.session.destroy();
     res.clearCookie(req.session.cookie.name);
@@ -120,7 +149,10 @@ module.exports.init = (options = {})=>{
     }
     //accessing /login when there's already an existing user session
     if(req.path === loginURL){
-      res.json({status:'ok',source:'login',message:'Already Logged in!',data:{user:user}});
+      let message = new Artifact.ArtifactMessage(Artifact.ArtifactMessage.SUCCESS,'Already Logged In!');
+      let artifact = new Artifact(Artifact.OK,'login',{ entity: user }, message);
+      // res.json({status:'ok',source:'login',message:'Already Logged in!',data:{user:user}});
+      res.json(artifact);
       return;
     }
     req.user = user;
@@ -133,6 +165,8 @@ module.exports.init = (options = {})=>{
 
 
 /**
- * @typedef {function} authentication~serializationDoneCallback
- * @d
+ * The function passed to the serializer that MUST be invoked and supplied with a user identifier
+ * that will be attached to the session.
+ * @typedef {function} Authentication~serializationDoneCallback
+ * @param {Object} user
  */

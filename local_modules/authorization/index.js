@@ -1,4 +1,8 @@
 /**
+ * @module authorization
+ */
+
+/**
  * @func
  * @desc A function that deserializes the user's roles.The function is invoked with the current
  * logged in user as the first parameter, and (the done) function as second parameter.
@@ -56,8 +60,8 @@ const on = async (policies,request)=>{
   return true; 
 }
 /**
- * 
- * @param {Array} policies 
+ * @func
+ * @param {Array<Policy>} policies - Array of Policies.
  */                                        
 module.exports = (policies) => {
  return (request,response,next)=>{
@@ -76,8 +80,20 @@ module.exports = (policies) => {
 module.exports.deserializeUserRoles = (fn)=>{
  userRolesDeserializer = fn;
 }
+/**
+ * @prop {Rule} authorization.Rule
+ * @static 
+ */
 module.exports.Rule = require('./Rule');
+/**
+ * @prop {Policy} authorization.Policy
+ * @static 
+ */
 module.exports.Policy = require('./Policy');
+/**
+ * @prop {PolicyViolation} authorization.PolicyViolation
+ * @static 
+ */
 module.exports.PolicyViolation = require('./PolicyViolation');
 
 //ignore , user only has permissions

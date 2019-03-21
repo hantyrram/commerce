@@ -1,6 +1,7 @@
 /**
- * @type {Types~service}
+ * @type {HT~service}
  * @func user_browse
+ * @memberof Services
  * @desc Retrieves users.
  */
 module.exports = user_browse = async (req,res)=>{
