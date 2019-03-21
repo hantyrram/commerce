@@ -95,7 +95,7 @@ module.exports.init = (options = {})=>{
     let serializationDoneCallback = (user)=>{
       req.session.user = user;
       req.session.save();
-      res.json({status:'ok',source:'login',message:'Login Success!',data:{user : {id:userObject._id,username:userObject.username}}});
+      res.json({status:'ok',source:'login',message:'Login Success!',data:{entity : {_id:userObject._id,username:userObject.username}}});
       return;
     } 
     //allow module user to determines which property of the user to save to session. e.g. ID
