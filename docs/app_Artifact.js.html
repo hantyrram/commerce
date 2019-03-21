@@ -28,14 +28,14 @@
         <article>
             <pre class="prettyprint source linenums"><code>/**
  * Used when a service operation succeeded and without warning.
- * @memberof Artifact.Message
+ * @memberof Artifact.ArtifactMessage
  * @static
  * @const
  */
 const SUCCESS = 'success';
 /**
  * Used when a service operation failed.
- * @memberof Artifact.Message
+ * @memberof Artifact.ArtifactMessage
  * @static
  * @const
  */
@@ -43,7 +43,7 @@ const ERROR = 'error';
 
 /**
  * Used when a service operation succeeded but there is warning.
- * @memberof Artifact.Message
+ * @memberof Artifact.ArtifactMessage
  * @static
  * @const
  */
@@ -54,7 +54,7 @@ const WARNING = 'warning';
  * @static
  * 
  */
-class Message{
+class ArtifactMessage{
  constructor(type,text){
   if(!type || !text || ![ERROR,SUCCESS,WARNING].includes(type)){
    throw new Error('@Artifact.Message : Invalid message type or text');
@@ -62,39 +62,32 @@ class Message{
  }
 }
 
-Object.defineProperty(Message,'SUCCESS',{value: SUCCESS,writable:false,configurable:false});
-Object.defineProperty(Message,'ERROR',{value: ERROR,writable:false,configurable:false});
-Object.defineProperty(Message,'WARNING',{value: WARNING,writable:false,configurable:false});
+/**
+ * The Artifact Error object used in creating Artifacts.
+ * @memberof Artifact
+ * @static
+ * 
+ */
+class ArtifactError{
+ constructor(type,text){
+  if(!type || !text){
+   throw new Error('@Artifact.Error : Invalid type or text');
+  }
+ }
+}
 
-// /**
-//  * @classdesc The object produced as a result of each service, which is sent to the client.
-//  * @constructor
-//  * @param {string} status - REQUIRED!  The status of a particular operation value's can only be either 'ok' or 'nok'.
-//  * @param {string} source - REQUIRED! The name of the service which is the source of this Artifact.
-//  * @param {Artifact.Message} message - The message.
-//  * @param {object} data - The payload.
-//  */
-// class Artifact{
+Object.defineProperty(ArtifactMessage,'SUCCESS',{value: SUCCESS,writable:false,configurable:false});
+Object.defineProperty(ArtifactMessage,'ERROR',{value: ERROR,writable:false,configurable:false});
+Object.defineProperty(ArtifactMessage,'WARNING',{value: WARNING,writable:false,configurable:false});
 
-//  constructor(status,source,message,data){
-//   if(status !== 'ok' || status !== 'nok' || !source){
-//    throw new Error('@Artifact: Invalid Artifact Status or Source');
-//   }
-//   if(message &amp;&amp; !(message instanceof Artifact.Message)){
-//    throw new Error('@Artifact: Invalid Message');
-//   }
-//   this.status = status;
-//   this.source = source;
-//   this.message = message;
-//   this.data = data;
-//  }
-// }
-
-
-
-// module.exports = Artifact
-
-
+/**
+ * @inner 
+ * @enum
+ */
+const STATUS = {
+ ok : 'ok',
+ nok: 'nok'
+}
 
 /*
  * @typedef {Object} Artifact~error
@@ -120,13 +113,17 @@ Object.defineProperty(Message,'WARNING',{value: WARNING,writable:false,configura
  */
 class Artifact{
  constructor(status,source,third,message = ''){
-  if(!(status in ['ok','nok'])) throw new Error('Invalid status, values can only be either no or nok');
+  if(!(status in STATUS)) throw new Error('Invalid status, values can only be either ok or nok');
   if(typeof source !== 'string') throw new Error('Invalid source');
   if(typeof third !== 'object') throw new Error('Invalid data or error provided');
   if(status === 'nok'){
    //third MUST be an Artifact~error
-   if(!third['type']) throw new Error('Invalid error type');
-   if(!third['message']) throw new Error('Invalid error message');
+  if( !(third instanceof ArtifactError))
+   //allow if third has the same prototype as ArtifactError
+   if(!third['type'] || !third['message']){
+    throw new Error('Invalid third parameter. MUST be of type ArtifactError');
+   }
+   
   }
   this.status = status;
   this.source = source;
@@ -135,7 +132,8 @@ class Artifact{
  }
 }
 
-Object.defineProperty(Artifact,'Message',{value:Message,writable:false,configurable:false});
+Object.defineProperty(Artifact,'ArtifactMessage',{value:ArtifactMessage,writable:false,configurable:false});
+Object.defineProperty(Artifact,'ArtifactError',{value:ArtifactError,writable:false,configurable:false});
 Object.defineProperty(Artifact,'OK',{value:'ok',writable:false,configurable:false});
 Object.defineProperty(Artifact,'NOK',{value:'nok',writable:false,configurable:false});
 
@@ -150,13 +148,13 @@ module.exports = Artifact;
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-Authentication.html">Authentication</a></li><li><a href="module-Authentication_authenticate.html">Authentication/authenticate</a></li><li><a href="module-Authentication_login.html">Authentication/login</a></li><li><a href="module-Authentication_logout.html">Authentication/logout</a></li><li><a href="module-authorization.html">authorization</a></li><li><a href="module-session-on-redis.html">session-on-redis</a></li><li><a href="module-session-on-redis_sessionCipher.html">session-on-redis/sessionCipher</a></li></ul><h3>Classes</h3><ul><li><a href="Artifact.html">Artifact</a></li><li><a href="Artifact.Message.html">Message</a></li><li><a href="Policy.html">Policy</a></li><li><a href="PolicyViolation.html">PolicyViolation</a></li><li><a href="Rule.html">Rule</a></li></ul><h3>Namespaces</h3><ul><li><a href="HT.html">HT</a></li><li><a href="Services.html">Services</a></li></ul><h3>Global</h3><ul><li><a href="global.html#config">config</a></li><li><a href="global.html#db">db</a></li><li><a href="global.html#destroy">destroy</a></li><li><a href="global.html#genuuidV4">genuuidV4</a></li><li><a href="global.html#get">get</a></li><li><a href="global.html#getMiddleware">getMiddleware</a></li><li><a href="global.html#getServices">getServices</a></li><li><a href="global.html#handleNonXHR">handleNonXHR</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#prefixPath">prefixPath</a></li><li><a href="global.html#set">set</a></li><li><a href="global.html#start">start</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-Authentication.html">Authentication</a></li><li><a href="module-Authentication_authenticate.html">Authentication/authenticate</a></li><li><a href="module-Authentication_login.html">Authentication/login</a></li><li><a href="module-Authentication_logout.html">Authentication/logout</a></li><li><a href="module-authorization.html">authorization</a></li><li><a href="module-session-on-redis.html">session-on-redis</a></li><li><a href="module-session-on-redis_sessionCipher.html">session-on-redis/sessionCipher</a></li></ul><h3>Classes</h3><ul><li><a href="Artifact.html">Artifact</a></li><li><a href="Artifact.ArtifactError.html">ArtifactError</a></li><li><a href="Artifact.ArtifactMessage.html">ArtifactMessage</a></li><li><a href="Policy.html">Policy</a></li><li><a href="PolicyViolation.html">PolicyViolation</a></li><li><a href="Rule.html">Rule</a></li></ul><h3>Namespaces</h3><ul><li><a href="HT.html">HT</a></li><li><a href="Services.html">Services</a></li></ul><h3>Global</h3><ul><li><a href="global.html#config">config</a></li><li><a href="global.html#db">db</a></li><li><a href="global.html#destroy">destroy</a></li><li><a href="global.html#genuuidV4">genuuidV4</a></li><li><a href="global.html#get">get</a></li><li><a href="global.html#getMiddleware">getMiddleware</a></li><li><a href="global.html#getServices">getServices</a></li><li><a href="global.html#handleNonXHR">handleNonXHR</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#prefixPath">prefixPath</a></li><li><a href="global.html#set">set</a></li><li><a href="global.html#start">start</a></li><li><a href="global.html#STATUS">STATUS</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Sat Mar 16 2019 02:37:50 GMT+0300 (Arabian Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Thu Mar 21 2019 23:27:20 GMT+0300 (Arabian Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

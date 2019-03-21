@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: app/services/permission/permission_delete.js</title>
+    <title>JSDoc: Source: app/services/authentication/authenticate.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: app/services/permission/permission_delete.js</h1>
+    <h1 class="page-title">Source: app/services/authentication/authenticate.js</h1>
 
     
 
@@ -26,31 +26,14 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>
-/**
- * @func permission_delete
- * @memberof Services
- * @desc Retrieves permissions.
+            <pre class="prettyprint source linenums"><code>/**
+ *@type {HT~service}
+ *@module  Authentication/authenticate
+ *@desc Authenticates the user.
  */
-module.exports = permission_delete = async (req,res,next)=>{
-  let col = req.app.get('db').collection('permissions');
-    try {
-    //ops is array of objects inserted with ._id set
-      let permissionName = req.params.name;
-      let {result} = await col.deleteOne({name:permissionName}); 
-      if(result.ok === 1 &amp;&amp; result.n > 0){
-        res.status(200).json({status:'ok',source:'permission_delete',message:`${permissionName} has been deleted!`});
-      }else{
-        next({status:'nok',type:'DELETE_OP_ERROR',errMsg:`There was a problem deleting the ${permission.name} permission`});
-      }
-    } catch (error) {
-     next(error);
-      return;
-    }
-  
-  }
-
-module.exports.label = 'Delete A Permission';</code></pre>
+module.exports = authenticate = (req,res,next)=>{
+  res.status(200).json({status:'ok',source:'authenticate',message:'Authentication Success!',data:{user:req.user}});
+}</code></pre>
         </article>
     </section>
 
