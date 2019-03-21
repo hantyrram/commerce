@@ -113,7 +113,8 @@ const init = (app)=>{
  app.use(getMiddleware('handleNonXHR'));
  app.use(getMiddleware('attachArtifactToResponse'))
  app.use(getMiddleware('attachCurrentServiceToReq'));
- app.use(authentication.init({loginURL:'/'+config.API_VERSION+'/login'})); 
+ 
+ app.use(authentication.init({ Artifact: global.Artifact, loginURL:`/${config.API_VERSION}/login` })); 
  // let attachCurrentServiceToReq = require('./middlewares/attachCurrentServiceToReq');
  // app.use(attachCurrentServiceToReq);
   
