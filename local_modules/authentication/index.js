@@ -61,10 +61,12 @@ module.exports.deserializeUser = (fn)=>{
  * 
  * deserializeUser = <required> A function that accepts the data that has been set during serialization e.g. user or user.id,
  * and a done function.
+ * @param {Artifact} options.Artifact - The Artifact constructor to use for the response.
  * @return {function} - An Express Middleware function.
  */
 module.exports.init = (options = {})=>{
  //save the authenticatedUser,nope?
+ let {Artifact} = options;
  let loginURL = options.loginURL || '/apiv1/login';
  let logoutURL = options.logoutURL || '/apiv1/logout';
  let successRedirect = options.successRedirect || '/';
@@ -95,7 +97,11 @@ module.exports.init = (options = {})=>{
     let serializationDoneCallback = (user)=>{
       req.session.user = user;
       req.session.save();
-      res.json({status:'ok',source:'login',message:'Login Success!',data:{entity : {_id:userObject._id,username:userObject.username}}});
+      console.log(Artifact.OK);
+      let message = new Artifact.ArtifactMessage(Artifact.ArtifactMessage.SUCCESS,'Login Success!');
+      let artifact = new Artifact(Artifact.OK,'login',{ entity: userObject }, message);
+      // res.json({status:'ok',source:'login',message:'Login Success!',data:{entity : {_id:userObject._id,username:userObject.username}}});
+      res.json(artifact);
       return;
     } 
     //allow module user to determines which property of the user to save to session. e.g. ID
@@ -143,7 +149,10 @@ module.exports.init = (options = {})=>{
     }
     //accessing /login when there's already an existing user session
     if(req.path === loginURL){
-      res.json({status:'ok',source:'login',message:'Already Logged in!',data:{user:user}});
+      let message = new Artifact.ArtifactMessage(Artifact.ArtifactMessage.SUCCESS,'Already Logged In!');
+      let artifact = new Artifact(Artifact.OK,'login',{ entity: user }, message);
+      // res.json({status:'ok',source:'login',message:'Already Logged in!',data:{user:user}});
+      res.json(artifact);
       return;
     }
     req.user = user;
