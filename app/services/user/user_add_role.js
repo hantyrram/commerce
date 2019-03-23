@@ -6,7 +6,7 @@ const ObjectID = require('mongodb').ObjectID;
  * @memberof Services
  * @desc Adds a new permission.
  */
-module.exports = user_add_role= async (req,res,next)=>{
+module.exports = user_add_role = async (req,res,next)=>{
   let {name} = req.body;
   if(!name){
     res.status(200).json({status:'nok',message:'A role must have a name!'});//put this kind on validation error handler
@@ -17,7 +17,6 @@ module.exports = user_add_role= async (req,res,next)=>{
     let role = roles.find(function(role){
       return role.name === name;
     });
-
     //check if role does not yet exist,
     //check if userID param exist
     if(role){//a valid role
