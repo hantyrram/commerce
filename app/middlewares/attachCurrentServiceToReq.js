@@ -19,7 +19,7 @@ module.exports = attachCurrentServiceToReq = (req,res,next)=>{
   });
   //attache the service 
   if(!route){
-    next({type:'NOT_FOUND',message:'Can\'t find resource'});
+    next({status:'nok',type:'NOT_FOUND',message:'Can\'t find resource'});
     return;
   }
   req.currentAccessedService = getServices().find(s=>{
