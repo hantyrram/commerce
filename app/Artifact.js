@@ -31,6 +31,8 @@ class ArtifactMessage{
   if(!type || !text || ![ERROR,SUCCESS,WARNING].includes(type)){
    throw new Error('@Artifact.Message : Invalid message type or text');
   }
+  this.type = type;
+  this.text = text;
  }
 }
 

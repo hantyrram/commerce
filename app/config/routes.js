@@ -13,9 +13,9 @@ const authentication = [
 const user = [
  {path:'/users',method:'get',serviceProvider:'user_browse'},
  {path:'/users/:username',method:'get',serviceProvider:'user_read'},
- {path:'/users/:username/edit',method:'post',serviceProvider:'user_edit'},
- {path:'/users',method:'post',serviceProvider:'user_add'},
- {path:'/users/:username/delete',method:'post',serviceProvider:'user_delete'},
+ {path:'/users/:username/update',method:'put',serviceProvider:'user_update'},
+ {path:'/users',method:'post',serviceProvider:'user_create'},
+ {path:'/users/:username/delete',method:'delete',serviceProvider:'user_delete'},
  {path:'/users/:username/roles',method:'get',serviceProvider:'user_roles_browse'},
  {path:'/users/:username/roles',method:'post',serviceProvider:'user_roles_add'},
  {path:'/users/:username/roles/:rolename',method:'delete',serviceProvider:'user_roles_delete'},

@@ -4,8 +4,9 @@
 module.exports = [
  '/app/services/user/user_browse',
  '/app/services/user/user_read',
- '/app/services/user/user_add',
- '/app/services/user/user_edit',
+ '/app/services/user/user_create',
+ '/app/services/user/user_update',
+ '/app/services/user/user_delete',
  '/app/services/user/user_add_role',
  '/app/services/user/user_read_permissions',
  '/app/services/permission/permission_add',
