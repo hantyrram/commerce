@@ -12,6 +12,8 @@ module.exports = function(error,req,res,next){
         res.status(404).json(error)
       }
       break;
+      case 'DUPLICATE_KEY_VIOLATION':
+       res.status(409).json(error);
       default:{
         res.status(400).json(error)
       }
