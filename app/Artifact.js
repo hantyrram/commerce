@@ -106,8 +106,8 @@ class Artifact{
  }
 }
 
-Object.defineProperty(Artifact,'ArtifactMessage',{value:ArtifactMessage,writable:false,configurable:false});
-Object.defineProperty(Artifact,'ArtifactError',{value:ArtifactError,writable:false,configurable:false});
+Object.defineProperty(Artifact,'Message',{value:ArtifactMessage,writable:false,configurable:false});
+Object.defineProperty(Artifact,'Error',{value:ArtifactError,writable:false,configurable:false});
 Object.defineProperty(Artifact,'OK',{value:'ok',writable:false,configurable:false});
 Object.defineProperty(Artifact,'NOK',{value:'nok',writable:false,configurable:false});
 
