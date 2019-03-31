@@ -1,5 +1,16 @@
 /**
  * Defines all routes that could serve a request.
+ * 
+ */
+
+/**
+ * @typedef Types~route
+ * @property {string} path - The route path.
+ * @property {string} method - The Http request method.
+ * @property {serviceProvider} - The name of the @see {HT~service} that handles the route.
+ * @property {Array} [middlewares] - Array of middlewares to use on the specific route.
+ * 
+ * Arbitrary properties can be added on each route. E.g. schema is used by the 'validateSchema' middleware.
  */
 //stored on config because this is configuration 
 let API_VERSION = require('./').API_VERSION;
@@ -12,14 +23,14 @@ const authentication = [
 
 const user = [
  {path:'/users',method:'get',serviceProvider:'user_browse'},
- {path:'/users/:username',method:'get',serviceProvider:'user_read'},
- {path:'/users/:username/update',method:'put',serviceProvider:'user_update'},
- {path:'/users',method:'post',serviceProvider:'user_create'},
- {path:'/users/:username/delete',method:'delete',serviceProvider:'user_delete'},
- {path:'/users/:username/roles',method:'get',serviceProvider:'user_roles_browse'},
- {path:'/users/:username/roles',method:'post',serviceProvider:'user_roles_add'},
- {path:'/users/:username/roles/:rolename',method:'delete',serviceProvider:'user_roles_delete'},
- {path:'/users/:username/permissions',method:'get',serviceProvider:'user_read_permissions'},
+ {path:'/users/:id',method:'get',serviceProvider:'user_read'},
+ {path:'/users/:id',method:'put',serviceProvider:'user_update',middlewares: ['validateSchema'],schema:'User'},
+ {path:'/users',method:'post',serviceProvider:'user_create',middlewares: ['validateSchema'],schema:'User'},
+ {path:'/users/:id',method:'delete',serviceProvider:'user_delete'},
+ {path:'/users/:id/roles',method:'get',serviceProvider:'user_roles_browse'},
+ {path:'/users/:id/roles',method:'post',serviceProvider:'user_roles_add'},
+ {path:'/users/:id/roles/:id',method:'delete',serviceProvider:'user_roles_delete'},
+ {path:'/users/:id/permissions',method:'get',serviceProvider:'user_read_permissions'},
 
 ];
 

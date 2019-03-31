@@ -14,9 +14,6 @@ global.Artifact = require('./Artifact');
 global.Rule = require('../local_modules/authorization').Rule;
 global.Policy = require('../local_modules/authorization').Policy;
 global.PolicyViolation = require('../local_modules/authorization').PolicyViolation;
-global._2xxResponse = require('./responses/2xx');
-global._4xxResponse = require('./responses/4xx');
-global._5xxResponse = require('./responses/5xx');
 
 let serverStarted = false;
 /**
@@ -128,9 +125,18 @@ const init = (app)=>{
    //get middlewares
    let routeSpecificMiddlewares;
    if(route.middlewares && route.middlewares.length > 0){
-    routeSpecificMiddlewares = getMiddlewares().filter(middleware=>{
-     return route.middlewares.find(middlewareName=>{middlewareName === middleware.name})
-    }); 
+
+    //get middlewares that are defined on each route if there is any.
+    let middlewaresDefinedOnRoute = middleware => route.middlewares.includes(middleware.name);
+    //Reducer that'll sort the filtered routes based on how the route.middlewares are defined.Since sequence is important.
+    let sortBasedOnRouteMiddlewaresDefinition = (acc,middleware) => {
+     acc[route.middlewares.indexOf(middleware.name)] = middleware;
+     return acc;
+    };
+
+    routeSpecificMiddlewares = getMiddlewares().filter(middlewaresDefinedOnRoute);
+    routeSpecificMiddlewares = routeSpecificMiddlewares.length > 0 ? routeSpecificMiddlewares.reduce(sortBasedOnRouteMiddlewaresDefinition) : routeSpecificMiddlewares;
+
    }
    if(routeSpecificMiddlewares){
     app[route.method || DEFAULT_REQUEST_METHOD](route.path,routeSpecificMiddlewares,serviceProvider);
