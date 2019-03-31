@@ -98,7 +98,7 @@ module.exports.init = (options = {})=>{
       req.session.user = user;
       req.session.save();
       console.log(Artifact.OK);
-      let message = new Artifact.ArtifactMessage(Artifact.ArtifactMessage.SUCCESS,'Login Success!');
+      let message = new Artifact.Message(Artifact.Message.SUCCESS,'Login Success!');
       let artifact = new Artifact(Artifact.OK,'login',{ entity: userObject }, message);
       // res.json({status:'ok',source:'login',message:'Login Success!',data:{entity : {_id:userObject._id,username:userObject.username}}});
       res.json(artifact);
