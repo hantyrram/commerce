@@ -89,7 +89,10 @@ module.exports.init = (options = {})=>{
     let userObject = user;
     if(user === null){
       // res.json({status:'nok',error:{type:'AuthError',message:errMessage,failureRedirect:loginURL}});
-      next({status:'nok',source:'login',type:'AUTHENTICATION_ERROR',errMsg:errMsg});
+      let error = new Artifact.Error('AUTHENTICATION_ERROR',errMsg);
+      let artifact = new Artifact(Artifact.NOK,'login',error);
+      // next({status:'nok',source:'login',type:'AUTHENTICATION_ERROR',errMsg:errMsg});
+      next(artifact);
       return;
     }
   
@@ -124,7 +127,10 @@ module.exports.init = (options = {})=>{
   
   if(!req.session || !req.session.user){
    if(req.path !== loginURL && req.path !== logoutURL){
-    next({status:'nok',source:'authenticate',type:'AUTHENTICATION_ERROR',errMsg:'Authentication Failed'});
+    let error = new Artifact.Error('AUTHENTICATION_ERROR','Authentication Failed');
+    let artifact = new Artifact(Artifact.NOK,'authenticate',error);
+    // next({status:'nok',source:'authenticate',type:'AUTHENTICATION_ERROR',errMsg:'Authentication Failed'});
+    next(artifact);
     return;
    }
     //req.path === loginURL
@@ -144,12 +150,15 @@ module.exports.init = (options = {})=>{
     if(!user){
       //this error might happen when there is an existing session.user but the user was already deleted on the database
       // res.json({status:'nok',error:{type:'AuthError',message:'user not found on db',failureRedirect:loginURL}});
-      next({status:'nok',source:'authenticate',type:'AUTHENTICATION_ERROR',errMsg:'Invalid User',failureRedirect:loginURL});
+      let error = new Artifact.Error('AUTHENTICATION_ERROR','Invalid User');
+      let artifact = new Artifact(Artifact.NOK,'authenticate',error);
+      // next({status:'nok',source:'authenticate',type:'AUTHENTICATION_ERROR',errMsg:'Invalid User',failureRedirect:loginURL});
+      next(artifact);
       return;
     }
     //accessing /login when there's already an existing user session
     if(req.path === loginURL){
-      let message = new Artifact.ArtifactMessage(Artifact.ArtifactMessage.SUCCESS,'Already Logged In!');
+      let message = new Artifact.Message(Artifact.Message.SUCCESS,'Already Logged In!');
       let artifact = new Artifact(Artifact.OK,'login',{ entity: user }, message);
       // res.json({status:'ok',source:'login',message:'Already Logged in!',data:{user:user}});
       res.json(artifact);
