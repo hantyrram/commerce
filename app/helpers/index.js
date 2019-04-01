@@ -4,6 +4,7 @@ const pathToRegexp = require('path-to-regexp');
  * useful on middlewares defined before the route handlers.
  * @param {Array} routes - Array of routes.
  * @param {object} req - The request object.
+ * @param {Types~route} - The found route or null.
  */
 module.exports.getRoute = (routes,req) => {
  let regexp;
