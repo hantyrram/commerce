@@ -177,6 +177,12 @@ server.on('dependency-ready',function(dependency){
  }
 });
 
+
+
+/**
+ *  Prepare dependencies
+ */
+
 //1. prepare db
 (async function(){
  try {
