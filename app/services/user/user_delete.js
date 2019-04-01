@@ -14,7 +14,10 @@ module.exports = user_delete = async (req,res,next)=>{
    let artifact = new Artifact('ok','user_delete',null,message);
    res.json(artifact);
  } catch (error) {
-  next({status:'nok',type:'DB_ERROR',message: error.message});
+  let err = new Artifact.Error('DB_ERROR',error.message);
+  let artifact = new Artifact(Artifact.NOK,'user_delete',err);
+  // next({status:'nok',type:'DB_ERROR',message: error.message});
+  next(artifact);
  }
 }
 
