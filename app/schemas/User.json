@@ -5,12 +5,20 @@
   "username":{
    "type":"string",
    "minLength":6,
-   "maxLength":25
+   "maxLength":25,
+   "pattern": "^[^\\s]+$"
   },
   "password":{
    "type":"string",
    "minLength":6,
-   "maxLength":25
+   "maxLength":60,
+   "pattern": "^[^\\s]+$"
+  },
+  "email":{
+   "type":"string",
+   "format": "email",
+   "minLength":6,
+   "maxLength":50
   }
  },
  "required": [

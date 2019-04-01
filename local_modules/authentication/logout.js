@@ -7,5 +7,8 @@
 module.exports = logout = (req,res)=>{
  req.logout();
  res.clearCookie('U_SID');
- res.json({status:'ok',source:'logout',message:'You have been logged out!'});
+ let message = new Artifact.Message(Artifact.Message.SUCCESS,'You have been logged out!');
+ let artifact = new Artifact(Artifact.OK,'logout',message);
+ // res.json({status:'ok',source:'logout',message:'You have been logged out!'});
+ res.json(artifact);
 }

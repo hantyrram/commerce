@@ -47,6 +47,8 @@ class ArtifactError{
   if(!type || !text){
    throw new Error('@Artifact.Error : Invalid type or text');
   }
+  this.type = type;
+  this.text = text;
  }
 }
 
@@ -87,17 +89,17 @@ const STATUS = {
  */
 class Artifact{
  constructor(status,source,third,message = ''){
-  if(!(status in STATUS)) throw new Error('Invalid status, values can only be either ok or nok');
+  if(!(['ok','nok'].includes(status))) throw new Error('Invalid status, values can only be either ok or nok');
+  console.log(typeof source);
+  console.log(typeof third);
   if(typeof source !== 'string') throw new Error('Invalid source');
   if(typeof third !== 'object') throw new Error('Invalid data or error provided');
   if(status === 'nok'){
    //third MUST be an Artifact~error
-  if( !(third instanceof ArtifactError))
-   //allow if third has the same prototype as ArtifactError
-   if(!third['type'] || !third['message']){
+   if(!third['type'] || !third['text']){ //ArtifactError
     throw new Error('Invalid third parameter. MUST be of type ArtifactError');
    }
-   
+   //allow if third has the same prototype as ArtifactError
   }
   this.status = status;
   this.source = source;
@@ -112,3 +114,4 @@ Object.defineProperty(Artifact,'OK',{value:'ok',writable:false,configurable:fals
 Object.defineProperty(Artifact,'NOK',{value:'nok',writable:false,configurable:false});
 
 module.exports = Artifact;
+
