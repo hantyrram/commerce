@@ -3,3 +3,4 @@ module.exports.middlewares = require('./middlewares');
 module.exports.services = require('./services');
 module.exports.routes = require('./routes');
 module.exports.errorHandlers = require('./errorHandlers');
+module.exports.ERRORS = require('./ERRORS');
