@@ -5,29 +5,23 @@
   "_id": {
    "type": "string"
   },
-  "username":{
+  "name":{
    "type":"string",
-   "minLength":6,
-   "maxLength":25,
+   "minLength":1,
+   "maxLength":45,
    "pattern": "^[^\\s]+$"
   },
-  "password":{
+  "label":{
    "type":"string",
    "minLength":6,
-   "maxLength":60,
-   "pattern": "^[^\\s]+$"
+   "maxLength":60
   },
-  "email":{
-   "type":"string",
-   "format": "email",
-   "minLength":6,
+  "description":{
+   "minLength":5,
    "maxLength":50
-  },
-  "roles":{
-   "type":"array"
   }
  },
  "required": [
-  "username","password"
+  "name","label"
  ]
 }

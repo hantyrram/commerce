@@ -10,39 +10,116 @@
  * @property {serviceProvider} - The name of the @see {HT~service} that handles the route.
  * @property {Array} [middlewares] - Array of middlewares to use on the specific route.
  * 
- * Arbitrary properties can be added on each route. E.g. schema is used by the 'validateSchema' middleware.
+ * Arbitrary properties can be added on each route. E.g. validateSchema may check for validateSchema property for it's config.
  */
 //stored on config because this is configuration 
 let API_VERSION = require('./').API_VERSION;
 
 const authentication = [
-  {path:'/authenticate',method:'get',serviceProvider:'authenticate'},
-  {path:'/login',method:'post',serviceProvider:'login'},
-  {path:'/logout',method:'get',serviceProvider:'logout'}
+  {
+   path:'/authenticate',
+   method:'get',
+   serviceProvider:'authenticate'
+  },
+  {
+   path:'/login',
+   method:'post',
+   serviceProvider:'login'
+  },
+  {
+   path:'/logout',
+   method:'get',
+   serviceProvider:'logout'
+  }
 ];
 
 const user = [
- {path:'/users',method:'get',serviceProvider:'user_browse'},
- {path:'/users/:id',method:'get',serviceProvider:'user_read'},
- {path:'/users/:id',method:'put',serviceProvider:'user_update',middlewares: ['validateSchema'],schema:'User'},
- {path:'/users',method:'post',serviceProvider:'user_create',middlewares: ['validateSchema'],schema:'User'},
- {path:'/users/:id',method:'delete',serviceProvider:'user_delete'},
- {path:'/users/:id/roles',method:'get',serviceProvider:'user_roles_browse'},
- {path:'/users/:id/roles',method:'post',serviceProvider:'user_roles_add'},
- {path:'/users/:id/roles/:id',method:'delete',serviceProvider:'user_roles_delete'},
- {path:'/users/:id/permissions',method:'get',serviceProvider:'user_read_permissions'},
-
+ {
+  path:'/users',
+  method:'get',
+  serviceProvider:'user_browse'
+ },
+ { 
+  path:'/users/:id', 
+  method:'get', 
+  serviceProvider:'user_read' 
+ },
+ { 
+  path:'/users/:id', 
+  method:'put', 
+  serviceProvider:'user_update', 
+  middlewares: ['validateSchema'], 
+  validateSchema: {
+   schema: 'User'
+  }
+ },
+ {
+  path:'/users',
+  method:'post',
+  serviceProvider:'user_create',
+  middlewares: ['validateSchema'], 
+  validateSchema: {
+   schema: 'User'
+  }
+ },
+ {
+  path:'/users/:id',
+  method:'delete',
+  serviceProvider:'user_delete'
+ },
+ {
+  path:'/users/:id/roles', 
+  method:'get',
+  serviceProvider:'user_roles_browse'
+ },
+ {
+  path:'/users/:id/roles',
+  method:'post',
+  serviceProvider:'user_roles_add',
+  middlewares: ['validateSchema'],
+  validateSchema: {
+   schema: 'Role',
+   requireId: true,
+   generateEntity: true
+  }
+ },
+ {
+  path:'/users/:id/roles/:id',
+  method:'delete',
+  serviceProvider:'user_roles_delete'
+ },
+ {
+  path:'/users/:id/permissions',
+  method:'get',
+  serviceProvider:'user_read_permissions'
+ },
 ];
 
 const role = [
- {path:'/roles',method:'get',serviceProvider:'role_browse'},
- {path:'/roles/:name',method:'get',serviceProvider:'role_read'},
- {path:'/roles/:name/edit',method:'post',serviceProvider:'role_edit'},
- {path:'/roles',method:'post',serviceProvider:'role_add'},
- {path:'/roles/:name/delete',method:'post',serviceProvider:'role_delete'},
- {path:'/roles/:name/permissions',method:'get',serviceProvider:'role_permissions_browse'},
- {path:'/roles/:name/permissions',method:'post',serviceProvider:'role_permissions_add'},
- {path:'/roles/:name/permissions/:permissionname',method:'delete',serviceProvider:'role_permissions_delete'},
+ {
+  path:'/roles',method:'get',serviceProvider:'role_browse'
+ },
+ {
+  path:'/roles/:name',method:'get',serviceProvider:'role_read'
+ },
+ {
+  path:'/roles/:name/edit',method:'post',serviceProvider:'role_edit'
+ },
+ {
+  path:'/roles',method:'post',serviceProvider:'role_add'
+ },
+ {
+  path:'/roles/:name/delete',method:'post',serviceProvider:'role_delete'
+ },
+ {
+  path:'/roles/:name/permissions',method:'get',serviceProvider:'role_permissions_browse'
+ },
+ {
+  path:'/roles/:name/permissions',method:'post',serviceProvider:'role_permissions_add'
+ },
+ {
+  path:'/roles/:name/permissions/:permissionname',method:'delete',serviceProvider:'role_permissions_delete'
+ },
 ]
 
 const permissions = [
