@@ -8,6 +8,7 @@ module.exports = [
  '/app/services/user/user_update',
  '/app/services/user/user_delete',
  '/app/services/user/user_roles_add',
+ '/app/services/role/role_add',
  '/app/services/user/user_read_permissions',
  '/app/services/permission/permission_add',
  '/app/services/permission/permission_browse',
