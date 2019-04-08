@@ -6,7 +6,6 @@
  * @desc Adds a new user..
  */
 module.exports = user_create = async (req,res,next)=>{
-
  try {
   let user = req.body;
   let QUERY = { username: user.username };
