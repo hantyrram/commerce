@@ -35,6 +35,15 @@ const authentication = [
 
 const user = [
  {
+  path:'/employees',
+  method:'post',
+  serviceProvider:'employee_create',
+  middlewares: ['validateSchema'], 
+  validateSchema: {
+   schema: 'Employee'
+  }
+ },
+ {
   path:'/users',
   method:'get',
   serviceProvider:'user_browse'
