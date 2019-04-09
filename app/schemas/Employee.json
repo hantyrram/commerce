@@ -1,0 +1,61 @@
+{
+ "$schema":"http://json-schema.org/draft-07/schema",
+ "type":"object",
+ "properties": {
+  "_id": {
+   "type": "string"
+  },
+  "empID":{
+   "type":"string",
+   "pattern":"^ht[0-9]+$"
+  },
+  "fname":{
+   "type":"string",
+   "minLength":6,
+   "maxLength":25
+  },
+  "mname":{
+   "type":"string",
+   "minLength":6,
+   "maxLength":25
+  },
+  "lname":{
+   "type":"string",
+   "minLength":6,
+   "maxLength":60
+  },
+  "dateOfBirth":{
+   "type":"string",
+   "format":"date"
+  },
+  "gender":{
+   "type":"string",
+   "enum": ["male","female"]
+  },
+  "joiningDate":{
+   "type":"string",
+   "format":"date"
+  },
+  "permanentAddress":{
+   "type":"string",
+   "minLength":6,
+   "maxLength":100
+  },
+  "currentAddress":{
+   "type":"string",
+   "minLength":6,
+   "maxLength":100
+  },
+  "personalEmail":{
+   "type":"string",
+   "format":"email"
+  },
+  "contactNo":{
+   "type":"string",
+   "pattern": "^(\\([0-9]{3}\\))?[0-9]{3}-[0-9]{4}$"
+  }
+ },
+ "required": [
+  "fname","lname","gender","dateOfBirth","joiningDate","contactNo"
+ ]
+}
