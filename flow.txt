@@ -67,6 +67,13 @@ server checks the credentials from the database
   client: user selects from the permission list to add permission to role 
   client: user clicks submit 
   server: inserts a new role to the database
+
+
+  --Generating User credentials
+    HR gives empID to IT
+    IT goes to requests/generate_credential menu, 
+    IT enters empID and clicks on generate credential,generator sends text to the employee mobile for the temporary credential
+    
   
 
 

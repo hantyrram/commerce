@@ -2,6 +2,9 @@
  * Only services contained in this array is active.
  */
 module.exports = [
+ '/app/services/employee/employee_create',
+ '/app/services/employee/employee_credential_generate',
+ '/app/services/employee/employee_credential_create',
  '/app/services/user/user_browse',
  '/app/services/user/user_read',
  '/app/services/user/user_create',

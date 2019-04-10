@@ -10,10 +10,15 @@ const sessionOnRedis = require('../local_modules/session-on-redis');
 const authentication = require('../local_modules/authentication');
 //Policy Based Authorization
 const authorization = require('../local_modules/authorization');
+const helpers = require('./helpers');
 global.Artifact = require('./Artifact');
 global.Rule = require('../local_modules/authorization').Rule;
 global.Policy = require('../local_modules/authorization').Policy;
 global.PolicyViolation = require('../local_modules/authorization').PolicyViolation;
+
+for(let helper of Object.getOwnPropertyNames(helpers)){
+ global[helper] = helpers[helper];
+}
 
 let serverStarted = false;
 /**
