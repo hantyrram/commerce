@@ -33,16 +33,26 @@ const authentication = [
   }
 ];
 
-const user = [
+const employee = [
  {
-  path:'/employees',
-  method:'post',
-  serviceProvider:'employee_create',
+  path:'/employees', method:'post', serviceProvider:'employee_create',
   middlewares: ['validateSchema'], 
   validateSchema: {
    schema: 'Employee'
   }
  },
+ {
+  path:'/employees/:empID/credential', method:'post', serviceProvider:'employee_credential_assign',
+  middlewares: ['validateSchema'], 
+  validateSchema: {
+   schema: 'Credential'
+  }
+ },
+ { path:'/employees/credential/generate', method:'get', serviceProvider:'employee_credential_generate' },
+ { path:'/employees/:empID/credential', method:'post', serviceProvider:'employee_credential_create' },
+]
+
+const user = [
  {
   path:'/users',
   method:'get',
@@ -158,6 +168,6 @@ function prefixPath(prefix,...routes){
   return allRoutes;
 }
 
-let routes = prefixPath(API_VERSION,authentication,user,role,permissions,test);
+let routes = prefixPath(API_VERSION,authentication,employee,user,role,permissions,test);
 
 module.exports = routes;
