@@ -1,23 +1,24 @@
 
-const _generateEmpId = require('./_generateEmpId');
+const EMP_ID_PREFIX = "100";//company 1,company 2 = 200
+const GENESIS = 1000;//should not be assigned to anyone
+const START = 1001;//first employee
 /**
  * @type {HT~service}
  * @func employee_create
  * @memberof Services
  * @desc Creates a new Employee Profile
  */
-module.exports = employee_create = async (req,res,next)=>{
+module.exports = employee_create = async (req,res,next)=>{ 
  let empID;
- let cursor = await req.app.get('db').collection('employees').find({}).sort({$orderby:-1}).limit(1);
+ //get last
+ let cursor = await req.app.get('db').collection('employees').find({}).sort({ empID:-1 }).limit(1);
  if(! (await cursor.hasNext())){
-  empID = "ht1";
+  empID = `${EMP_ID_PREFIX}${START}`; //First employee
  }else{
   let lastDoc =  await cursor.next();
-  let lastID = lastDoc.empID;
-  let num = Number(lastID.replace("ht","")) + 1;
-  empID = "ht" + num;
+  let lastID = Number(lastDoc.empID.replace(EMP_ID_PREFIX,""));
+  empID = `${EMP_ID_PREFIX }${lastID + 1}`;
  }
- console.log(empID);
  
  try {
   let QUERY = { empID: empID };
