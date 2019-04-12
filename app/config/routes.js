@@ -48,8 +48,7 @@ const employee = [
    schema: 'Credential'
   }
  },
- { path:'/employees/credential/generate', method:'get', serviceProvider:'employee_credential_generate' },
- { path:'/employees/:empID/credential', method:'post', serviceProvider:'employee_credential_create' },
+ { path:'/employees/:empID/credential/generate', method:'post', serviceProvider:'employee_credential_generate' },
 ]
 
 const user = [
