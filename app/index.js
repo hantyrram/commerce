@@ -90,10 +90,10 @@ const init = (app)=>{
   done(user._id);//save the _id only to the session
  });
  authentication.deserializeUser(function(id,done){
-  app.get('db').collection('users').findOne(ObjectID(id),function(err,result){
+  app.get('db').collection('employees').findOne(ObjectID(id),function(err,employee){
     let user = {};
-    user.id = result._id;
-    user.username = result.username;
+    user._id = employee._id;
+    user.username = employee.credential.username;
     //save only the id,username on the req.object
     done(user);
   });

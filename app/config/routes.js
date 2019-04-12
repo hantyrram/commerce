@@ -21,10 +21,11 @@ const authentication = [
    method:'get',
    serviceProvider:'authenticate'
   },
-  {
-   path:'/login',
-   method:'post',
-   serviceProvider:'login'
+  { 
+   path:'/login', method:'post', serviceProvider:'login', middlewares: ['validateSchema'],
+   validateSchema: {
+    schema: 'Credential'
+   }
   },
   {
    path:'/logout',
@@ -41,15 +42,8 @@ const employee = [
    schema: 'Employee'
   }
  },
- {
-  path:'/employees/:empID/credential', method:'post', serviceProvider:'employee_credential_assign',
-  middlewares: ['validateSchema'], 
-  validateSchema: {
-   schema: 'Credential'
-  }
- },
- { path:'/employees/credential/generate', method:'get', serviceProvider:'employee_credential_generate' },
- { path:'/employees/:empID/credential', method:'post', serviceProvider:'employee_credential_create' },
+
+ { path:'/employees/:empID/credential/generate', method:'post', serviceProvider:'employee_credential_generate' },
 ]
 
 const user = [

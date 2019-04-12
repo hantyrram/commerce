@@ -5,7 +5,7 @@
 
 /**
 * @typedef {function} Authentication~serializer
-* @param {Object} user - The User to be serialized into the session.
+* @param {Object} user - The Credential to be serialized into the session.
 * @param {Authentication~serializationDoneCallback} 
 * @desc A function which allows the user of this module to decide which part of the user 
 * data will be saved on the session, serializer MUST call the serializationDoneCallback passed to 
@@ -86,7 +86,7 @@ module.exports.init = (options = {})=>{
  
   */
   let login = (errMsg,user)=>{
-    let userObject = user;
+    let userForArtifact = Object.assign({},user);
     if(user === null){
       // res.json({status:'nok',error:{type:'AuthError',message:errMessage,failureRedirect:loginURL}});
       let error = new Artifact.Error('AUTHENTICATION_ERROR',errMsg);
@@ -100,9 +100,8 @@ module.exports.init = (options = {})=>{
     let serializationDoneCallback = (user)=>{
       req.session.user = user;
       req.session.save();
-      console.log(Artifact.OK);
       let message = new Artifact.Message(Artifact.Message.SUCCESS,'Login Success!');
-      let artifact = new Artifact(Artifact.OK,'login',{ entity: userObject }, message);
+      let artifact = new Artifact(Artifact.OK,'login',{ entity: userForArtifact }, message);
       // res.json({status:'ok',source:'login',message:'Login Success!',data:{entity : {_id:userObject._id,username:userObject.username}}});
       res.json(artifact);
       return;
