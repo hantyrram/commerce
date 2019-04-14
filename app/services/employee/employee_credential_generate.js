@@ -7,7 +7,7 @@ const START = 1;
  * @type {HT~service}
  * @func employee_credential_generate
  * @memberof Services
- * @desc Generate and assigns the credential to the employee.
+ * @desc Generates credential for the given employee.
  */
 module.exports = employee_credential_generate = async (req,res,next)=>{
 //requires empID from param
