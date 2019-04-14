@@ -6,6 +6,13 @@
  */
 const SUCCESS = 'success';
 /**
+ * Used when a service operation succeeded and without warning.
+ * @memberof Artifact.ArtifactMessage
+ * @static
+ * @const
+ */
+const INFO = 'info';
+/**
  * Used when a service operation failed.
  * @memberof Artifact.ArtifactMessage
  * @static
@@ -28,7 +35,7 @@ const WARNING = 'warning';
  */
 class ArtifactMessage{
  constructor(type,text){
-  if(!type || !text || ![ERROR,SUCCESS,WARNING].includes(type)){
+  if(!type || !text || ![ERROR,SUCCESS,INFO,WARNING].includes(type)){
    throw new Error('@Artifact.Message : Invalid message type or text');
   }
   this.type = type;
@@ -52,6 +59,7 @@ class ArtifactError{
  }
 }
 
+Object.defineProperty(ArtifactMessage,'INFO',{value: INFO,writable:false,configurable:false});
 Object.defineProperty(ArtifactMessage,'SUCCESS',{value: SUCCESS,writable:false,configurable:false});
 Object.defineProperty(ArtifactMessage,'ERROR',{value: ERROR,writable:false,configurable:false});
 Object.defineProperty(ArtifactMessage,'WARNING',{value: WARNING,writable:false,configurable:false});
