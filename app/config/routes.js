@@ -35,15 +35,21 @@ const authentication = [
 ];
 
 const employee = [
+ { path:'/employees', method:'get', serviceProvider:'employee_browse' },
  {
-  path:'/employees', method:'post', serviceProvider:'employee_create',
-  middlewares: ['validateSchema'], 
+  path:'/employees', method:'post', serviceProvider:'employee_create', middlewares: ['validateSchema'], 
   validateSchema: {
    schema: 'Employee'
   }
  },
-
  { path:'/employees/:empID/credential/generate', method:'post', serviceProvider:'employee_credential_generate' },
+ { 
+  path:'/credential/password', method:'put', serviceProvider:'credential_password_update' ,
+  middlewares: ['validateSchema'], validateSchema: {
+   schema: 'Credential'
+  }
+ },
+ { path:'/employees/:empID/credential/revoke', method:'patch', serviceProvider:'credential_revoke' },
 ]
 
 const user = [
