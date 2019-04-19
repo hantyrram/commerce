@@ -10,7 +10,7 @@ module.exports = permission_add = async (req,res,next)=>{
   try {
     //ops is array of objects inserted with ._id set
     let initialDate = new Date();
-    let entity = Object.assign(req.body,{createdBy:req.user.username,createdOn:initialDate,modifiedOn:initialDate});
+    let entity = Object.assign(req.body,{createdBy:req.user.credential.username,createdOn:initialDate,modifiedOn:initialDate});
     let {ops} = await col.insertOne(entity);
     const permission = ops[0];
 

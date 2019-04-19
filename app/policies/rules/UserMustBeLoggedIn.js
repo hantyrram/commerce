@@ -1,6 +1,6 @@
 
-
-class UserMustBeLoggedIn extends global.Rule{
+const { Rule } = require('../../../local_modules/authorization');
+class UserMustBeLoggedIn extends Rule{
  get condition(){
     return (request)=>{
       //check 

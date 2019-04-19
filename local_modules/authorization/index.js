@@ -3,7 +3,9 @@
  */
 
 /**
- * @func
+ * @func userRoleDeserializer
+ * @param {object} user
+ * @param {function} done
  * @desc A function that deserializes the user's roles.The function is invoked with the current
  * logged in user as the first parameter, and (the done) function as second parameter.
  * The done function will receive the Array of deserialized roles.

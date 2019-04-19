@@ -90,10 +90,14 @@ const init = (app)=>{
   done(user._id);//save the _id only to the session
  });
  authentication.deserializeUser(function(id,done){
-  app.get('db').collection('employees').findOne(ObjectID(id),function(err,employee){
-    let user = {};
-    user._id = employee._id;
-    user.username = employee.credential.username;
+  let OPTIONS = {
+   projection:{"credential.password":0}
+  };
+
+  app.get('db').collection('employees').findOne(ObjectID(id),OPTIONS,function(err,employee){
+    let user = { ...employee };
+    // user._id = employee._id;
+    // user.username = employee.credential.username;
     //save only the id,username on the req.object
     done(user);
   });
@@ -101,16 +105,16 @@ const init = (app)=>{
 
  //deserializes the roles,of the currently logged in user, pass the array of roles to done callback
  //done([{name:'admin',label:'Admin',permissions:[...]},...])
-//  authorization.deserializeUserRoles(function(currentLoggedInUser,done){
-//   if(currentLoggedInUser.roles !== undefined && currentLoggedInUser.roles.length !== 0){
-//    //query roles with role names = the current user's roles e.g. ['admin','product_manager']
-//    app.get('db').collection('roles')
-//    .find({$or: currentLoggedInUser.roles.map(roleName=>{name:roleName})})
-//    .toArray(function(error,documents){
-//     done(documents);
-//    });
-//   }
-//  });
+ // authorization.deserializeUserRoles(function(currentLoggedInUser,done){
+ //  if(currentLoggedInUser.roles !== undefined && currentLoggedInUser.roles.length !== 0){
+ //   //query roles with role names = the current user's roles e.g. ['admin','product_manager']
+ //   app.get('db').collection('roles')
+ //   .find({$or: currentLoggedInUser.roles.map(roleName=>{name:roleName})})
+ //   .toArray(function(error,documents){
+ //    done(documents);
+ //   });
+ //  }
+ // });
  //end authorization 
  app.use(getMiddleware('handleNonXHR'));
  app.use(getMiddleware('attachArtifactToResponse'))

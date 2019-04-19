@@ -17,7 +17,7 @@ module.exports = credential_revoke = async (req,res,next)=>{
  const UPDATE = {
   $set:{
    "credential.revoked": true,
-   "credential.revokedBy": req.user.username
+   "credential.revokedBy": req.user.credential.username
   },
   $currentDate:{
    "credential.modifiedOn": {$type: "timestamp"}   

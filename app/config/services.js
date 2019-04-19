@@ -7,6 +7,7 @@ module.exports = [
  '/app/services/employee/employee_credential_generate',
  '/app/services/employee/credential_password_update',
  '/app/services/employee/credential_revoke',
+ '/app/services/employee/employee_roles_add',
  '/app/services/role_and_permission/role_create',
  '/app/services/role_and_permission/permission_create',
  '/app/services/role_and_permission/role_browse',
