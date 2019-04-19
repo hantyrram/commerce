@@ -12,3 +12,5 @@ module.exports = logout = (req,res)=>{
  // res.json({status:'ok',source:'logout',message:'You have been logged out!'});
  res.json(artifact);
 }
+
+module.exports.permissionIsRequired = false;
