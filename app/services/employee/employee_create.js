@@ -25,7 +25,7 @@ module.exports = employee_create = async (req,res,next)=>{
   let UPDATE = {
    $setOnInsert: {
     ...req.body,
-    createdBy: req.user.username,
+    createdBy: req.user.credential.username,
     createdOn: Date.now()
    }
   }

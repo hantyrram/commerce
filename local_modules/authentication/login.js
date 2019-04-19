@@ -46,4 +46,4 @@ module.exports = login = async(req,res)=>{
    }
 }
 
-module.exports.permissionNotRequired = true;
+module.exports.permissionIsRequired = false;

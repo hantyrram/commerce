@@ -1,33 +1,28 @@
 /**
- * @module authorization
+ * @module Authorization
  */
 
 /**
- * @func
+ * @namespace Typedefs
+ * 
+ */
+
+/**
+ * @typedef {userRolesDeserializer}
+ * @memberof Typedefs
+ * @param {object} user
+ * @param {function} done
  * @desc A function that deserializes the user's roles.The function is invoked with the current
  * logged in user as the first parameter, and (the done) function as second parameter.
  * The done function will receive the Array of deserialized roles.
- * 
- * 
- * Function Signature:
- * 
- * function(user,done){}
+ */
+
+/**
+ * @type {Typedefs~userRoleDeserializer}
  */
 let userRolesDeserializer;
 
-/**
- * The function passed to the userRoleDeserializer as second parameter, that will receive 
- * the deserialized roles of the currently logged in user. ES5 function is used to allow
- * early binding of the request parameter.
- * @param {object} request - The request object.
- * @param {Array} roles - The deserialized roles of the user.
- * 
- */
-let done = function(request,roles){
- //non-enumerable so it won't be saved on the session
- console.log('@done function, authorization index',{roles});
- Object.defineProperty(request.user,'deserializedUserRoles',{enumerable:false,writable:false,value:roles});
-}
+
 
 const enforce = (policies)=>{
   return {
@@ -59,23 +54,48 @@ const on = async (policies,request)=>{
   if(error) throw error;                   
   return true; 
 }
+
 /**
  * @func
  * @param {Array<Policy>} policies - Array of Policies.
  */                                        
 module.exports = (policies) => {
  return (request,response,next)=>{
-  userRolesDeserializer(request.user,done.bind(request));
-  enforce(policies).on(request).then(()=>next()).catch(policyViolation=>{
-    request.unauthorized = true;
-    console.log('Catching Policy Violation');
-    next(policyViolation);//error on first violation
-   });
+   /**
+    * The function passed to the userRoleDeserializer as second parameter, that will receive 
+    * the deserialized roles of the currently logged in user. ES5 function is used to allow
+    * early binding of the request parameter.
+    * @param {object} request - The request object.
+    * @param {Array} roles - The deserialized roles of the user.
+    * 
+    */
+   let done = function(roles){
+    //non-enumerable so it won't be saved on the session
+    if(request.user){
+     request.user.deserializedUserRoles = roles;
+     enforce(policies).on(request).then(()=>next()).catch(policyViolation=>{
+      request.unauthorized = true;
+      console.log('Catching Policy Violation');
+      // next(policyViolation);//error on first violation
+      //?? make this configurable, e.g. if useErrorHandler is true, just call next(policyViolation) don't terminate here
+      response.status(403).json({status:'nok',source: 'authorization', error:policyViolation});
+     });
+    }
+   }
+
+   userRolesDeserializer(request.user, done);
+
  }
 }
 
+
+
 /**
- *  userRolesDeserializer must be set before using the authorization module.
+ * Sets the userRolesDeserilizer function. Must be set in order to use the Authorization module.
+ * @function deserializedUserRoles
+ * @memberof Authorization
+ * @static
+ * @param {Typedefs~userRoleDeserializer} fn - The function that deserializes the user roles
  */
 module.exports.deserializeUserRoles = (fn)=>{
  userRolesDeserializer = fn;

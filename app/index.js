@@ -10,11 +10,9 @@ const sessionOnRedis = require('../local_modules/session-on-redis');
 const authentication = require('../local_modules/authentication');
 //Policy Based Authorization
 const authorization = require('../local_modules/authorization');
+const {serviceUsePolicy} = require('./policies');
 const helpers = require('./helpers');
 global.Artifact = require('./Artifact');
-global.Rule = require('../local_modules/authorization').Rule;
-global.Policy = require('../local_modules/authorization').Policy;
-global.PolicyViolation = require('../local_modules/authorization').PolicyViolation;
 
 for(let helper of Object.getOwnPropertyNames(helpers)){
  global[helper] = helpers[helper];
@@ -90,35 +88,45 @@ const init = (app)=>{
   done(user._id);//save the _id only to the session
  });
  authentication.deserializeUser(function(id,done){
-  app.get('db').collection('employees').findOne(ObjectID(id),function(err,employee){
-    let user = {};
-    user._id = employee._id;
-    user.username = employee.credential.username;
+  let OPTIONS = {
+   projection:{"credential.password":0}
+  };
+
+  app.get('db').collection('employees').findOne(ObjectID(id),OPTIONS,function(err,employee){
+    let user = { ...employee };
+    // user._id = employee._id;
+    // user.username = employee.credential.username;
     //save only the id,username on the req.object
     done(user);
   });
  });
+ app.use(authentication.init({ Artifact: global.Artifact, loginURL:`/${config.API_VERSION}/login` })); 
 
- //deserializes the roles,of the currently logged in user, pass the array of roles to done callback
- //done([{name:'admin',label:'Admin',permissions:[...]},...])
-//  authorization.deserializeUserRoles(function(currentLoggedInUser,done){
-//   if(currentLoggedInUser.roles !== undefined && currentLoggedInUser.roles.length !== 0){
-//    //query roles with role names = the current user's roles e.g. ['admin','product_manager']
-//    app.get('db').collection('roles')
-//    .find({$or: currentLoggedInUser.roles.map(roleName=>{name:roleName})})
-//    .toArray(function(error,documents){
-//     done(documents);
-//    });
-//   }
-//  });
- //end authorization 
  app.use(getMiddleware('handleNonXHR'));
  app.use(getMiddleware('attachArtifactToResponse'))
  app.use(getMiddleware('attachCurrentServiceToReq'));
  
- app.use(authentication.init({ Artifact: global.Artifact, loginURL:`/${config.API_VERSION}/login` })); 
- // let attachCurrentServiceToReq = require('./middlewares/attachCurrentServiceToReq');
- // app.use(attachCurrentServiceToReq);
+ authorization.deserializeUserRoles(function(currentLoggedInUser,done){
+  if(!currentLoggedInUser){
+   let roles = [];
+   done(roles);
+   return;
+  }
+
+  if(currentLoggedInUser.roles !== undefined && currentLoggedInUser.roles.length !== 0){
+   //query roles with role names = the current user's roles e.g. ['admin','product_manager']
+   let QUERY = {
+    $or : currentLoggedInUser.roles.map(roleName=>{return {name:roleName}})
+   }
+   app.get('db').collection('roles')
+   .find(QUERY)
+   .toArray(function(error,roles){
+    
+    done(roles);
+   });
+  }
+ });
+ app.use(authorization([serviceUsePolicy]));
   
  const DEFAULT_REQUEST_METHOD = 'get';
 

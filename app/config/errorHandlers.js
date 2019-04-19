@@ -3,6 +3,6 @@
  */
 module.exports = [
  '4xx',
- 'policyViolation',
+ 'authorizationErrors',
  '5xx'
 ]

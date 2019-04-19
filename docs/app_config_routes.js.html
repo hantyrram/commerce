@@ -28,47 +28,152 @@
         <article>
             <pre class="prettyprint source linenums"><code>/**
  * Defines all routes that could serve a request.
+ * 
+ */
+
+/**
+ * @typedef Types~route
+ * @property {string} path - The route path.
+ * @property {string} method - The Http request method.
+ * @property {serviceProvider} - The name of the @see {HT~service} that handles the route.
+ * @property {Array} [middlewares] - Array of middlewares to use on the specific route.
+ * 
+ * Arbitrary properties can be added on each route. E.g. validateSchema may check for validateSchema property for it's config.
  */
 //stored on config because this is configuration 
 let API_VERSION = require('./').API_VERSION;
 
 const authentication = [
-  {path:'/authenticate',method:'get',serviceProvider:'authenticate'},
-  {path:'/login',method:'post',serviceProvider:'login'},
-  {path:'/logout',method:'get',serviceProvider:'logout'}
+  {
+   path:'/authenticate',
+   method:'get',
+   serviceProvider:'authenticate'
+  },
+  { 
+   path:'/login', method:'post', serviceProvider:'login', middlewares: ['validateSchema'],
+   validateSchema: {
+    schema: 'Credential'
+   }
+  },
+  {
+   path:'/logout',
+   method:'get',
+   serviceProvider:'logout'
+  }
 ];
+
+const employee = [
+ { path:'/employees', method:'get', serviceProvider:'employee_browse' },
+ {
+  path:'/employees', method:'post', serviceProvider:'employee_create', middlewares: ['validateSchema'], 
+  validateSchema: {
+   schema: 'Employee'
+  }
+ },
+ { path:'/employees/:empID/credential/generate', method:'post', serviceProvider:'employee_credential_generate' },
+ { 
+  path:'/credential/password', method:'put', serviceProvider:'credential_password_update' ,
+  middlewares: ['validateSchema'], validateSchema: {
+   schema: 'Credential'
+  }
+ },
+ { path:'/employees/:empID/credential/revoke', method:'patch', serviceProvider:'credential_revoke' },
+ { 
+  path:'/employees/:empID/roles/add', method:'post', serviceProvider:'employee_roles_add' ,
+  middlewares: ['validateSchema'], validateSchema: {
+   schema: 'Role'
+  }
+ },
+]
 
 const user = [
- {path:'/users',method:'get',serviceProvider:'user_browse'},
- {path:'/users/:username',method:'get',serviceProvider:'user_read'},
- {path:'/users/:username/edit',method:'post',serviceProvider:'user_edit'},
- {path:'/users',method:'post',serviceProvider:'user_add'},
- {path:'/users/:username/delete',method:'post',serviceProvider:'user_delete'},
- {path:'/users/:username/roles',method:'get',serviceProvider:'user_roles_browse'},
- {path:'/users/:username/roles',method:'post',serviceProvider:'user_roles_add'},
- {path:'/users/:username/roles/:rolename',method:'delete',serviceProvider:'user_roles_delete'},
- {path:'/users/:username/permissions',method:'get',serviceProvider:'user_read_permissions'},
-
+ {
+  path:'/users',
+  method:'get',
+  serviceProvider:'user_browse'
+ },
+ { 
+  path:'/users/:id', 
+  method:'get', 
+  serviceProvider:'user_read' 
+ },
+ { 
+  path:'/users/:id', 
+  method:'put', 
+  serviceProvider:'user_update', 
+  middlewares: ['validateSchema'], 
+  validateSchema: {
+   schema: 'User'
+  }
+ },
+ {
+  path:'/users',
+  method:'post',
+  serviceProvider:'user_create',
+  middlewares: ['validateSchema'], 
+  validateSchema: {
+   schema: 'User'
+  }
+ },
+ {
+  path:'/users/:id',
+  method:'delete',
+  serviceProvider:'user_delete'
+ },
+ {
+  path:'/users/:id/roles', 
+  method:'get',
+  serviceProvider:'user_roles_browse'
+ },
+ {
+  path:'/users/:id/roles',
+  method:'post',
+  serviceProvider:'user_roles_add',
+  middlewares: ['validateSchema'],
+  validateSchema: {
+   schema: 'Role',
+   requireId: true,
+   generateEntity: true
+  }
+ },
+ {
+  path:'/users/:id/roles/:id',
+  method:'delete',
+  serviceProvider:'user_roles_delete'
+ },
+ {
+  path:'/users/:id/permissions',
+  method:'get',
+  serviceProvider:'user_read_permissions'
+ },
 ];
 
-const role = [
- {path:'/roles',method:'get',serviceProvider:'role_browse'},
- {path:'/roles/:name',method:'get',serviceProvider:'role_read'},
- {path:'/roles/:name/edit',method:'post',serviceProvider:'role_edit'},
- {path:'/roles',method:'post',serviceProvider:'role_add'},
- {path:'/roles/:name/delete',method:'post',serviceProvider:'role_delete'},
- {path:'/roles/:name/permissions',method:'get',serviceProvider:'role_permissions_browse'},
- {path:'/roles/:name/permissions',method:'post',serviceProvider:'role_permissions_add'},
- {path:'/roles/:name/permissions/:permissionname',method:'delete',serviceProvider:'role_permissions_delete'},
+const role_and_permission = [
+ { path: '/roles', method: 'post', serviceProvider: 'role_create', middlewares: ['validateSchema'], validateSchema: { schema: 'Role' } },
+ { path: '/permissions', method: 'post', serviceProvider: 'permission_create', middlewares: ['validateSchema'], validateSchema: { schema: 'Permission' } },
+ {
+  path:'/roles',method:'get',serviceProvider:'role_browse'
+ },
+ {
+  path:'/roles/:name',method:'get',serviceProvider:'role_read'
+ },
+ {
+  path:'/roles/:name/edit',method:'post',serviceProvider:'role_edit'
+ },
+ {
+  path:'/roles/:name/delete',method:'post',serviceProvider:'role_delete'
+ },
+ {
+  path:'/roles/:name/permissions',method:'get',serviceProvider:'role_permissions_browse'
+ },
+ {
+  path:'/roles/:name/permissions',method:'post',serviceProvider:'role_permissions_add'
+ },
+ {
+  path:'/roles/:name/permissions/:permissionname',method:'delete',serviceProvider:'role_permissions_delete'
+ },
 ]
 
-const permissions = [
- {path:'/permissions',method:'get',serviceProvider:'permission_browse'},
- {path:'/permissions/:name',method:'get',serviceProvider:'permission_read'},
- {path:'/permissions/:name/edit',method:'update',serviceProvider:'permission_edit'},
- {path:'/permissions',method:'post',serviceProvider:'permission_add'},
- {path:'/permissions/:name',method:'delete',serviceProvider:'permission_delete'},
-]
 
 const test = [
   {path:'/test/test',method:'get',serviceProvider:'test'}
@@ -89,7 +194,7 @@ function prefixPath(prefix,...routes){
   return allRoutes;
 }
 
-let routes = prefixPath(API_VERSION,authentication,user,role,permissions,test);
+let routes = prefixPath(API_VERSION,authentication,employee,user,role_and_permission,test);
 
 module.exports = routes;</code></pre>
         </article>
@@ -101,13 +206,21 @@ module.exports = routes;</code></pre>
 </div>
 
 <nav>
+<<<<<<< HEAD
     <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-Authentication.html">Authentication</a></li><li><a href="module-Authentication_authenticate.html">Authentication/authenticate</a></li><li><a href="module-Authentication_login.html">Authentication/login</a></li><li><a href="module-Authentication_logout.html">Authentication/logout</a></li><li><a href="module-authorization.html">authorization</a></li><li><a href="module-session-on-redis.html">session-on-redis</a></li><li><a href="module-session-on-redis_sessionCipher.html">session-on-redis/sessionCipher</a></li></ul><h3>Classes</h3><ul><li><a href="Artifact.html">Artifact</a></li><li><a href="Artifact.ArtifactError.html">ArtifactError</a></li><li><a href="Artifact.ArtifactMessage.html">ArtifactMessage</a></li><li><a href="Policy.html">Policy</a></li><li><a href="PolicyViolation.html">PolicyViolation</a></li><li><a href="Rule.html">Rule</a></li></ul><h3>Namespaces</h3><ul><li><a href="HT.html">HT</a></li><li><a href="Services.html">Services</a></li></ul><h3>Global</h3><ul><li><a href="global.html#config">config</a></li><li><a href="global.html#db">db</a></li><li><a href="global.html#destroy">destroy</a></li><li><a href="global.html#genuuidV4">genuuidV4</a></li><li><a href="global.html#get">get</a></li><li><a href="global.html#getMiddleware">getMiddleware</a></li><li><a href="global.html#getServices">getServices</a></li><li><a href="global.html#handleNonXHR">handleNonXHR</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#prefixPath">prefixPath</a></li><li><a href="global.html#set">set</a></li><li><a href="global.html#start">start</a></li><li><a href="global.html#STATUS">STATUS</a></li></ul>
+=======
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-Authentication.html">Authentication</a></li><li><a href="module-Authentication_authenticate.html">Authentication/authenticate</a></li><li><a href="module-Authentication_login.html">Authentication/login</a></li><li><a href="module-Authentication_logout.html">Authentication/logout</a></li><li><a href="module-Authorization.html">Authorization</a></li><li><a href="module-session-on-redis.html">session-on-redis</a></li><li><a href="module-session-on-redis_sessionCipher.html">session-on-redis/sessionCipher</a></li></ul><h3>Classes</h3><ul><li><a href="Artifact.html">Artifact</a></li><li><a href="Artifact.ArtifactError.html">ArtifactError</a></li><li><a href="Artifact.ArtifactMessage.html">ArtifactMessage</a></li><li><a href="Policy.html">Policy</a></li><li><a href="PolicyViolation.html">PolicyViolation</a></li><li><a href="Rule.html">Rule</a></li><li><a href="UserMustHaveValidPermission.html">UserMustHaveValidPermission</a></li></ul><h3>Namespaces</h3><ul><li><a href="Config.middlewares.html">middlewares</a></li><li><a href="HT.html">HT</a></li><li><a href="module-Authorization-Typedefs.html">Typedefs</a></li><li><a href="Services.html">Services</a></li></ul><h3>Global</h3><ul><li><a href="global.html#db">db</a></li><li><a href="global.html#destroy">destroy</a></li><li><a href="global.html#genuuidV4">genuuidV4</a></li><li><a href="global.html#get">get</a></li><li><a href="global.html#getMiddleware">getMiddleware</a></li><li><a href="global.html#getRoute">getRoute</a></li><li><a href="global.html#getServices">getServices</a></li><li><a href="global.html#handleNonXHR">handleNonXHR</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#PATTERNS">PATTERNS</a></li><li><a href="global.html#prefixPath">prefixPath</a></li><li><a href="global.html#randomStrGenerator">randomStrGenerator</a></li><li><a href="global.html#set">set</a></li><li><a href="global.html#start">start</a></li><li><a href="global.html#STATUS">STATUS</a></li><li><a href="global.html#validateSchema">validateSchema</a></li></ul>
+>>>>>>> dev
 </nav>
 
 <br class="clear">
 
 <footer>
+<<<<<<< HEAD
     Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Thu Mar 21 2019 23:27:20 GMT+0300 (Arabian Standard Time)
+=======
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Sat Apr 20 2019 00:38:36 GMT+0300 (Arabian Standard Time)
+>>>>>>> dev
 </footer>
 
 <script> prettyPrint(); </script>

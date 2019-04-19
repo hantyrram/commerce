@@ -50,6 +50,12 @@ const employee = [
   }
  },
  { path:'/employees/:empID/credential/revoke', method:'patch', serviceProvider:'credential_revoke' },
+ { 
+  path:'/employees/:empID/roles/add', method:'post', serviceProvider:'employee_roles_add' ,
+  middlewares: ['validateSchema'], validateSchema: {
+   schema: 'Role'
+  }
+ },
 ]
 
 const user = [
@@ -114,7 +120,9 @@ const user = [
  },
 ];
 
-const role = [
+const role_and_permission = [
+ { path: '/roles', method: 'post', serviceProvider: 'role_create', middlewares: ['validateSchema'], validateSchema: { schema: 'Role' } },
+ { path: '/permissions', method: 'post', serviceProvider: 'permission_create', middlewares: ['validateSchema'], validateSchema: { schema: 'Permission' } },
  {
   path:'/roles',method:'get',serviceProvider:'role_browse'
  },
@@ -123,9 +131,6 @@ const role = [
  },
  {
   path:'/roles/:name/edit',method:'post',serviceProvider:'role_edit'
- },
- {
-  path:'/roles',method:'post',serviceProvider:'role_add'
  },
  {
   path:'/roles/:name/delete',method:'post',serviceProvider:'role_delete'
@@ -141,13 +146,6 @@ const role = [
  },
 ]
 
-const permissions = [
- {path:'/permissions',method:'get',serviceProvider:'permission_browse'},
- {path:'/permissions/:name',method:'get',serviceProvider:'permission_read'},
- {path:'/permissions/:name/edit',method:'update',serviceProvider:'permission_edit'},
- {path:'/permissions',method:'post',serviceProvider:'permission_add'},
- {path:'/permissions/:name',method:'delete',serviceProvider:'permission_delete'},
-]
 
 const test = [
   {path:'/test/test',method:'get',serviceProvider:'test'}
@@ -168,6 +166,6 @@ function prefixPath(prefix,...routes){
   return allRoutes;
 }
 
-let routes = prefixPath(API_VERSION,authentication,employee,user,role,permissions,test);
+let routes = prefixPath(API_VERSION,authentication,employee,user,role_and_permission,test);
 
 module.exports = routes;

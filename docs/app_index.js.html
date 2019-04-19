@@ -38,13 +38,13 @@ const sessionOnRedis = require('../local_modules/session-on-redis');
 const authentication = require('../local_modules/authentication');
 //Policy Based Authorization
 const authorization = require('../local_modules/authorization');
+const {serviceUsePolicy} = require('./policies');
+const helpers = require('./helpers');
 global.Artifact = require('./Artifact');
-global.Rule = require('../local_modules/authorization').Rule;
-global.Policy = require('../local_modules/authorization').Policy;
-global.PolicyViolation = require('../local_modules/authorization').PolicyViolation;
-global._2xxResponse = require('./responses/2xx');
-global._4xxResponse = require('./responses/4xx');
-global._5xxResponse = require('./responses/5xx');
+
+for(let helper of Object.getOwnPropertyNames(helpers)){
+ global[helper] = helpers[helper];
+}
 
 let serverStarted = false;
 /**
@@ -116,35 +116,51 @@ const init = (app)=>{
   done(user._id);//save the _id only to the session
  });
  authentication.deserializeUser(function(id,done){
-  app.get('db').collection('users').findOne(ObjectID(id),function(err,result){
-    let user = {};
-    user.id = result._id;
-    user.username = result.username;
+  let OPTIONS = {
+   projection:{"credential.password":0}
+  };
+
+  app.get('db').collection('employees').findOne(ObjectID(id),OPTIONS,function(err,employee){
+    let user = { ...employee };
+    // user._id = employee._id;
+    // user.username = employee.credential.username;
     //save only the id,username on the req.object
     done(user);
   });
  });
+ app.use(authentication.init({ Artifact: global.Artifact, loginURL:`/${config.API_VERSION}/login` })); 
 
- //deserializes the roles,of the currently logged in user, pass the array of roles to done callback
- //done([{name:'admin',label:'Admin',permissions:[...]},...])
-//  authorization.deserializeUserRoles(function(currentLoggedInUser,done){
-//   if(currentLoggedInUser.roles !== undefined &amp;&amp; currentLoggedInUser.roles.length !== 0){
-//    //query roles with role names = the current user's roles e.g. ['admin','product_manager']
-//    app.get('db').collection('roles')
-//    .find({$or: currentLoggedInUser.roles.map(roleName=>{name:roleName})})
-//    .toArray(function(error,documents){
-//     done(documents);
-//    });
-//   }
-//  });
- //end authorization 
  app.use(getMiddleware('handleNonXHR'));
  app.use(getMiddleware('attachArtifactToResponse'))
  app.use(getMiddleware('attachCurrentServiceToReq'));
  
+<<<<<<< HEAD
  app.use(authentication.init({ Artifact: global.Artifact, loginURL:`/${config.API_VERSION}/login` })); 
  // let attachCurrentServiceToReq = require('./middlewares/attachCurrentServiceToReq');
  // app.use(attachCurrentServiceToReq);
+=======
+ authorization.deserializeUserRoles(function(currentLoggedInUser,done){
+  if(!currentLoggedInUser){
+   let roles = [];
+   done(roles);
+   return;
+  }
+
+  if(currentLoggedInUser.roles !== undefined &amp;&amp; currentLoggedInUser.roles.length !== 0){
+   //query roles with role names = the current user's roles e.g. ['admin','product_manager']
+   let QUERY = {
+    $or : currentLoggedInUser.roles.map(roleName=>{return {name:roleName}})
+   }
+   app.get('db').collection('roles')
+   .find(QUERY)
+   .toArray(function(error,roles){
+    
+    done(roles);
+   });
+  }
+ });
+ app.use(authorization([serviceUsePolicy]));
+>>>>>>> dev
   
  const DEFAULT_REQUEST_METHOD = 'get';
 
@@ -156,9 +172,18 @@ const init = (app)=>{
    //get middlewares
    let routeSpecificMiddlewares;
    if(route.middlewares &amp;&amp; route.middlewares.length > 0){
-    routeSpecificMiddlewares = getMiddlewares().filter(middleware=>{
-     return route.middlewares.find(middlewareName=>{middlewareName === middleware.name})
-    }); 
+
+    //get middlewares that are defined on each route if there is any.
+    let middlewaresDefinedOnRoute = middleware => route.middlewares.includes(middleware.name);
+    //Reducer that'll sort the filtered routes based on how the route.middlewares are defined.Since sequence is important.
+    let sortBasedOnRouteMiddlewaresDefinition = (acc,middleware) => {
+     acc[route.middlewares.indexOf(middleware.name)] = middleware;
+     return acc;
+    };
+
+    routeSpecificMiddlewares = getMiddlewares().filter(middlewaresDefinedOnRoute);
+    routeSpecificMiddlewares = routeSpecificMiddlewares.length > 0 ? routeSpecificMiddlewares.reduce(sortBasedOnRouteMiddlewaresDefinition) : routeSpecificMiddlewares;
+
    }
    if(routeSpecificMiddlewares){
     app[route.method || DEFAULT_REQUEST_METHOD](route.path,routeSpecificMiddlewares,serviceProvider);
@@ -199,6 +224,12 @@ server.on('dependency-ready',function(dependency){
  }
 });
 
+
+
+/**
+ *  Prepare dependencies
+ */
+
 //1. prepare db
 (async function(){
  try {
@@ -222,13 +253,21 @@ server.on('dependency-ready',function(dependency){
 </div>
 
 <nav>
+<<<<<<< HEAD
     <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-Authentication.html">Authentication</a></li><li><a href="module-Authentication_authenticate.html">Authentication/authenticate</a></li><li><a href="module-Authentication_login.html">Authentication/login</a></li><li><a href="module-Authentication_logout.html">Authentication/logout</a></li><li><a href="module-authorization.html">authorization</a></li><li><a href="module-session-on-redis.html">session-on-redis</a></li><li><a href="module-session-on-redis_sessionCipher.html">session-on-redis/sessionCipher</a></li></ul><h3>Classes</h3><ul><li><a href="Artifact.html">Artifact</a></li><li><a href="Artifact.ArtifactError.html">ArtifactError</a></li><li><a href="Artifact.ArtifactMessage.html">ArtifactMessage</a></li><li><a href="Policy.html">Policy</a></li><li><a href="PolicyViolation.html">PolicyViolation</a></li><li><a href="Rule.html">Rule</a></li></ul><h3>Namespaces</h3><ul><li><a href="HT.html">HT</a></li><li><a href="Services.html">Services</a></li></ul><h3>Global</h3><ul><li><a href="global.html#config">config</a></li><li><a href="global.html#db">db</a></li><li><a href="global.html#destroy">destroy</a></li><li><a href="global.html#genuuidV4">genuuidV4</a></li><li><a href="global.html#get">get</a></li><li><a href="global.html#getMiddleware">getMiddleware</a></li><li><a href="global.html#getServices">getServices</a></li><li><a href="global.html#handleNonXHR">handleNonXHR</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#prefixPath">prefixPath</a></li><li><a href="global.html#set">set</a></li><li><a href="global.html#start">start</a></li><li><a href="global.html#STATUS">STATUS</a></li></ul>
+=======
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-Authentication.html">Authentication</a></li><li><a href="module-Authentication_authenticate.html">Authentication/authenticate</a></li><li><a href="module-Authentication_login.html">Authentication/login</a></li><li><a href="module-Authentication_logout.html">Authentication/logout</a></li><li><a href="module-Authorization.html">Authorization</a></li><li><a href="module-session-on-redis.html">session-on-redis</a></li><li><a href="module-session-on-redis_sessionCipher.html">session-on-redis/sessionCipher</a></li></ul><h3>Classes</h3><ul><li><a href="Artifact.html">Artifact</a></li><li><a href="Artifact.ArtifactError.html">ArtifactError</a></li><li><a href="Artifact.ArtifactMessage.html">ArtifactMessage</a></li><li><a href="Policy.html">Policy</a></li><li><a href="PolicyViolation.html">PolicyViolation</a></li><li><a href="Rule.html">Rule</a></li><li><a href="UserMustHaveValidPermission.html">UserMustHaveValidPermission</a></li></ul><h3>Namespaces</h3><ul><li><a href="Config.middlewares.html">middlewares</a></li><li><a href="HT.html">HT</a></li><li><a href="module-Authorization-Typedefs.html">Typedefs</a></li><li><a href="Services.html">Services</a></li></ul><h3>Global</h3><ul><li><a href="global.html#db">db</a></li><li><a href="global.html#destroy">destroy</a></li><li><a href="global.html#genuuidV4">genuuidV4</a></li><li><a href="global.html#get">get</a></li><li><a href="global.html#getMiddleware">getMiddleware</a></li><li><a href="global.html#getRoute">getRoute</a></li><li><a href="global.html#getServices">getServices</a></li><li><a href="global.html#handleNonXHR">handleNonXHR</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#PATTERNS">PATTERNS</a></li><li><a href="global.html#prefixPath">prefixPath</a></li><li><a href="global.html#randomStrGenerator">randomStrGenerator</a></li><li><a href="global.html#set">set</a></li><li><a href="global.html#start">start</a></li><li><a href="global.html#STATUS">STATUS</a></li><li><a href="global.html#validateSchema">validateSchema</a></li></ul>
+>>>>>>> dev
 </nav>
 
 <br class="clear">
 
 <footer>
+<<<<<<< HEAD
     Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Thu Mar 21 2019 23:27:20 GMT+0300 (Arabian Standard Time)
+=======
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Sat Apr 20 2019 00:38:36 GMT+0300 (Arabian Standard Time)
+>>>>>>> dev
 </footer>
 
 <script> prettyPrint(); </script>
