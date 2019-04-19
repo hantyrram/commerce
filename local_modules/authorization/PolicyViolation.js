@@ -4,7 +4,8 @@
  */
 class PolicyViolation extends Error{
   constructor(message){
-    super(message);
+    super();
+    this.message = message;
     this.type = 'POLICY_VIOLATION';
   }
 }
