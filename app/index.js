@@ -1,3 +1,7 @@
+/**
+ * ECommerce Software
+ * @author Ronaldo Ramano
+ */
 require('dotenv').config();
 const path = require('path');
 const MongoClient = require('mongodb').MongoClient;
