@@ -1,15 +1,12 @@
 /**
- * @module Authorization
+ * @module authorization 
+ * @memberof local_modules
  */
 
-/**
- * @namespace Typedefs
- * 
- */
+
 
 /**
  * @typedef {userRolesDeserializer}
- * @memberof Typedefs
  * @param {object} user
  * @param {function} done
  * @desc A function that deserializes the user's roles.The function is invoked with the current
@@ -18,7 +15,7 @@
  */
 
 /**
- * @type {Typedefs~userRoleDeserializer}
+ * @type {Authorization/Typedefs~userRoleDeserializer}
  */
 let userRolesDeserializer;
 

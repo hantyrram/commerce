@@ -4,6 +4,7 @@ const {getRoute} = require('../helpers');
 
 /**
  * Provides a user-friendly message, for pattern schema violation.
+ * @hidden
  */
 const PATTERNS = {
  "^[^\\s]+$" : 'Must Not Contain Space!'
@@ -12,8 +13,9 @@ const PATTERNS = {
 
 
 /**
- * @type {Types~middleware}
- * @func validateSchema
+ * @memberof middlewares
+ * @type {typedefs~middleware}
+ * @function validateSchema
  * @desc A route specific middleware. This middleware can be added on each Route that requires Schema
  * validation. This middleware uses schemas in the /app/schemas.
  * 

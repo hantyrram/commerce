@@ -1,5 +1,6 @@
 /**
- * @type {Types~middleware}
+ * @memberof middlewares
+ * @type {typedefs~middleware}
  * @func handleNonXHR
  * @desc Checks if a request is made thru ajax(XMLHttpRequest)or http. This middleware checks the req.xhr property.
  */

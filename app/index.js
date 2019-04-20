@@ -1,5 +1,6 @@
 /**
  * ECommerce Software
+ * @module HTCommerce
  * @author Ronaldo Ramano
  */
 require('dotenv').config();
@@ -23,13 +24,16 @@ for(let helper of Object.getOwnPropertyNames(helpers)){
 }
 
 let serverStarted = false;
+
 /**
  * @type {Object} 
+ * @private
  * @desc Mongo DB database
  */
 let db;
 
 /**
+ * @global
  * @returns {Array} - The array of middlewares as defined on the middlewares config.
  */
  global.getMiddlewares = ()=>{
@@ -61,12 +65,17 @@ global.getServices = () => {
 }
 
 /**
+ * @global
  * @returns {Array} - The array of routes as defined on the routes config
  */
 global.getRoutes = ()=>{
  return config.routes;
 }
 
+/**
+ * @global
+ * @returns {Array} - The array of routes as defined on the routes config
+ */
 global.errorsHandlers = ()=>{
   return config.errorHandlers.map(handler=>{
    return require('./error_handlers/' + handler);

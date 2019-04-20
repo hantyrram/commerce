@@ -2,12 +2,13 @@
 const { Rule } = require('../../../local_modules/authorization');
 
 /**
+ * 
  * This Rule checks if the current logged in user has a valid permission to access a service.
  * The condition checks if the "permissionRequired" property is not set on the currentAccessedService OR if 
  * it has a truthy value,then it is assumed that the permission is required, permission name maps to service 
- * name so this Rule checks if the user has permission with name equals to the currentAccessedService's name.
- * 
- * 
+ * name so this ule checks if the user has permission with name equals to the currentAccessedService's name.
+ * @memberof rules
+ * @extends Rule
  */
 class UserMustHaveValidPermission extends Rule{
   get condition(){

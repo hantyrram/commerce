@@ -8,7 +8,9 @@ const START = 1;
  * @func employee_credential_password_update
  * @memberof Services
  * @desc Updates Employee password, unsets "temp" field on credential. 
- * @param {}
+ * @param {object} req
+ * @param {object} res
+ * @param {object} next
  */
 module.exports = credential_password_update = async (req,res,next)=>{
 //requires empID from param

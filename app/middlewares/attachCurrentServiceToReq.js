@@ -5,8 +5,10 @@ const Artifact = require('../Artifact');
 const {getRoute} = require('../helpers');
 /**
  *
- * @type {HT~middleware}
- * @desc Attaches the @see{@link{HT~service}} and the @see {Types~route} that's being accessed, to the request object. 
+ * @function attachCurrentServiceToReq
+ * @memberof middlewares
+ * @type {typedefs~middleware}
+ * @desc Attaches the @see {@link{typedefs~service}} and the route that's being accessed, to the request object. 
  * Authorization module and validateSchema middleware depends on this. 
  * The service will ba attached as Request.currentAccessedService property.
  * The route will be attached as Request.currentRoute property.
