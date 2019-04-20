@@ -1,7 +1,6 @@
 const PolicyViolation = require('./PolicyViolation');
 
 /**
- * @module Authorization/Rule
  * @class
  * @abstract
  * @classdesc A Rule represents a single rule in a Policy. It defines a certain condition that a request MUST meet.

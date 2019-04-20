@@ -7,7 +7,7 @@
 /**
 * @typedef {function} serializer
 * @param {Object} user - The Credential to be serialized into the session.
-* @param {Authentication~serializationDoneCallback} 
+* @param {serializationDoneCallback} 
 * @desc A function which allows the user of this module to decide which part of the user 
 * data will be saved on the session, serializer MUST call the serializationDoneCallback passed to 
 * it with the user identifier.

@@ -1,4 +1,4 @@
-//authentication module should provide the login service it's the equivalent to passport.authenticate
+
 /**
  * @type {typedefs~service}
  * @desc logs out a user.
