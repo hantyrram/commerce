@@ -2,8 +2,7 @@
 
 const ObjectID = require('mongodb').ObjectID;
 /**
- * @type {HT~service}
- * @module Authentication/login
+ * @type {typedefs~service}
  * @desc logs in a user.
  */
 module.exports = login = async(req,res)=>{

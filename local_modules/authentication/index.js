@@ -1,12 +1,13 @@
 
 /**
- * @module Authentication
+ * @module authentication
+ * @memberof local_modules
  */
 
 /**
-* @typedef {function} Authentication~serializer
+* @typedef {function} serializer
 * @param {Object} user - The Credential to be serialized into the session.
-* @param {Authentication~serializationDoneCallback} 
+* @param {serializationDoneCallback} 
 * @desc A function which allows the user of this module to decide which part of the user 
 * data will be saved on the session, serializer MUST call the serializationDoneCallback passed to 
 * it with the user identifier.
@@ -16,7 +17,7 @@ let serializer;
 
 
 /**
-* @typedef {function} Authentication~deserializer
+* @typedef {function} deserializer
 * @param {Object} user - The previously serialized user data.
 * @param {@callback} done - The callback once the user is deserialized.
 * @desc Deserializer function, hydrates a user, given a user identifier (e.g. user.id) previously provided during serialization,
@@ -29,7 +30,7 @@ let deserializer;
 /**
  * Sets the serializer to be used by this module.
  * @func
- * @param {Authentication~serializer} fn - The serializer function.
+ * @param {serializer} fn - The serializer function.
  */  
 module.exports.serializeUser = (fn)=>{
  serializer = fn;
@@ -38,7 +39,7 @@ module.exports.serializeUser = (fn)=>{
 /**
  * Sets the deserializer function
  * @func
- * @param {Authentication~deserializer} fn - The deserializer function.
+ * @param {deserializer} fn - The deserializer function.
  */
 module.exports.deserializeUser = (fn)=>{
  deserializer = fn;
@@ -48,7 +49,7 @@ module.exports.deserializeUser = (fn)=>{
 
 /**
  * Initializes the Authentication module with some options. 
- * @func 
+ * @func init
  * @param {object} options - The options object. With the following properties:
  * @param {string} options.loginURL - The login URL.
  * @param {string} options.logoutURL - The logout URL.
@@ -175,6 +176,6 @@ module.exports.init = (options = {})=>{
 /**
  * The function passed to the serializer that MUST be invoked and supplied with a user identifier
  * that will be attached to the session.
- * @typedef {function} Authentication~serializationDoneCallback
+ * @typedef {function} serializationDoneCallback
  * @param {Object} user
  */

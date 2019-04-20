@@ -1,6 +1,5 @@
 /**
- *@type {HT~service}
- *@module  Authentication/authenticate
+ *@type {typedefs~service}
  *@desc Authenticates the user.
  */
 module.exports = authenticate = (req,res,next)=>{

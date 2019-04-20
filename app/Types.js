@@ -1,17 +1,58 @@
 /**
- * @namespace HT
+ * @namespace typedefs
  */
 
+
 /**
- * @typedef {function} HT~service - A service responds to api requests.
- * @param {object} req
- * @param {object} res
- * @param {object} next
+ * @typedef {function} typedefs~service - A service responds to api requests.
+ * @param {Object} req
+ * @param {Object} res
+ * @param {Object} next
  */
 
  /**
- * @typedef {function} HT~middleware - An express middleware.
- * @param {object} req
- * @param {object} res
- * @param {object} next
+  * An express middleware
+ * @see {@link https://expressjs.com/en/guide/using-middleware.html} 
+ * @typedef {function} typedefs~middleware
+ * @param {Object} req
+ * @param {Object} res
+ * @param {Object} next
  */
+
+ /**
+ * A helper is a unit of work in a form of a globally accessible reusable function. 
+ * Helper functions must be exported from helpers/index.
+ * @see {@link https://expressjs.com/en/guide/using-middleware.html} 
+ * @typedef {function} typedefs~helper
+ * @param {*} [args]
+ */
+
+/**
+ * @namespace middlewares
+ * 
+ */
+
+/**
+ * @namespace schemas
+ * 
+ */
+
+/**
+ * @namespace helpers
+ * 
+ */ 
+
+/**
+ * @namespace policies
+ * 
+ */
+
+/**
+ * @namespace rules
+ * 
+ */
+
+/**
+ * @namespace local_modules 
+ */ 
+

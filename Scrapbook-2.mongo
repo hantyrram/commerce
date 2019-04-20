@@ -1,0 +1,4 @@
+db.roles.updateOne({name:'_GOD_'},{$set:{permissions:[]}})
+db.roles.updateOne({name:'_GOD_'},{$addToSet:{permissions:{name:'emp_create',label:'abcde'}}})
+db.roles.findOne({$and:[{name:'_GOD_'},{"permissions.name":'emp_creates'}]})
+db.roles.updateOne({name:'admin'},{$addToSet:{permissions:{name:"employee_credential_generate",label:"Add Role"}}})
