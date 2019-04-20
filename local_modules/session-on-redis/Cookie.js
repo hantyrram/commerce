@@ -1,9 +1,17 @@
+
 /**
- * The session cookie 
+ * The session cookie
+ * @memberof Session
+ * @inner
+ * @constructor
+ * @param {Object} options - Cookie options.
+ * @param {string} options.name - The name that will be used for the cookie.
+ * @param {string} options.expires - The value for the expires/Max-Age cookie property.
+ * @param {string} options.path - The value for the path cookie property.
+ * @param {boolean} options.httpOnly - The value for the http cookie property.
+ * @param {boolean} options.secure - The value for the secure cookie property.
+ * @param {boolean} options.domain - The value for the domain cookie property.
  */
-
-
-//This particular cookie will only be used for user session
 class Cookie{
   constructor(options){
     this.name = options.name;
@@ -17,7 +25,9 @@ class Cookie{
     //this[this.name] = value of the cookie
   }
 
-  //Construct the raw cookie string
+  /**
+   * @return {string} - The cookie string.
+   */
   toString(){
     let arr =  Object.getOwnPropertyNames(this).reduce((acc,propertyName)=>{
       if(propertyName === 'name'){

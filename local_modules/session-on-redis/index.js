@@ -1,4 +1,5 @@
 
+
 const uuidv4 = require('uuid/v4');//connect session
 // const uuidv5 = require('uuid/v5');//for uses sessionnpm
 const session = require('./session');
@@ -7,13 +8,12 @@ const redis = require('redis');
 const DEFAULT_SESSION_EXPIRY = 60*60; // 1 HOUR
 
 
-/**
- * @module session-on-redis
- */
 
 /**
- * 
- * @param {object} opt - The cookie options.
+ * @module session-on-redis
+ * @param {Object} opt - The cookie options.
+ * @param {Object} opt.cookie - The cookie.
+ * @param {Object} [opt.store] - The redis store,uses the local redis store by default.
  */
 module.exports = (opt = {cookie:{},store:{}})=>{
  

@@ -1,11 +1,10 @@
-
 /**
- * @module authentication
- * @memberof local_modules
+ * @module authentication 
  */
 
+
 /**
-* @typedef {function} serializer
+* @typedef {function} authentication~serializer
 * @param {Object} user - The Credential to be serialized into the session.
 * @param {serializationDoneCallback} 
 * @desc A function which allows the user of this module to decide which part of the user 

@@ -1,9 +1,8 @@
+
+
 /**
- * @module authorization 
- * @memberof local_modules
+ *@module authorization
  */
-
-
 
 /**
  * @typedef {userRolesDeserializer}
@@ -20,7 +19,10 @@
 let userRolesDeserializer;
 
 
-
+/**
+ * @param {Array} policies - Array of policies
+ * @return {on} 
+ */
 const enforce = (policies)=>{
   return {
     on : on.bind({},policies)
@@ -53,6 +55,7 @@ const on = async (policies,request)=>{
 }
 
 /**
+ * @export
  * @func
  * @param {Array<Policy>} policies - Array of Policies.
  */                                        

@@ -1,6 +1,6 @@
 /**
  * ECommerce Software
- * @module HTCommerce
+ * @module htcommerce
  * @author Ronaldo Ramano
  */
 require('dotenv').config();
