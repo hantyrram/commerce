@@ -6,10 +6,6 @@ iv.fill('6y7YYhng56YqwR58');
 // const decipher = crypto.createDecipheriv('aes-192-cbc',process.env.COOKIE_SECRET,iv);
 
 /**
- * @module session-on-redis/sessionCipher
- */
-
-/**
  * 
  * @inner
  * @param {string} rawStr - The string to encrypt.

@@ -37,7 +37,7 @@ const authentication = [
 const employee = [
  { path:'/employees', method:'get', serviceProvider:'employee_browse' },
  {
-  path:'/employees', method:'post', serviceProvider:'employee_create', middlewares: ['validateSchema'], 
+  path:'/employees', method:'post', serviceProvider:'employee_add', middlewares: ['validateSchema'], 
   validateSchema: {
    schema: 'Employee'
   }
@@ -122,7 +122,9 @@ const user = [
 
 const role_and_permission = [
  { path: '/roles', method: 'post', serviceProvider: 'role_create', middlewares: ['validateSchema'], validateSchema: { schema: 'Role' } },
+ { path: '/permissions', method: 'get', serviceProvider: 'permission_browse'},
  { path: '/permissions', method: 'post', serviceProvider: 'permission_create', middlewares: ['validateSchema'], validateSchema: { schema: 'Permission' } },
+ 
  {
   path:'/roles',method:'get',serviceProvider:'role_browse'
  },

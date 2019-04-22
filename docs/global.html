@@ -416,6 +416,312 @@
     
 
     
+    <h4 class="name" id="decrypt"><span class="type-signature"></span>decrypt<span class="signature">(encryptedData)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
+    
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>encryptedData</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The encrypted string returned by @see {encrypt}</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="local_modules_session-on-redis_sessionCipher.js.html">local_modules/session-on-redis/sessionCipher.js</a>, <a href="local_modules_session-on-redis_sessionCipher.js.html#line66">line 66</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    - A Promise that resolves to the decrypted string.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="decrypted"><span class="type-signature"></span>decrypted<span class="signature">(encryptedString)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
+    
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>encryptedString</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The encrypted string returned by @see {sessionCipher}.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="local_modules_session-on-redis_sessionCipher.js.html">local_modules/session-on-redis/sessionCipher.js</a>, <a href="local_modules_session-on-redis_sessionCipher.js.html#line40">line 40</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    - A Promise that resolves to the decrypted form of encryptedString.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
     <h4 class="name" id="destroy"><span class="type-signature"></span>destroy<span class="signature">(sessionID)</span><span class="type-signature"></span></h4>
     
 
@@ -540,6 +846,316 @@
 
 
 
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="encrypt"><span class="type-signature"></span>encrypt<span class="signature">(data)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Encrypts the string.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>data</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="local_modules_session-on-redis_sessionCipher.js.html">local_modules/session-on-redis/sessionCipher.js</a>, <a href="local_modules_session-on-redis_sessionCipher.js.html#line57">line 57</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    - A Promise that resolves to an encrypted string.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="encrypted"><span class="type-signature"></span>encrypted<span class="signature">(rawStr)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
+    
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>rawStr</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The string to encrypt.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="local_modules_session-on-redis_sessionCipher.js.html">local_modules/session-on-redis/sessionCipher.js</a>, <a href="local_modules_session-on-redis_sessionCipher.js.html#line14">line 14</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    - A Promise that resolves to the encrypted form of rawStr.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise</span>
+
+
+    </dd>
+</dl>
+
+    
 
 
 
@@ -1360,7 +1976,7 @@
     
 
     
-    <h4 class="name" id="module:session-on-redis"><span class="type-signature"></span>module:session-on-redis<span class="signature">(opt)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="module:authorization"><span class="type-signature"></span>module:authorization<span class="signature">(policies)</span><span class="type-signature"></span></h4>
     
 
     
@@ -1400,13 +2016,13 @@
 
         <tr>
             
-                <td class="name"><code>opt</code></td>
+                <td class="name"><code>policies</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">object</span>
+<span class="param-type">Array.&lt;<a href="Policy.html">Policy</a>></span>
 
 
             
@@ -1416,7 +2032,7 @@
 
             
 
-            <td class="description last">The cookie options.</td>
+            <td class="description last">Array of Policies.</td>
         </tr>
 
     
@@ -1457,7 +2073,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="local_modules_session-on-redis_index.js.html">local_modules/session-on-redis/index.js</a>, <a href="local_modules_session-on-redis_index.js.html#line18">line 18</a>
+        <a href="local_modules_authorization_index.js.html">local_modules/authorization/index.js</a>, <a href="local_modules_authorization_index.js.html#line62">line 62</a>
     </li></ul></dd>
     
 
@@ -1604,7 +2220,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="app_config_routes.js.html">app/config/routes.js</a>, <a href="app_config_routes.js.html#line158">line 158</a>
+        <a href="app_config_routes.js.html">app/config/routes.js</a>, <a href="app_config_routes.js.html#line160">line 160</a>
     </li></ul></dd>
     
 
@@ -2058,12 +2674,16 @@
 <nav>
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-Authentication.html">Authentication</a></li><li><a href="module-Authentication_authenticate.html">Authentication/authenticate</a></li><li><a href="module-Authentication_login.html">Authentication/login</a></li><li><a href="module-Authentication_logout.html">Authentication/logout</a></li><li><a href="module-authorization.html">authorization</a></li><li><a href="module-session-on-redis.html">session-on-redis</a></li><li><a href="module-session-on-redis_sessionCipher.html">session-on-redis/sessionCipher</a></li></ul><h3>Classes</h3><ul><li><a href="Artifact.html">Artifact</a></li><li><a href="Artifact.ArtifactError.html">ArtifactError</a></li><li><a href="Artifact.ArtifactMessage.html">ArtifactMessage</a></li><li><a href="Policy.html">Policy</a></li><li><a href="PolicyViolation.html">PolicyViolation</a></li><li><a href="Rule.html">Rule</a></li></ul><h3>Namespaces</h3><ul><li><a href="HT.html">HT</a></li><li><a href="Services.html">Services</a></li></ul><h3>Global</h3><ul><li><a href="global.html#config">config</a></li><li><a href="global.html#db">db</a></li><li><a href="global.html#destroy">destroy</a></li><li><a href="global.html#genuuidV4">genuuidV4</a></li><li><a href="global.html#get">get</a></li><li><a href="global.html#getMiddleware">getMiddleware</a></li><li><a href="global.html#getServices">getServices</a></li><li><a href="global.html#handleNonXHR">handleNonXHR</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#prefixPath">prefixPath</a></li><li><a href="global.html#set">set</a></li><li><a href="global.html#start">start</a></li><li><a href="global.html#STATUS">STATUS</a></li></ul>
 =======
     <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-Authentication.html">Authentication</a></li><li><a href="module-Authentication_authenticate.html">Authentication/authenticate</a></li><li><a href="module-Authentication_login.html">Authentication/login</a></li><li><a href="module-Authentication_logout.html">Authentication/logout</a></li><li><a href="module-Authorization.html">Authorization</a></li><li><a href="module-session-on-redis.html">session-on-redis</a></li><li><a href="module-session-on-redis_sessionCipher.html">session-on-redis/sessionCipher</a></li></ul><h3>Classes</h3><ul><li><a href="Artifact.html">Artifact</a></li><li><a href="Artifact.ArtifactError.html">ArtifactError</a></li><li><a href="Artifact.ArtifactMessage.html">ArtifactMessage</a></li><li><a href="Policy.html">Policy</a></li><li><a href="PolicyViolation.html">PolicyViolation</a></li><li><a href="Rule.html">Rule</a></li><li><a href="UserMustHaveValidPermission.html">UserMustHaveValidPermission</a></li></ul><h3>Namespaces</h3><ul><li><a href="Config.middlewares.html">middlewares</a></li><li><a href="HT.html">HT</a></li><li><a href="module-Authorization-Typedefs.html">Typedefs</a></li><li><a href="Services.html">Services</a></li></ul><h3>Global</h3><ul><li><a href="global.html#db">db</a></li><li><a href="global.html#destroy">destroy</a></li><li><a href="global.html#genuuidV4">genuuidV4</a></li><li><a href="global.html#get">get</a></li><li><a href="global.html#getMiddleware">getMiddleware</a></li><li><a href="global.html#getRoute">getRoute</a></li><li><a href="global.html#getServices">getServices</a></li><li><a href="global.html#handleNonXHR">handleNonXHR</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#PATTERNS">PATTERNS</a></li><li><a href="global.html#prefixPath">prefixPath</a></li><li><a href="global.html#randomStrGenerator">randomStrGenerator</a></li><li><a href="global.html#set">set</a></li><li><a href="global.html#start">start</a></li><li><a href="global.html#STATUS">STATUS</a></li><li><a href="global.html#validateSchema">validateSchema</a></li></ul>
 >>>>>>> dev
 =======
     <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="local_modules.module_authentication.html">authentication</a></li><li><a href="local_modules.html#.module:authorization">authorization</a></li><li><a href="module-Authentication_authenticate.html">Authentication/authenticate</a></li><li><a href="module-Authentication_login.html">Authentication/login</a></li><li><a href="module-Authentication_logout.html">Authentication/logout</a></li><li><a href="module-HTCommerce.html">HTCommerce</a></li><li><a href="module-session-on-redis.html">session-on-redis</a></li><li><a href="module-session-on-redis_sessionCipher.html">session-on-redis/sessionCipher</a></li></ul><h3>Classes</h3><ul><li><a href="Artifact.html">Artifact</a></li><li><a href="Artifact.ArtifactError.html">ArtifactError</a></li><li><a href="Artifact.ArtifactMessage.html">ArtifactMessage</a></li><li><a href="Policy.html">Policy</a></li><li><a href="PolicyViolation.html">PolicyViolation</a></li><li><a href="Rule.html">Rule</a></li><li><a href="rules.UserMustHaveValidPermission.html">UserMustHaveValidPermission</a></li></ul><h3>Namespaces</h3><ul><li><a href="helpers.html">helpers</a></li><li><a href="local_modules.html">local_modules</a></li><li><a href="middlewares.html">middlewares</a></li><li><a href="policies.html">policies</a></li><li><a href="rules.html">rules</a></li><li><a href="schemas.html">schemas</a></li><li><a href="typedefs.html">typedefs</a></li></ul><h3>Global</h3><ul><li><a href="global.html#destroy">destroy</a></li><li><a href="global.html#errorsHandlers">errorsHandlers</a></li><li><a href="global.html#genuuidV4">genuuidV4</a></li><li><a href="global.html#get">get</a></li><li><a href="global.html#getMiddleware">getMiddleware</a></li><li><a href="global.html#getMiddlewares">getMiddlewares</a></li><li><a href="global.html#getRoutes">getRoutes</a></li><li><a href="global.html#getServices">getServices</a></li><li><a href="global.html#PATTERNS">PATTERNS</a></li><li><a href="global.html#prefixPath">prefixPath</a></li><li><a href="global.html#set">set</a></li><li><a href="global.html#STATUS">STATUS</a></li></ul>
+>>>>>>> dev
+=======
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-authentication.html">authentication</a></li><li><a href="module-authorization.html">authorization</a></li><li><a href="module-htcommerce.html">htcommerce</a></li><li><a href="module-session-on-redis.html">session-on-redis</a></li></ul><h3>Classes</h3><ul><li><a href="Artifact.html">Artifact</a></li><li><a href="Artifact.ArtifactError.html">ArtifactError</a></li><li><a href="Artifact.ArtifactMessage.html">ArtifactMessage</a></li><li><a href="Policy.html">Policy</a></li><li><a href="PolicyViolation.html">PolicyViolation</a></li><li><a href="Rule.html">Rule</a></li><li><a href="rules.MustBeFromAllowedIP.html">MustBeFromAllowedIP</a></li><li><a href="rules.UserMustBeLoggedIn.html">UserMustBeLoggedIn</a></li><li><a href="rules.UserMustHaveValidPermission.html">UserMustHaveValidPermission</a></li><li><a href="Session-Cookie.html">Cookie</a></li></ul><h3>Namespaces</h3><ul><li><a href="helpers.html">helpers</a></li><li><a href="local_modules.html">local_modules</a></li><li><a href="middlewares.html">middlewares</a></li><li><a href="policies.html">policies</a></li><li><a href="rules.html">rules</a></li><li><a href="schemas.html">schemas</a></li><li><a href="typedefs.html">typedefs</a></li></ul><h3>Global</h3><ul><li><a href="global.html#decrypt">decrypt</a></li><li><a href="global.html#decrypted">decrypted</a></li><li><a href="global.html#destroy">destroy</a></li><li><a href="global.html#encrypt">encrypt</a></li><li><a href="global.html#encrypted">encrypted</a></li><li><a href="global.html#errorsHandlers">errorsHandlers</a></li><li><a href="global.html#genuuidV4">genuuidV4</a></li><li><a href="global.html#get">get</a></li><li><a href="global.html#getMiddleware">getMiddleware</a></li><li><a href="global.html#getMiddlewares">getMiddlewares</a></li><li><a href="global.html#getRoutes">getRoutes</a></li><li><a href="global.html#getServices">getServices</a></li><li><a href="global.html#PATTERNS">PATTERNS</a></li><li><a href="global.html#prefixPath">prefixPath</a></li><li><a href="global.html#set">set</a></li><li><a href="global.html#STATUS">STATUS</a></li></ul>
 >>>>>>> dev
 </nav>
 
@@ -2072,12 +2692,16 @@
 <footer>
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Thu Mar 21 2019 23:27:20 GMT+0300 (Arabian Standard Time)
 =======
     Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Sat Apr 20 2019 00:38:37 GMT+0300 (Arabian Standard Time)
 >>>>>>> dev
 =======
     Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Sat Apr 20 2019 18:12:16 GMT+0300 (Arabian Standard Time)
+>>>>>>> dev
+=======
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Mon Apr 22 2019 23:38:28 GMT+0300 (Arabian Standard Time)
 >>>>>>> dev
 </footer>
 

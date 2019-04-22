@@ -1,5 +1,5 @@
 /**
- * @type {HT~service}
+ * @type {typedefs~service}
  * @func role_create
  * @memberof Services
  * @desc Revokes a Credential.

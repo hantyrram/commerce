@@ -14,10 +14,11 @@ class UserMustHaveValidPermission extends Rule{
   get condition(){
      return (request)=>{
        //check 
-       
+       console.log(request.currentAccessedService.permissionIsRequired);
        if(request.currentAccessedService.permissionIsRequired === false){
         return true;         
        }
+
        let userRoles = request.user.deserializedUserRoles;
         
        console.log('@UserMustHaveValidPermission.condition()',userRoles);

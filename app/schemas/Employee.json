@@ -50,9 +50,24 @@
    "type":"string",
    "format":"email"
   },
+  "position":{
+   "type":"string",
+   "maxLength":50
+  },
+  "jobDescription":{
+   "type":"string",
+   "maxLength":100
+  },
   "contactNo":{
    "type":"string",
    "pattern": "^(\\([0-9]{3}\\))?[0-9]{3}-[0-9]{4}$"
+  },
+  "createdOn":{
+   "type":"string",
+   "format": "date-time"
+  },
+  "createdBy":{
+   "type":"string"
   }
  },
  "additionalProperties": false,

@@ -6,6 +6,7 @@ const ObjectID = require('mongodb').ObjectID;
  * @desc logs in a user.
  */
 module.exports = login = async(req,res)=>{
+ console.log('Login reached');
    try {     
     let { username, password } = req.body;
     let QUERY = { username:req.body.username, password:req.body.password };
