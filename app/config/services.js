@@ -3,7 +3,7 @@
  */
 module.exports = [
  '/app/services/employee/employee_browse',
- '/app/services/employee/employee_create',
+ '/app/services/employee/employee_add',
  '/app/services/employee/employee_credential_generate',
  '/app/services/employee/credential_password_update',
  '/app/services/employee/credential_revoke',

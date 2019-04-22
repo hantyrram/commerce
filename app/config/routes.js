@@ -37,7 +37,7 @@ const authentication = [
 const employee = [
  { path:'/employees', method:'get', serviceProvider:'employee_browse' },
  {
-  path:'/employees', method:'post', serviceProvider:'employee_create', middlewares: ['validateSchema'], 
+  path:'/employees', method:'post', serviceProvider:'employee_add', middlewares: ['validateSchema'], 
   validateSchema: {
    schema: 'Employee'
   }

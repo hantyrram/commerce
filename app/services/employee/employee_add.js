@@ -4,11 +4,11 @@ const GENESIS = 1000;//should not be assigned to anyone
 const START = 1001;//first employee
 /**
  * @type {HT~service}
- * @func employee_create
+ * @func employee_add
  * @memberof Services
  * @desc Creates a new Employee Profile
  */
-module.exports = employee_create = async (req,res,next)=>{ 
+module.exports = employee_add = async (req,res,next)=>{ 
  let empID;
  //get last
  let cursor = await req.app.get('db').collection('employees').find({}).sort({ empID:-1 }).limit(1);
