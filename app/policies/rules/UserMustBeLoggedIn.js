@@ -9,11 +9,13 @@ const { Rule } = require('../../../local_modules/authorization');
  */
 class UserMustBeLoggedIn extends Rule{
  get condition(){
-    return (request)=>{
-      if( request.currentAccessedService.permissionIsRequired !== false ){
-       if(!request.user){
-        return false;
-       }
+    return (request)=>{     
+      if(request.currentAccessedService.permissionIsRequired === false){
+       return true;
+      }
+      
+      if(!request.user){
+       return false;
       }
       return true;
    }

@@ -97,6 +97,10 @@ const init = (app)=>{
  app.use(cookieParser());
  app.use(sessionOnRedis());
 
+ app.use(getMiddleware('handleNonXHR'));
+ app.use(getMiddleware('attachArtifactToResponse'))
+ app.use(getMiddleware('attachCurrentServiceToReq'));
+ 
  authentication.serializeUser(function(user,done){
   done(user._id);//save the _id only to the session
  });
@@ -115,11 +119,10 @@ const init = (app)=>{
  });
  app.use(authentication.init({ Artifact: global.Artifact, loginURL:`/${config.API_VERSION}/login` })); 
 
- app.use(getMiddleware('handleNonXHR'));
- app.use(getMiddleware('attachArtifactToResponse'))
- app.use(getMiddleware('attachCurrentServiceToReq'));
+ 
  
  authorization.deserializeUserRoles(function(currentLoggedInUser,done){
+  console.log(currentLoggedInUser);
   if(!currentLoggedInUser){
    let roles = [];
    done(roles);
@@ -139,6 +142,7 @@ const init = (app)=>{
    });
   }
  });
+ 
  app.use(authorization([serviceUsePolicy]));
   
  const DEFAULT_REQUEST_METHOD = 'get';

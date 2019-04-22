@@ -61,6 +61,8 @@ const on = async (policies,request)=>{
  */                                        
 module.exports = (policies) => {
  return (request,response,next)=>{
+  console.log('Auth Reached');
+  console.log(request.user)
    /**
     * The function passed to the userRoleDeserializer as second parameter, that will receive 
     * the deserialized roles of the currently logged in user. ES5 function is used to allow
@@ -70,17 +72,16 @@ module.exports = (policies) => {
     * 
     */
    let done = function(roles){
-    //non-enumerable so it won't be saved on the session
     if(request.user){
      request.user.deserializedUserRoles = roles;
-     enforce(policies).on(request).then(()=> next() ).catch(policyViolation=>{
-      request.unauthorized = true;
-      console.log('Catching Policy Violation');
-      // next(policyViolation);//error on first violation
-      //?? make this configurable, e.g. if useErrorHandler is true, just call next(policyViolation) don't terminate here
-      response.status(403).json({status:'nok',source: 'authorization', error:policyViolation});
-     });
     }
+    enforce(policies).on(request).then(()=> next() ).catch(policyViolation=>{
+     request.unauthorized = true;
+     console.log('Catching Policy Violation');
+     // next(policyViolation);//error on first violation
+     //?? make this configurable, e.g. if useErrorHandler is true, just call next(policyViolation) don't terminate here
+     response.status(403).json({status:'nok',source: 'authorization', error:policyViolation});
+    });
    }
 
    userRolesDeserializer(request.user, done);
