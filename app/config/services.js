@@ -10,6 +10,7 @@ module.exports = [
  '/app/services/employee/employee_roles_add',
  '/app/services/role_and_permission/role_create',
  '/app/services/role_and_permission/permission_create',
+ '/app/services/role_and_permission/permission_browse',
  '/app/services/role_and_permission/role_browse',
  '/app/services/user/user_browse',
  '/app/services/user/user_read',

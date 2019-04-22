@@ -2,7 +2,8 @@
  * @type {HT~service}
  * @func permission_create
  * @memberof Services
- * @desc Creates a New Permission
+ * @desc Creates a New Permission. Assigns the permission to _GOD_ role. No need for permissions collection.
+ * _GOD_ role MUST be an unassignable role.
  * @param {}
  */
 module.exports = permission_create = async (req,res,next)=>{

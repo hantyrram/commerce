@@ -73,7 +73,7 @@ module.exports = (policies) => {
     //non-enumerable so it won't be saved on the session
     if(request.user){
      request.user.deserializedUserRoles = roles;
-     enforce(policies).on(request).then(()=>next()).catch(policyViolation=>{
+     enforce(policies).on(request).then(()=> next() ).catch(policyViolation=>{
       request.unauthorized = true;
       console.log('Catching Policy Violation');
       // next(policyViolation);//error on first violation
