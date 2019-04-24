@@ -110,10 +110,8 @@ const init = (app)=>{
   };
 
   app.get('db').collection('employees').findOne(ObjectID(id),OPTIONS,function(err,employee){
-    let user = { ...employee };
-    // user._id = employee._id;
-    // user.username = employee.credential.username;
-    //save only the id,username on the req.object
+    const { _id, empID, fname, lname, roles, credential  } = employee;
+    let user = { _id, empID, fname, lname, roles, credential: { username: credential.username} };
     done(user);
   });
  });
