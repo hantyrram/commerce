@@ -14,20 +14,17 @@ class UserMustHaveValidPermission extends Rule{
   get condition(){
      return (request)=>{
        //check 
-       console.log(request.currentAccessedService.permissionIsRequired);
        if(request.currentAccessedService.permissionIsRequired === false){
         return true;         
        }
 
        let userRoles = request.user.deserializedUserRoles;
         
-       console.log('@UserMustHaveValidPermission.condition()',userRoles);
        if(userRoles && userRoles.length > 0){
         
         //consolidate permissions of each role into 1 array.
         let permissions = [];
         for(let role of userRoles){
-         console.log(role.permissions);
          if(role.permissions && role.permissions.length > 0){
           permissions = permissions.concat(role.permissions);
          }
@@ -42,13 +39,11 @@ class UserMustHaveValidPermission extends Rule{
          return request.currentAccessedService.name === permission.name;
         });
 
-        console.log('User Has The Required Permission',userHasTheRequiredPermission);
         //permissionIsRequire if the service's does not have the permissionRequired property or , the property has a truthy value;
         if(request.currentAccessedService.permissionIsRequired !== false && !userHasTheRequiredPermission){
          return false;
         }
 
-        console.log('userHasTheRequiredPermission',userHasTheRequiredPermission);
         if(request.currentAccessedService.permissionIsRequired !== false && userHasTheRequiredPermission){
          return true;
         }
