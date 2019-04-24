@@ -50,12 +50,15 @@ const employee = [
   }
  },
  { path:'/employees/:empID/credential/revoke', method:'patch', serviceProvider:'credential_revoke' },
+ { path:'/employees/credential/:username/permissions', method:'get', serviceProvider:'employee_credential_permissions_read' },
  { 
   path:'/employees/:empID/roles/add', method:'post', serviceProvider:'employee_roles_add' ,
   middlewares: ['validateSchema'], validateSchema: {
    schema: 'Role'
   }
  },
+ 
+ 
 ]
 
 const user = [
