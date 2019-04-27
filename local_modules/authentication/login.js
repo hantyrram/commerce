@@ -36,7 +36,8 @@ module.exports = login = async(req,res)=>{
     let foundEmployee = await aggregationCursor.next();
     if(foundEmployee){
       // Borrows Employee._id as Authentication's Users user._id
-      let user = { _id: foundEmployee._id ,username: foundEmployee.credential.username };
+      // let user = { _id: foundEmployee._id ,username: foundEmployee.credential.username };
+      let user = { _id: foundEmployee._id, credential: {username: foundEmployee.credential.username}};
       req.login(null,user);
     }else{
       req.login('Invalid Username or Password',null);

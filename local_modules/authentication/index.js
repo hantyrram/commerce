@@ -126,7 +126,7 @@ module.exports.init = (options = {})=>{
   
   if(!req.session || !req.session.user){
    if(req.path !== loginURL && req.path !== logoutURL){
-    let error = new Artifact.Error('AUTHENTICATION_ERROR','Authentication Failed');
+    let error = new Artifact.Error('AUTHENTICATION_ERROR','Authentication Failed! Please login!');
     let artifact = new Artifact(Artifact.NOK,'authenticate',error);
     // next({status:'nok',source:'authenticate',type:'AUTHENTICATION_ERROR',errMsg:'Authentication Failed'});
     next(artifact);
