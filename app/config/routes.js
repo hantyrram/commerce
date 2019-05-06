@@ -57,16 +57,14 @@ const employee = [
    schema: 'Role'
   }
  },
- 
- 
 ]
 
 const user = [
- {
-  path:'/users',
-  method:'get',
-  serviceProvider:'user_browse'
- },
+ // {
+ //  path:'/users',
+ //  method:'get',
+ //  serviceProvider:'user_browse'
+ // },
  { 
   path:'/users/:id', 
   method:'get', 
@@ -155,6 +153,10 @@ const role_and_permission = [
 const test = [
   {path:'/test/test',method:'get',serviceProvider:'test'}
 ]
+
+const all = [
+ { path: '/users', method: 'get', serviceProvider: 'user_browse'}
+]
 /**
  * Prefixes all paths with the API_VERSION.
  * @param {array} routes Arrays of routes
@@ -171,6 +173,6 @@ function prefixPath(prefix,...routes){
   return allRoutes;
 }
 
-let routes = prefixPath(API_VERSION,authentication,employee,user,role_and_permission,test);
+let routes = prefixPath(API_VERSION,authentication,employee,user,role_and_permission,test,all);
 
 module.exports = routes;
