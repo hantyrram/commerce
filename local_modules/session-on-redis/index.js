@@ -11,32 +11,40 @@ const DEFAULT_SESSION_EXPIRY = 60*60; // 1 HOUR
 
 /**
  * @module session-on-redis
- * @param {Object} opt - The cookie options.
- * @param {Object} opt.cookie - The cookie.
- * @param {Object} [opt.store] - The redis store,uses the local redis store by default.
+ * @param {Object} [redisClient] - The redis client to use. This module creates client by default if none is passed
+ * @param {Object} [cookie] - The cookie.
+ * @param {Object} [store] - The redis store,uses the local redis store by default.
  */
-module.exports = (opt = {cookie:{},store:{}})=>{
- 
+module.exports = ({redisClient,cookie,store})=>{
   let Session;
-  if(!opt.redisClient){
+  if(!redisClient){
    Session = session(redis.createClient());
   }else{
-   Session = session(opt.redisClient);
+   Session = session(redisClient);
   }
   
   let options = {
    cookie: {
-    name: opt.cookie.name || 'U_SID',
-    expires: opt.cookie.expires || null,
-    path: opt.cookie.path || '/',
-    sameSite: opt.cookie.sameSite || null,
-    httpOnly: opt.cookie.httpOnly || false,
-    secure: opt.cookie.secure || false,
-    domain: opt.cookie.domain || null,
+    name : 'U_SID',
+    expires: null,
+    path : '/',
+    sameSite: null,
+    httpOnly: false,
+    secure: false,
+    domain: null
    },
-   store:{//expiry of session on redis store,use cookie expiry, otherwise default to 1 hour
-     expire : opt.cookie.expires? opt.cookie.expires: DEFAULT_SESSION_EXPIRY
+   store: {
+    // if there is a cookie and the cookie has expires value use it as redis store session expiry
+    expires: cookie && cookie.expires? cookie.expires: DEFAULT_SESSION_EXPIRY
    }
+  }
+
+  if(cookie){
+   Object.assign(options.cookie,cookie);
+  }
+
+  if(store){
+   Object.assign(options.store,store);
   }
 
   return async function(req,res,next){
