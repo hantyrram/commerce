@@ -9,8 +9,9 @@ const MongoClient = require('mongodb').MongoClient;
 const ObjectID = require('mongodb').ObjectID;
 const cookieParser = require('cookie-parser');
 const express = require('express');
-const server = express();
+
 const config = require('./config');
+const dependencyManager = require('./dependencyManager');
 const sessionOnRedis = require('../local_modules/session-on-redis');
 const authentication = require('../local_modules/authentication');
 //Policy Based Authorization
@@ -91,11 +92,11 @@ global.errorsHandlers = ()=>{
  */
 const init = (app)=>{
  
+ app.set('db',dependencyManager.dependencies.db);
  app.use(express.static(process.cwd()+'/tempimages'));//just to serve the favicon temporarily
- 
  app.use(express.json());
  app.use(cookieParser());
- app.use(sessionOnRedis());
+ app.use(sessionOnRedis({redisClient:dependencyManager.dependencies.redisClient}));
 
  app.use(getMiddleware('handleNonXHR'));
  app.use(getMiddleware('attachArtifactToResponse'))
@@ -180,47 +181,36 @@ const init = (app)=>{
 }
 
 /**
- * Start the server. Mount other apps
- * @param {object} server - The express app
+ * Start the server. Mount apps here.
+ * @param {object} server 
  */
-const start = (server)=>{
- const app = express();
- app.set('db',db);
- init(app);
- server.use(app);
- server.listen(process.env.PORT || 1234,function(){
-  serverStarted = true;
-  console.log('Server Started: ',serverStarted);
- });
-}
+const server = express();
 
-server.on('dependency-ready',function(dependency){
- switch(Object.getOwnPropertyNames(dependency)[0]){
-  case 'db':{
-   db = dependency.db;
-  }
+/**
+ * The hantyr ecommerce app.
+ */
+const app = express();
+
+server.use((req,res,next)=>{
+ console.log(dependencyManager.dependencies.db);
+ if(dependencyManager.isReady()){
+  console.log('Dependencies Ready');
+  init(app);
+  next();
+  return;
  }
- if(db && !serverStarted){
-  start(server);
- }
+ res.send('Sorry! Site is under maintenance. Please try Again Later!');
+});
+
+server.use(app);
+
+server.listen(process.env.PORT || 1234,function(){
+ serverStarted = true;
+ console.log('Server Started: ',serverStarted);
 });
 
 
 
-/**
- *  Prepare dependencies
- */
 
-//1. prepare db
-(async function(){
- try {
-  let client = new MongoClient(process.env.MONGODB_URI,{useNewUrlParser:true});
-  await client.connect();
-  server.emit('dependency-ready',{db:client.db(process.env.MONGODB_DBNAME)});
- } catch (error) {
-  console.log(error);
- }
-})()
-//may add additional dependency asyncronously
 
 
