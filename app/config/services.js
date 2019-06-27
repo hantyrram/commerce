@@ -13,6 +13,7 @@ module.exports = [
  '/app/services/role_and_permission/role_create',
  '/app/services/role_and_permission/permission_create',
  '/app/services/role_and_permission/permission_browse',
+ '/app/services/role_and_permission/permission_delete',
  '/app/services/role_and_permission/role_browse',
  '/app/services/user/user_browse',
  '/app/services/user/user_read',
