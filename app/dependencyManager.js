@@ -45,8 +45,8 @@ var [dependencies,dispatch] = useReducer((state,action)=>{
 (async function(){
  try {
   let client = new MongoClient(process.env.MONGODB_URI,{useNewUrlParser:true});
-  let db = await client.connect();
-  dispatch({type: TYPES.SET_DB,payload: db(process.env.MONGODB_DBNAME)});
+  await client.connect();
+  dispatch({type: TYPES.SET_DB,payload: client.db(process.env.MONGODB_DBNAME)});
  } catch (error) {
   
   console.log('Logging MongodbError',error);
