@@ -25,7 +25,7 @@ module.exports = permission_delete = async (req,res,next)=>{
   console.log(result);
 
   
-  let message = new Artifact.Message(Artifact.Message.SUCCESS, 'Permission Deleted');
+  let message = new Artifact.Message(Artifact.Message.SUCCESS, `Permission with name = ${req.params.name} has been deleted!`);
   let artifact = new Artifact('ok', 'permission_delete', {entity: {}}, message);
   res.json(artifact);
   } catch (error) {
