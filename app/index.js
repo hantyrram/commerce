@@ -199,7 +199,9 @@ server.use((req,res,next)=>{
   next();
   return;
  }
- res.send('Sorry! Site is under maintenance. Please try Again Later!');
+ let error = new Artifact.Error('UNDER_MAINTENANCE','Sorry! Site is under maintenance. Please try Again Later');
+ let artifact = new Artifact('nok','m_main',error);
+ res.send(artifact);
 });
 
 server.use(app);
