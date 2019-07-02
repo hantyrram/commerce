@@ -1,4 +1,3 @@
-const chalk = require('chalk');
 const USERNAME_PREFIX = "htu"; //short for hantyr user
 const GENESIS = 0;
 const START = 1;
