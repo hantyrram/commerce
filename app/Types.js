@@ -8,6 +8,7 @@
  * @param {Object} req
  * @param {Object} res
  * @param {Object} next
+ * @property {Boolean} [permissionIsRequired=true] - Must be explicitly set to false, for the service to bypass authentication.
  */
 
  /**

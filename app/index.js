@@ -19,10 +19,12 @@ const authorization = require('../local_modules/authorization');
 const {serviceUsePolicy} = require('./policies');
 const helpers = require('./helpers');
 global.Artifact = require('./Artifact');
-
+console.log(process.env);
 for(let helper of Object.getOwnPropertyNames(helpers)){
  global[helper] = helpers[helper];
 }
+
+global.APP_ROOT = __dirname;
 
 let serverStarted = false;
 
@@ -192,14 +194,16 @@ const server = express();
 const app = express();
 
 server.use((req,res,next)=>{
- console.log(dependencyManager.dependencies.db);
+ console.log(`index 195`,dependencyManager.dependencies.db);
  if(dependencyManager.isReady()){
   console.log('Dependencies Ready');
   init(app);
   next();
   return;
  }
- res.send('Sorry! Site is under maintenance. Please try Again Later!');
+ let error = new Artifact.Error('UNDER_MAINTENANCE','Sorry! Site is under maintenance. Please try Again Later');
+ let artifact = new Artifact('nok','m_main',error);
+ res.send(artifact);
 });
 
 server.use(app);
