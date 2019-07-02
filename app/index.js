@@ -19,7 +19,7 @@ const authorization = require('../local_modules/authorization');
 const {serviceUsePolicy} = require('./policies');
 const helpers = require('./helpers');
 global.Artifact = require('./Artifact');
-
+console.log(process.env);
 for(let helper of Object.getOwnPropertyNames(helpers)){
  global[helper] = helpers[helper];
 }
