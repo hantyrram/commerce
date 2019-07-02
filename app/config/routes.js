@@ -152,7 +152,8 @@ const role_and_permission = [
 
 
 const test = [
-  {path:'/test/test',method:'get',serviceProvider:'test'}
+  {path:'/test/test',method:'get',serviceProvider:'test'},
+  {path:'/features',method:'get',serviceProvider:'request_user_features'}
 ]
 
 const all = [

@@ -24,6 +24,8 @@ for(let helper of Object.getOwnPropertyNames(helpers)){
  global[helper] = helpers[helper];
 }
 
+global.APP_ROOT = __dirname;
+
 let serverStarted = false;
 
 /**
@@ -192,7 +194,7 @@ const server = express();
 const app = express();
 
 server.use((req,res,next)=>{
- console.log(dependencyManager.dependencies.db);
+ console.log(`index 195`,dependencyManager.dependencies.db);
  if(dependencyManager.isReady()){
   console.log('Dependencies Ready');
   init(app);

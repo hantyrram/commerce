@@ -45,10 +45,21 @@ var [dependencies,dispatch] = useReducer((state,action)=>{
 (async function(){
  try {
   let client = new MongoClient(process.env.MONGODB_URI,{useNewUrlParser:true});
+
+  client.on('serverClosed',()=>{
+   console.log('Close Triggered');
+   dispatch({type: TYPES.SET_DB,payload:null});
+  });
+
+  //listen to server events heres...
+
   await client.connect();
+
   dispatch({type: TYPES.SET_DB,payload: client.db(process.env.MONGODB_DBNAME)});
  } catch (error) {
-  
+  //??? NOTE: client won't reconnect on MongoNetworkError first attempt(intended behavious as per Mongodb driver doc)
+  // Server must be restarted manually.
+
   console.log('Logging MongodbError',error);
  }
 })();
