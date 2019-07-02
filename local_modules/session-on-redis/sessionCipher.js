@@ -1,6 +1,7 @@
 const crypto = require('crypto');
 const iv = Buffer.alloc(16);
-iv.fill('6y7YYhng56YqwR58');
+// iv.fill('6y7YYhng56YqwR58');
+iv.fill(process.env.SESSION_CIPHER_IV);
 
 // const cipher = crypto.createCipheriv('aes-192-cbc',process.env.COOKIE_SECRET,iv);
 // const decipher = crypto.createDecipheriv('aes-192-cbc',process.env.COOKIE_SECRET,iv);
