@@ -40,7 +40,6 @@ module.exports = employee_credential_permissions_read = async (req,res,next)=>{
 
  let r = employee.roles.map( role => {return {name: role}} );// { name : 'admin'}
 
- console.log(chalk.red(`@${SERVICE_NAME} @`,r));
  let ROLES_QUERY = {
   $or: r
  }
