@@ -19,6 +19,31 @@ module.exports = request_user_features = async (req,res)=>{
   console.log(error);
  }
 
+ // [
+ //  { feature: 'products', permissions: [
+ //   {
+ //    browse:true,
+ //    read:true,
+ //    edit:true,
+ //    add:true,
+ //    delete:true
+ //   }],
+ //   feature: 'roles', permissions: [
+ //    {
+ //     browse:true,
+ //     read:true,
+ //     edit:true,
+ //     add:true,
+ //     delete:true,
+ //     permission_delete:true
+ //    }
+ //   ]
+ //  }
+
+ //  getUserFeatures -> 
+
+  
+ // ]
 }
 
 module.exports.permissionIsRequired = false;

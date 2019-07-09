@@ -137,7 +137,7 @@ const role_and_permission = [
   path:'/roles/:name/edit',method:'post',serviceProvider:'role_edit'
  },
  {
-  path:'/roles/:name/delete',method:'post',serviceProvider:'role_delete'
+  path:'/roles/:_id',method:'delete',serviceProvider:'role_delete'
  },
  {
   path:'/roles/:name/permissions',method:'get',serviceProvider:'role_permissions_browse'
@@ -146,7 +146,7 @@ const role_and_permission = [
   path:'/roles/:name/permissions',method:'post',serviceProvider:'role_permissions_add'
  },
  {
-  path:'/roles/:name/permissions/:permissionname',method:'delete',serviceProvider:'role_permissions_delete'
+  path:'/roles/:_id/permissions/:permission_name',method:'delete',serviceProvider:'role_permissions_delete'
  },
 ]
 
