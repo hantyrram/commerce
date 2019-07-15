@@ -1,4 +1,5 @@
 const ObjectID = require('mongodb').ObjectID;
+const {dependencies} = require(`${APP_ROOT}/dependencyManager`);
 /**
  * @type {typedefs~service}
  * @func role_permissions_add
@@ -9,27 +10,27 @@ const ObjectID = require('mongodb').ObjectID;
 module.exports = role_permissions_add = async (req,res,next)=>{
  //roleID
  //permission
+ const {db} = dependencies;
 
- let roleID = req.params.roleID;
- let permission = req.body;
- let roles = req.app.get('db').collection('roles');
+ let roleID = req.params._id;
+ let permissions = req.body; // Array
+
+ console.log('@role_permissions_add',permissions);
+
  try {
 
-  let _GOD_and_TargetRole = await roles.find( {$or:[{ name:'_GOD_' },{_id: ObjectID(roleID)}]}).toArray();
+  
+//   let service = getServices().find(service=>service.name === permission.name);
+  
 
-  if(_GOD_and_TargetRole.length <= 1){
-   res.json({x:'Invalid Role'});
-   return;
-  }
+//   if(service === -1){
+//    let error = new Artifact.Error('INVALID_PERMISSION', `${permission.name} is not a valid permission!`);
+//    let artifact = new Artifact('nok', 'role_permissions_add', error);
+//    res.json(artifact);
+//   }
 
-  let _GOD_ = _GOD_and_TargetRole.find((r)=>r.name === '_GOD_');
-  let isValidPermission = _GOD_.permissions.find(p => p.name === permission.name);
-  if(!isValidPermission){
-   res.json({x:'Not a valid permission'});
-   return;
-  }
 
-  let {matchedCount, modifiedCount} = await roles.update({_id: ObjectID(roleID)},{$addToSet:{permissions:permission}});
+  let {matchedCount, modifiedCount} = await db.collection('roles').updateOne({_id: ObjectID(roleID)},{$addToSet: {permissions : { $each: permissions} }});
   if(matchedCount || modifiedCount){
    let message = new Artifact.Message(Artifact.Message.SUCCESS, `Permission added to Role: ${roleID}`);
    let artifact = new Artifact('ok', 'role_permissions_add', null, message);

@@ -37,4 +37,5 @@ module.exports = permission_delete = async (req,res,next)=>{
 //add role to the system,
 //a role may be assigned to a user a role must exist before it can be assigned to a user.
 
-module.exports.label = 'Fetch Permissions';
+module.exports.label = 'Delete A Permission';
+

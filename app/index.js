@@ -9,81 +9,16 @@ const MongoClient = require('mongodb').MongoClient;
 const ObjectID = require('mongodb').ObjectID;
 const cookieParser = require('cookie-parser');
 const express = require('express');
-
-const config = require('./config');
 const dependencyManager = require('./dependencyManager');
 const sessionOnRedis = require('../local_modules/session-on-redis');
 const authentication = require('../local_modules/authentication');
 //Policy Based Authorization
 const authorization = require('../local_modules/authorization');
 const {serviceUsePolicy} = require('./policies');
-const helpers = require('./helpers');
-global.Artifact = require('./Artifact');
-console.log(process.env);
-for(let helper of Object.getOwnPropertyNames(helpers)){
- global[helper] = helpers[helper];
-}
-
-global.APP_ROOT = __dirname;
+require('./_globals');
 
 let serverStarted = false;
 
-/**
- * @type {Object} 
- * @private
- * @desc Mongo DB database
- */
-let db;
-
-/**
- * @global
- * @returns {Array} - The array of middlewares as defined on the middlewares config.
- */
- global.getMiddlewares = ()=>{
-  return config.middlewares.map((middleware)=>{
-    return require(path.resolve(process.cwd()+middleware));
-  })
-}
-
-/**
- * @global
- * @param {string} name of the middleware.
- * @return {function} the middleware with the given name.
- */
-global.getMiddleware = (name)=>{
-  
-  return getMiddlewares().find(middleware=>{
-    return middleware.name === name;
-  })
-}
-
-/**
- * @global
- * @returns {Array} - The array of services as defined on the services config
- */
-global.getServices = () => {
-  return config.services.map((pathToService)=>{
-    return require(path.resolve(process.cwd() + pathToService));
-  })
-}
-
-/**
- * @global
- * @returns {Array} - The array of routes as defined on the routes config
- */
-global.getRoutes = ()=>{
- return config.routes;
-}
-
-/**
- * @global
- * @returns {Array} - The array of routes as defined on the routes config
- */
-global.errorsHandlers = ()=>{
-  return config.errorHandlers.map(handler=>{
-   return require('./error_handlers/' + handler);
-  });
-}
 /**
  * Loads the route definitions on the express app, using the serviceProvider as responder.
  * Loads the middlewares specific to the routes as well.

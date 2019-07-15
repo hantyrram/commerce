@@ -11,3 +11,7 @@ module.exports = role_browse = async (req,res,next)=>{
     console.log(error);
   }
 }
+
+module.exports.label = 'Fetch Roles';
+
+module.exports.description = 'Retrieves All Roles';

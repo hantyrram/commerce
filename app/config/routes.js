@@ -65,6 +65,7 @@ const user = [
  //  method:'get',
  //  serviceProvider:'user_browse'
  // },
+ {path: '/generateuser', method:'get',serviceProvider:'user_generate'},
  { 
   path:'/users/:id', 
   method:'get', 
@@ -143,11 +144,15 @@ const role_and_permission = [
   path:'/roles/:name/permissions',method:'get',serviceProvider:'role_permissions_browse'
  },
  {
-  path:'/roles/:name/permissions',method:'post',serviceProvider:'role_permissions_add'
+  path:'/roles/:_id/permissions',method:'put',serviceProvider:'role_permissions_add'
  },
  {
   path:'/roles/:_id/permissions/:permission_name',method:'delete',serviceProvider:'role_permissions_delete'
  },
+]
+
+const user_management = [
+   {path: '/users/generate', method:'get',serviceProvider:'user_generate'}
 ]
 
 
@@ -175,6 +180,6 @@ function prefixPath(prefix,...routes){
   return allRoutes;
 }
 
-let routes = prefixPath(API_VERSION,authentication,employee,user,role_and_permission,test,all);
+let routes = prefixPath(API_VERSION,authentication,user_management,employee,user,role_and_permission,user_management,test,all);
 
 module.exports = routes;

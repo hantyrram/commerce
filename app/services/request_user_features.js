@@ -19,6 +19,10 @@ module.exports = request_user_features = async (req,res)=>{
   console.log(error);
  }
 
+module.exports.label = "Fetch user feature"
+
+module.exports.description = "Provides the services that an authenticated user is allowed to access based on it's role."
+
  // [
  //  { feature: 'products', permissions: [
  //   {

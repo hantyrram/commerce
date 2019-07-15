@@ -1,8 +1,12 @@
 const pathToRegexp = require('path-to-regexp');
+const path = require('path');
+const config = require('../config');
+
+
 /**
  * Checks if there is a route definition that could handle the current req.method and req.path. This is 
  * useful on middlewares defined before the route handlers.
- * @memberof helpers
+ * @namespace helpers
  * @type {typedefs~helper}
  * @function getRoute
  * @param {Array} routes - Array of routes.
@@ -34,4 +38,52 @@ module.exports.randomStrGenerator =(length,SAMPLE = 'ABCDEFGHIJKLMNOPQRSTUVWXYZa
   arr.push(SAMPLE[index]);
  }
  return arr.join("");
+}
+
+/**
+ * @global
+ * @returns {Array} - The array of middlewares as defined on the middlewares config.
+ */
+module.exports.getMiddlewares = ()=>{
+   return config.middlewares.map((middleware)=>{
+     return require(path.resolve(process.cwd()+middleware));
+   })
+ }
+
+/**
+ * @global
+ * @param {string} name of the middleware.
+ * @return {function} the middleware with the given name.
+ */
+module.exports.getMiddleware = (name)=>{
+  
+   return getMiddlewares().find(middleware=>{
+     return middleware.name === name;
+   })
+ }
+ 
+ /**
+  * @global
+  * @returns {Array} - The array of services as defined on the services config
+  */
+ module.exports.getServices = () => {
+   return config.services.map((pathToService)=>{
+     return require(path.resolve(process.cwd() + pathToService));
+   })
+ } 
+
+ /**
+ * @returns {Array} - The array of routes as defined on the routes config
+ */
+module.exports.getRoutes = ()=>{
+   return config.routes;
+  }
+  
+/**
+* @returns {Array} - The array of routes as defined on the routes config
+*/
+module.exports.errorsHandlers = ()=>{
+   return config.errorHandlers.map(handler=>{
+   return require('../error_handlers/' + handler);
+   });
 }
