@@ -6,7 +6,8 @@ module.exports = role_browse = async (req,res,next)=>{
     
     // let roles = await req.app.get('db').collection('roles').find({}).toArray();
     let roles = await db.collection('roles').find({}).toArray();
-    res.json({status:'ok',source:'role_browse',entity: roles });
+    
+    res.json({status:'ok',source:'role_browse',data : { entity:roles } });
   } catch (error) {
     console.log(error);
   }

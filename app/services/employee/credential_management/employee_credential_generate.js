@@ -40,7 +40,7 @@ module.exports = employee_credential_generate = async (req,res,next)=>{
  //generate temporary password
  let password = randomStrGenerator(10);
  
- let credential = { username, password, temp: true ,createdOn: Date.now()};
+ let credential = { username, password, temp: true ,createdOn: Date.now(), createdBy: req.user.credential.username};
 
  const UPDATE = { 
   $set: { credential },
@@ -55,7 +55,8 @@ module.exports = employee_credential_generate = async (req,res,next)=>{
  }
 
  let msg  = new Artifact.Message(Artifact.Message.SUCCESS,`Username & Password created for EmpID: ${empID}!`);
- let data = { entity: credential };
+ let data = { entity: credential, href :`/users/${empID}` };
+
  let artifact = new Artifact('ok', 'employee_credential_generate', data, msg);
  res.status(201).json(artifact);
 }

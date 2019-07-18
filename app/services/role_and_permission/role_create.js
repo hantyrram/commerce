@@ -13,7 +13,7 @@ module.exports = role_create = async (req,res,next)=>{
    $set: {
     name,
     label,
-    createdBy: req.user.username
+    createdBy: req.user.credential.username
    },
    $currentDate: {
     createdOn: { $type: "timestamp" }
@@ -31,9 +31,11 @@ module.exports = role_create = async (req,res,next)=>{
    return;
   }
 
+  //upsertedId is an object index, _id 
   let message = new Artifact.Message(Artifact.Message.SUCCESS, 'Role Created!');
-  let entity = { _id: upsertedId, name, label};
-  let artifact = new Artifact('ok', 'role_create', {data:{entity}}, message);
+  let entity = { _id: upsertedId._id, name, label};
+  
+  let artifact = new Artifact('ok', 'role_create', {data: { entity, href:`/roles/${entity._id}` } }, message);
   res.json(artifact);
  } catch (error) {
   console.log(error);
