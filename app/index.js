@@ -53,12 +53,11 @@ const init = (app)=>{
     done(user);
   });
  });
- app.use(authentication.init({ Artifact: global.Artifact, loginURL:`/${config.API_VERSION}/login` })); 
+//  app.use(authentication.init({ Artifact: global.Artifact, loginURL:`/${config.API_VERSION}/login` })); 
 
  
  
  authorization.deserializeUserRoles(function(currentLoggedInUser,done){
-  console.log(currentLoggedInUser);
   if(!currentLoggedInUser){
    let roles = [];
    done(roles);
@@ -79,7 +78,7 @@ const init = (app)=>{
   }
  });
  
- app.use(authorization([serviceUsePolicy]));
+//  app.use(authorization([serviceUsePolicy]));
   
  const DEFAULT_REQUEST_METHOD = 'get';
 
@@ -129,7 +128,6 @@ const server = express();
 const app = express();
 
 server.use((req,res,next)=>{
- console.log(`index 195`,dependencyManager.dependencies.db);
  if(dependencyManager.isReady()){
   console.log('Dependencies Ready');
   init(app);

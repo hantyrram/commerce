@@ -87,8 +87,8 @@ const STATUS = {
  * @param {string} status - The status of the operation, values can only be either 'ok' or 'nok'. If value is 'ok' it
  * means the intended operation has succeed. If 'nok' the operation failed.
  * @param {string} source - The name of the service that generated this Artifact.
- * @param {Artifact~error | Object | null} third - If status = 'nok' then the third param should be a {@link Artifact~error}.
- * If status = 'ok', the service may provide some data as a result of completing the operation. E.g. a service that 
+ * @param {Artifact~error | Artifact~message} third - If status = 'nok' then the third param should be a {@link Artifact~error}.
+ * @param {Object} [data] If status = 'ok', the service may provide some data as a result of completing the operation. E.g. a service that 
  * adds a particular entity may need to return the saved entity updated with ._id property to the client. This
  * can be done by putting the entity as a property of artifact.data (example: artifact.data = {entity: entityWithId}).
  * If status = 'nok' Artifact instance will have the error property, if status = 'ok' Artifact instance will have
@@ -96,7 +96,7 @@ const STATUS = {
  *  @param {string} [message = ''] - An optional message.
  */
 class Artifact{
- constructor(status,source,third,message = ''){
+ constructor(status,source,third={type:'',text:''},data){
   if(!(['ok','nok'].includes(status))) throw new Error('Invalid status, values can only be either ok or nok');
   console.log(typeof source);
   console.log(typeof third);
@@ -111,8 +111,10 @@ class Artifact{
   }
   this.status = status;
   this.source = source;
-  this[status === 'nok' ?'error':'data'] = third;
-  this.message = message;
+  this[status === 'nok' ?'error':'message'] = third;
+  if(data){ //conditional to lessen payload when artifact is used as response
+     this.data = data; 
+  }
  }
 }
 

@@ -5,9 +5,12 @@
   "_id": {
    "type": "string"
   },
-  "empID":{
+  "employeeId":{
    "type":"string",
    "pattern":"^ht[0-9]+$"
+  },
+  "salutation":{
+   "type":"string"
   },
   "fname":{
    "type":"string",
@@ -24,17 +27,31 @@
    "minLength":6,
    "maxLength":60
   },
-  "dateOfBirth":{
-   "type":"string",
-   "format":"date"
-  },
   "gender":{
    "type":"string",
    "enum": ["male","female"]
   },
+  "nationality":{
+   "type":"string"
+  },
+  "dateOfBirth":{
+   "type":"string",
+   "format":"date"
+  },
+  "email":{
+   "type":"string",
+   "format":"email"
+  },
+  "alternateEmail":{
+   "type":"string",
+   "format":"email"
+  },
   "joiningDate":{
    "type":"string",
    "format":"date"
+  },
+  "jobTitle": {
+   "type":"string"
   },
   "permanentAddress":{
    "type":"string",
@@ -46,10 +63,6 @@
    "minLength":6,
    "maxLength":100
   },
-  "personalEmail":{
-   "type":"string",
-   "format":"email"
-  },
   "position":{
    "type":"string",
    "maxLength":50
@@ -59,14 +72,24 @@
    "maxLength":100
   },
   "contactNo":{
-   "type":"string",
-   "pattern": "^(\\([0-9]{3}\\))?[0-9]{3}-[0-9]{4}$"
+   "type":"string"
+   
   },
   "createdOn":{
    "type":"string",
    "format": "date-time"
   },
   "createdBy":{
+   "type":"string"
+  },
+  "modifiedOn":{
+   "type":"string",
+   "format": "date-time"
+  },
+  "modifiedBy":{
+   "type":"string"
+  },
+  "lastModComment":{
    "type":"string"
   }
  },

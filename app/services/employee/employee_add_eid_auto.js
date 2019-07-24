@@ -2,26 +2,28 @@
 const EMP_ID_PREFIX = "100";//company 1,company 2 = 200
 const GENESIS = 1000;//should not be assigned to anyone
 const START = 1001;//first employee
+const {dependendencies} = require(`${APP_ROOT}/dependencyManager`);
 /**
  * @type {HT~service}
  * @func employee_add
  * @memberof Services
  * @desc Creates a new Employee Profile
  */
-module.exports = employee_add = async (req,res,next)=>{ 
- let empID;
+module.exports = employee_add_eid_auto = async (req,res,next)=>{ 
+   let {db} = dependencies;
+ let employeeId;
  //get last
- let cursor = await req.app.get('db').collection('employees').find({}).sort({ empID:-1 }).limit(1);
+ let cursor = await db.collection('employees').find({}).sort({ employeeId:-1 }).limit(1);
  if(! (await cursor.hasNext())){
-  empID = `${EMP_ID_PREFIX}${START}`; //First employee
+  employeeId = `${EMP_ID_PREFIX}${START}`; //First employee
  }else{
   let lastDoc =  await cursor.next();
-  let lastID = Number(lastDoc.empID.replace(EMP_ID_PREFIX,""));
-  empID = `${EMP_ID_PREFIX }${lastID + 1}`;
+  let lastID = Number(lastDoc.employeeId.replace(EMP_ID_PREFIX,""));
+  employeeId = `${EMP_ID_PREFIX }${lastID + 1}`;
  }
  
  try {
-  let QUERY = { empID: empID };
+  let QUERY = { employeeId: employeeId };
   let UPDATE = {
    $setOnInsert: {
     ...req.body,

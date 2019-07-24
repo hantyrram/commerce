@@ -1,7 +1,7 @@
 const USERNAME_PREFIX = "htu"; //short for hantyr user
 const GENESIS = 0;
 const START = 1;
-
+const { dependencies } = require(`${APP_ROOT }/dependencyManager`);
 
 /**
  * @type {HT~service}
@@ -9,15 +9,16 @@ const START = 1;
  * @memberof Services
  * @desc Generates credential for the given employee.
  */
-module.exports = employee_credential_generate = async (req,res,next)=>{
+module.exports = credential_generate = async (req,res,next)=>{
 //requires empID from param
- let employees = req.app.get('db').collection('employees');
+ let { db } = dependencies;
+ let employees = db.collection('employees');
  let { empID } = req.params; 
  //return credential if employee has existing credential
  let employeeWithCredential = await employees.findOne({ empID: empID, credential: { $exists:true }});
  if(employeeWithCredential){
   let error = new Artifact.Error('INVALID_OPERATION','Employee has existing Credential!');
-  let errorArtifact = new Artifact('nok', 'employee_credential_generate', error);
+  let errorArtifact = new Artifact('nok', 'credential_generate', error);
   res.status(400).json(errorArtifact);
   return;
  }
@@ -49,7 +50,7 @@ module.exports = employee_credential_generate = async (req,res,next)=>{
  let {matchedCount,modifiedCount,result,message} = await  employees.updateOne({ empID: empID },UPDATE);
  if (matchedCount === 0){//query failed, empID does not exist
   let error = new Artifact.Error('NOT_FOUND','Invalid Employee ID!');
-  let errorArtifact = new Artifact('nok', 'employee_credential_generate', error);
+  let errorArtifact = new Artifact('nok', 'credential_generate', error);
   res.status(400).json(errorArtifact);
   return;
  }
@@ -57,8 +58,13 @@ module.exports = employee_credential_generate = async (req,res,next)=>{
  let msg  = new Artifact.Message(Artifact.Message.SUCCESS,`Username & Password created for EmpID: ${empID}!`);
  let data = { entity: credential, href :`/users/${empID}` };
 
- let artifact = new Artifact('ok', 'employee_credential_generate', data, msg);
+ let artifact = new Artifact('ok', 'credential_generate', data, msg);
  res.status(201).json(artifact);
 }
 
-module.exports.label = 'Generates a credential for an employee';
+module.exports.label = 'Generate Credential';
+
+module.exports.description = `Generates a Credential and assigns it to given Employee. Employee MUST already exist in the 
+   system. The generated Credential is a temporary Credential, user MUST changed his/her password before the Credential
+   can be used to log in to the system.
+`

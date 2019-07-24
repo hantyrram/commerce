@@ -2,35 +2,34 @@
  * Only services contained in this array is active.
  */
 module.exports = [
- '/app/services/employee/employee_browse',
- '/app/services/employee/employee_add',
- '/app/services/employee/employee_roles_add',
- '/app/services/employee/credential_password_update',
- '/app/services/employee/credential_revoke',
- '/app/services/employee/employee_credential_permissions_read',
- '/app/services/employee/credential_management/employee_credential_generate',
- '/app/services/user_management/user_browse',
- '/app/services/user_management/user_generate',
- '/app/services/role_and_permission/role_create',
- '/app/services/role_and_permission/permission_create',
- '/app/services/role_and_permission/permission_browse',
- '/app/services/role_and_permission/permission_delete',
- '/app/services/role_and_permission/role_browse',
- '/app/services/role_and_permission/role_delete',
- '/app/services/role_and_permission/role_permissions_delete',
- '/app/services/role_and_permission/role_permissions_add',
- '/app/services/user/user_browse',
- '/app/services/user/user_read',
- '/app/services/user/user_create',
- '/app/services/user/user_update',
- '/app/services/user/user_delete',
- '/app/services/user/user_roles_add',
- '/app/services/user/user_read_permissions',
- '/local_modules/authentication/authenticate',
- '/local_modules/authentication/login',
- '/local_modules/authentication/logout',
- '/app/services/test/test',
- '/app/services/request_user_features'
+   //access_control
+   '/app/services/access_control/credential_browse',
+   '/app/services/access_control/credential_create',
+   '/app/services/access_control/credential_generate',
+   '/app/services/access_control/credential_password_update',
+   '/app/services/access_control/credential_revoke',
+   '/app/services/access_control/permission_browse',
+   '/app/services/access_control/role_browse',
+   '/app/services/access_control/role_create',
+   '/app/services/access_control/role_read',
+   '/app/services/access_control/role_update',
+   '/app/services/access_control/role_delete',
+   '/app/services/access_control/role_permissions_add',
+   '/app/services/access_control/role_permissions_delete',
+   
+   //employee
+   '/app/services/employee/employee_browse',
+   '/app/services/employee/employee_add_eid_auto',
+   '/app/services/employee/employee_add_eid_manual',
+   '/app/services/employee/employee_update',
+   '/app/services/employee/employee_roles_add',
+   '/app/services/employee/employee_roles_read',
+
+   //authentication
+   '/local_modules/authentication/authenticate',
+   '/local_modules/authentication/login',
+   '/local_modules/authentication/logout',
+   '/app/services/request_user_features'
 
 ]
 

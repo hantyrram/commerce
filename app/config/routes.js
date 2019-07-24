@@ -34,22 +34,61 @@ const authentication = [
   }
 ];
 
+const access_control = [
+   ...[//credentials
+      //view list of all credentials
+      {path:'/credentials', method:'get', serviceProvider:'credential_browse' },
+      //manually create a credential - for superusers, to be able to create username that does not conform to the set format
+      {path:'/credentials/create', method:'post', serviceProvider:'credential_create', middlewares: ['validateSchema'], validateSchema: {
+         schema: 'Credential',         
+      }},
+      //update credential's password
+      {path:'/credentials/:_id/password', method:'put', serviceProvider:'credential_password_update' },
+      //revoke credential
+      {path:'/credentials/:_id/revoke', method:'post', serviceProvider:'credential_revoke' },
+      //generate a credential
+      {path:'/credentials/generate', method:'post', serviceProvider:'credential_generate' },
+      
+   ],
+   ...[//roles
+      //view list of all Roles
+      {path:'/roles',method:'get',serviceProvider:'role_browse'},
+      //create new Role
+      { path: '/roles', method: 'post', serviceProvider: 'role_create', middlewares: ['validateSchema'], validateSchema: { schema: 'Role' } },
+      //retrieve single Role
+      { path: '/roles/:_id', method: 'get', serviceProvider: 'role_read'},
+      //update Role - Only the label and description can be modified once it's created
+      { path: '/roles/:_id', method: 'put', serviceProvider: 'role_update'},
+      //get A Role
+      { path: '/roles/:_id', method: 'delete', serviceProvider: 'role_delete'},
+      //add Permissions to Role
+      {path:'/roles/:_id/permissions',method:'put',serviceProvider:'role_permissions_add'},
+      {path:'/roles/:_id/permissions',method:'delete',serviceProvider:'role_permissions_delete'},
+
+   ],
+   ...[//permissions
+      //view list of all Permissions
+      {path:'/permissions',method:'get',serviceProvider:'permission_browse'},
+   ]
+];
+
 const employee = [
  { path:'/employees', method:'get', serviceProvider:'employee_browse' },
- {
-  path:'/employees', method:'post', serviceProvider:'employee_add', middlewares: ['validateSchema'], 
-  validateSchema: {
+ { path:'/employees/add/auto', method:'post', serviceProvider:'employee_add_eid_auto', middlewares: ['validateSchema'], validateSchema: {
    schema: 'Employee'
   }
  },
- { path:'/employees/:empID/credential/generate', method:'post', serviceProvider:'employee_credential_generate' },
- { 
-  path:'/credential/password', method:'put', serviceProvider:'credential_password_update' ,
-  middlewares: ['validateSchema'], validateSchema: {
-   schema: 'Credential'
+ { path:'/employees/add/manual', method:'post', serviceProvider:'employee_add_eid_manual', middlewares: ['validateSchema'], validateSchema: {
+   schema: 'Employee',
+   skip: ['employeeId']
   }
  },
- { path:'/employees/:empID/credential/revoke', method:'patch', serviceProvider:'credential_revoke' },
+ {
+   path:'/employees', method:'put', serviceProvider:'employee_update', middlewares: ['validateSchema'], 
+   validateSchema: {
+    schema: 'Employee'
+   }
+  },
  { path:'/employees/credential/:username/permissions', method:'get', serviceProvider:'employee_credential_permissions_read' },
  { 
   path:'/employees/:empID/roles/add', method:'post', serviceProvider:'employee_roles_add' ,
@@ -59,111 +98,6 @@ const employee = [
  },
 ]
 
-const user = [
- // {
- //  path:'/users',
- //  method:'get',
- //  serviceProvider:'user_browse'
- // },
- {path: '/generateuser', method:'get',serviceProvider:'user_generate'},
- { 
-  path:'/users/:id', 
-  method:'get', 
-  serviceProvider:'user_read' 
- },
- { 
-  path:'/users/:id', 
-  method:'put', 
-  serviceProvider:'user_update', 
-  middlewares: ['validateSchema'], 
-  validateSchema: {
-   schema: 'User'
-  }
- },
- {
-  path:'/users',
-  method:'post',
-  serviceProvider:'user_create',
-  middlewares: ['validateSchema'], 
-  validateSchema: {
-   schema: 'User'
-  }
- },
- {
-  path:'/users/:id',
-  method:'delete',
-  serviceProvider:'user_delete'
- },
- {
-  path:'/users/:id/roles', 
-  method:'get',
-  serviceProvider:'user_roles_browse'
- },
- {
-  path:'/users/:id/roles',
-  method:'post',
-  serviceProvider:'user_roles_add',
-  middlewares: ['validateSchema'],
-  validateSchema: {
-   schema: 'Role',
-   requireId: true,
-   generateEntity: true
-  }
- },
- {
-  path:'/users/:id/roles/:id',
-  method:'delete',
-  serviceProvider:'user_roles_delete'
- },
- {
-  path:'/users/:id/permissions',
-  method:'get',
-  serviceProvider:'user_read_permissions'
- },
-];
-
-const role_and_permission = [
- { path: '/roles', method: 'post', serviceProvider: 'role_create', middlewares: ['validateSchema'], validateSchema: { schema: 'Role' } },
- { path: '/permissions', method: 'get', serviceProvider: 'permission_browse'},
- { path: '/permissions', method: 'post', serviceProvider: 'permission_create', middlewares: ['validateSchema'], validateSchema: { schema: 'Permission' } },
- { path: '/permissions/:name', method: 'delete', serviceProvider: 'permission_delete'},
- 
- {
-  path:'/roles',method:'get',serviceProvider:'role_browse'
- },
- {
-  path:'/roles/:name',method:'get',serviceProvider:'role_read'
- },
- {
-  path:'/roles/:name/edit',method:'post',serviceProvider:'role_edit'
- },
- {
-  path:'/roles/:_id',method:'delete',serviceProvider:'role_delete'
- },
- {
-  path:'/roles/:name/permissions',method:'get',serviceProvider:'role_permissions_browse'
- },
- {
-  path:'/roles/:_id/permissions',method:'put',serviceProvider:'role_permissions_add'
- },
- {
-  path:'/roles/:_id/permissions/:permission_name',method:'delete',serviceProvider:'role_permissions_delete'
- },
-]
-
-const user_management = [
-   {path: '/users/generate', method:'get',serviceProvider:'user_generate'}
-]
-
-
-const test = [
-  {path:'/test/test',method:'get',serviceProvider:'test'},
-  {path:'/features',method:'get',serviceProvider:'request_user_features'}
-]
-
-const all = [
- { path: '/users', method: 'get', serviceProvider: 'user_browse'}
-]
 /**
  * Prefixes all paths with the API_VERSION.
  * @param {array} routes Arrays of routes
@@ -180,6 +114,6 @@ function prefixPath(prefix,...routes){
   return allRoutes;
 }
 
-let routes = prefixPath(API_VERSION,authentication,user_management,employee,user,role_and_permission,user_management,test,all);
+let routes = prefixPath(API_VERSION,authentication,access_control,employee);
 
 module.exports = routes;
