@@ -1,4 +1,4 @@
-const {ERRORS} = require('../config');
+
 /**
  * Authentication has failed
  */

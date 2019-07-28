@@ -38,10 +38,9 @@ const access_control = [
    ...[//credentials
       //view list of all credentials
       {path:'/credentials', method:'get', serviceProvider:'credential_browse' },
+      {path:'/credentials/:_id', method:'get', serviceProvider:'credential_browse' },
       //manually create a credential - for superusers, to be able to create username that does not conform to the set format
-      {path:'/credentials/create', method:'post', serviceProvider:'credential_create', middlewares: ['validateSchema'], validateSchema: {
-         schema: 'Credential',         
-      }},
+      {path:'/credentials/create', method:'post', serviceProvider:'credential_create'},
       //update credential's password
       {path:'/credentials/:_id/password', method:'put', serviceProvider:'credential_password_update' },
       //revoke credential
@@ -63,7 +62,7 @@ const access_control = [
       { path: '/roles/:_id', method: 'delete', serviceProvider: 'role_delete'},
       //add Permissions to Role
       {path:'/roles/:_id/permissions',method:'put',serviceProvider:'role_permissions_add'},
-      {path:'/roles/:_id/permissions',method:'delete',serviceProvider:'role_permissions_delete'},
+      {path:'/roles/:_id/permissions/:permissionName',method:'delete',serviceProvider:'role_permissions_delete'},
 
    ],
    ...[//permissions

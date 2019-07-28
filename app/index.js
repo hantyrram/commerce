@@ -53,10 +53,6 @@ const init = (app)=>{
     done(user);
   });
  });
-//  app.use(authentication.init({ Artifact: global.Artifact, loginURL:`/${config.API_VERSION}/login` })); 
-
- 
- 
  authorization.deserializeUserRoles(function(currentLoggedInUser,done){
   if(!currentLoggedInUser){
    let roles = [];
@@ -77,8 +73,33 @@ const init = (app)=>{
    });
   }
  });
- 
-//  app.use(authorization([serviceUsePolicy]));
+
+if(process.env.NODE_ENV === 'development'){
+   if(process.env.DEV_AUTHENTICATION === 'enabled'){
+      ////turn on authentication module during development if DEV_AUTHENTICATION is set
+      app.use(authentication.init({ Artifact: global.Artifact, loginURL:`/${config.API_VERSION}/login` })); 
+   }else{
+      app.use((req,res,next)=>{
+         //attach a dummy user on development mode.
+         req.user = {
+            credential: {
+               username: 'devuser_testuser'
+            }
+         }
+         next();
+      });
+   }  
+
+   //turn on authorization module during development
+   if(process.env.DEV_AUTHORIZATION === 'enabled'){
+      //enabled authentication on development
+      app.use(authorization([serviceUsePolicy]));
+   }
+}else{
+   //use authentication and authorization by default
+    app.use(authentication.init({ Artifact: global.Artifact, loginURL:`/${config.API_VERSION}/login` })); 
+    app.use(authorization([serviceUsePolicy]));
+}
   
  const DEFAULT_REQUEST_METHOD = 'get';
 

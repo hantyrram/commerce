@@ -22,7 +22,7 @@ module.exports = role_delete = async (req,res,next)=>{
     console.log(deletedCount);
      
     let message = new Artifact.Message(Artifact.Message.SUCCESS, 'Role Deleted!');
-    let artifact = new Artifact('ok', 'role_delete', null, message);
+    let artifact = new Artifact('ok', 'role_delete',message, null );
     res.json(artifact);
    } catch (error) {
     console.log(error);

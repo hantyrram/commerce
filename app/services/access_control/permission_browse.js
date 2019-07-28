@@ -13,7 +13,7 @@ module.exports = permission_browse = async (req,res,next)=>{
    })
 
       let message = new Artifact.Message(Artifact.Message.SUCCESS, 'Permissions');
-      let artifact = new Artifact('ok', 'permission_browse', {data: {entity} }, message);
+      let artifact = new Artifact('ok', 'permission_browse',null, {entity} );
       res.json(artifact);
    } catch (error) {
       console.log(error);

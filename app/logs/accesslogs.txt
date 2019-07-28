@@ -1,0 +1,2 @@
+service: 'credential_read', user: '_genesis_', payload: "JsonStringified req.body"
+service: 'login' , user: '_VISITOR_', payload: 'JsonStringified req.body'

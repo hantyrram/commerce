@@ -22,7 +22,7 @@ module.exports = role_create = async (req,res,next)=>{
   let OPTIONS = {
    upsert: true
   }
-
+  
   let {matchedCount,upsertedId} = await req.app.get('db').collection('roles').updateOne({name},UPDATE,OPTIONS);
   if(matchedCount > 0){
    let err = new Artifact.Error('DUPLICATE_KEY_VIOLATION','Role already exist');
@@ -31,12 +31,18 @@ module.exports = role_create = async (req,res,next)=>{
    return;
   }
 
-  //upsertedId is an object index, _id 
-  let message = new Artifact.Message(Artifact.Message.SUCCESS, 'Role Created!');
-  let entity = { _id: upsertedId._id, name, label};
   
-  let artifact = new Artifact('ok', 'role_create', {data: { entity, href:`/roles/${entity._id}` } }, message);
-  res.json(artifact);
+  const referer = {
+      params : {
+         id : upsertedId._id
+      },
+      name: 'role_create',
+
+      errHandler : (err)=>{console.log(err)}
+   }
+
+  forwardRequest(req,next,referer,'role_read');
+  
  } catch (error) {
   console.log(error);
   next(error);

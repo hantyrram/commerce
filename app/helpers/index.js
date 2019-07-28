@@ -66,11 +66,42 @@ module.exports.getMiddleware = (name)=>{
   * @global
   * @returns {Array} - The array of services as defined on the services config
   */
- module.exports.getServices = () => {
+ module.exports.getServices = getServices = () => {
    return config.services.map((pathToService)=>{
      return require(path.resolve(process.cwd() + pathToService));
    })
  } 
+
+ /**
+  * @global
+  * @param {String} serviceName = The name of the service.
+  * @returns {Array} - The service with the given name.
+  */
+ module.exports.getService = (serviceName) =>{
+   return getServices().filter(service => {
+      return service.name === serviceName
+   })[0];
+ }
+
+ /**
+  * Forwards/pipes the request to other service provider. This allows piping of request to other services.
+  * @param {Object} req - The current request object.
+  * @param {Object} next - The next object.
+  * @param {Service.referer} referer - The referer of the request, defines where the request originated, and
+  * the params needed by the service accepting the request.
+  * @param {String} to - The name of the service that the request will be forwarded to.
+  * 
+  */
+ module.exports.forwardRequest = (req,next,referer,to)=>{
+   req.app.use(
+      (req,res,next)=>{
+         req.referer = referer;
+         next();
+      },
+      getService(to)
+   )
+   next();
+ }
 
  /**
  * @returns {Array} - The array of routes as defined on the routes config

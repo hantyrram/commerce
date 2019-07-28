@@ -11,24 +11,29 @@ module.exports = role_permissions_delete = async (req,res,next)=>{
  const { db } = dependencies;
 
  let roleId = req.params._id;
- let permissionName = req.params.permission_name;
+ let permissionName = req.params.permissionName;
+
  
+ console.log('roleId',roleId);
+ console.log('permissionName',permissionName);
  try {
   const FILTER = { _id: ObjectID(roleId) };
   const UPDATE = {
      $pull : {permissions: {name : permissionName }}
   }
 
+ 
   let findAndModifyWriteOpResultObject = await db.collection('roles').findOneAndUpdate(
    FILTER,
    UPDATE
    );
 
+   console.log(findAndModifyWriteOpResultObject);
   let { value,lastErrorObject, ok } = findAndModifyWriteOpResultObject;
 
 //   if(ok){
    let message = new Artifact.Message(Artifact.Message.SUCCESS, `${permissionName} removed from ${roleId}`);
-   let artifact = new Artifact('ok', 'role_permissions_delete', null, message);
+   let artifact = new Artifact('ok', 'role_permissions_delete', message,null );
    res.json(artifact);
 //   }
 
