@@ -24,5 +24,6 @@ module.exports = attachCurrentServiceToReq = (req,res,next)=>{
   req.currentAccessedService = getServices().find(s=>{
     return s.name === route.serviceProvider;
   })
+  console.log(`Accessing Service: ${req.currentAccessedService.name}`);
   next();
 }

@@ -12,9 +12,10 @@ module.exports = role_permissions_add = async (req,res,next)=>{
  //permission
  const {db} = dependencies;
 
- let roleID = req.params._id;
+ let roleID = req.params.id;
  let permissions = req.body; // Array
 
+ console.log(req.params);
  console.log('@role_permissions_add',permissions);
 
  try {
@@ -33,7 +34,7 @@ module.exports = role_permissions_add = async (req,res,next)=>{
   let {matchedCount, modifiedCount} = await db.collection('roles').updateOne({_id: ObjectID(roleID)},{$addToSet: {permissions : { $each: permissions} }});
   if(matchedCount || modifiedCount){
    let message = new Artifact.Message(Artifact.Message.SUCCESS, `Permission added to Role: ${roleID}`);
-   let artifact = new Artifact('ok', 'role_permissions_add', null, message);
+   let artifact = new Artifact('ok', 'role_permissions_add', message,null);
    res.json(artifact);
   }
   

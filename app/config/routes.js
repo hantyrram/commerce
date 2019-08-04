@@ -61,7 +61,7 @@ const access_control = [
       //get A Role
       { path: '/roles/:_id', method: 'delete', serviceProvider: 'role_delete'},
       //add Permissions to Role
-      {path:'/roles/:_id/permissions',method:'put',serviceProvider:'role_permissions_add'},
+      {path:'/roles/:id/permissions',method:'put',serviceProvider:'role_permissions_add'},
       {path:'/roles/:_id/permissions/:permissionName',method:'delete',serviceProvider:'role_permissions_delete'},
 
    ],
@@ -90,10 +90,10 @@ const employee = [
   },
  { path:'/employees/credential/:username/permissions', method:'get', serviceProvider:'employee_credential_permissions_read' },
  { 
-  path:'/employees/:empID/roles/add', method:'post', serviceProvider:'employee_roles_add' ,
-  middlewares: ['validateSchema'], validateSchema: {
-   schema: 'Role'
-  }
+  path:'/employees/:employeeId/roles', method:'post', serviceProvider:'employee_roles_add' 
+//   , middlewares: ['validateSchema'], validateSchema: {
+//    schema: 'Role'
+//   }
  },
 ]
 

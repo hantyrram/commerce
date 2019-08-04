@@ -24,6 +24,7 @@ module.exports = role_create = async (req,res,next)=>{
   }
   
   let {matchedCount,upsertedId} = await req.app.get('db').collection('roles').updateOne({name},UPDATE,OPTIONS);
+  console.log(matchedCount);
   if(matchedCount > 0){
    let err = new Artifact.Error('DUPLICATE_KEY_VIOLATION','Role already exist');
    let errArtifact = new Artifact('nok','role_create',err);
