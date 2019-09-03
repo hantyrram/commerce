@@ -14,6 +14,7 @@ const {getRoute} = require('../helpers');
  * The route will be attached as Request.currentRoute property.
  */
 module.exports = attachCurrentServiceToReq = (req,res,next)=>{
+   console.log(`m_attachCurrentService: `,new Date());
   let route = getRoute(config.routes,req);
   //attache the service 
   if(!route){
@@ -21,9 +22,15 @@ module.exports = attachCurrentServiceToReq = (req,res,next)=>{
     return;
   }
   req.currentRoute = route;
+  
   req.currentAccessedService = getServices().find(s=>{
     return s.name === route.serviceProvider;
   })
-  console.log(`Accessing Service: ${req.currentAccessedService.name}`);
+  
+  if(!req.currentAccessedService){
+   next({status:'nok',source:'M_attach_current_service_to_req', type:'INVALID_SERVICE',message:'Service not yet available! Contact Administrator!'});
+   return;
+  }
+  console.log(`m_attachCurrentService: `,new Date(), `Service Provider: `,req.currentAccessedService.name);
   next();
 }

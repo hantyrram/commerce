@@ -118,3 +118,13 @@ module.exports.errorsHandlers = ()=>{
    return require('../error_handlers/' + handler);
    });
 }
+
+/**
+ * Converts an express query object, retrieved from the express request object to a
+ * mongo query object.
+ * @param {Object} query The express request.query object.
+ * @return {Object} The mongo query object
+ */
+module.exports.mongoQuery = (query)=>{
+   return JSON.parse(query);
+}

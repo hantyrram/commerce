@@ -1,5 +1,9 @@
 const MongoClient = require('mongodb').MongoClient;
 const redis = require('redis');
+const fs = require('fs');
+const {promisify} = require('util');
+const path = require('path');
+
 
 /**
  * Using Reducer to set dependencies. Each depedency MUST call dispatch with {type:TYPES.<prop>,payload:any}.
@@ -9,12 +13,14 @@ const redis = require('redis');
  */
 const DEPENDENCY = {
  DB: 'db',
- REDIS_CLIENT: 'redisClient'
+//  REDIS_CLIENT: 'redisClient',
+ APIS: 'apis'
 }
 
 const TYPES = {
  SET_DB: `SET-${DEPENDENCY.DB}`,
  SET_REDIS_CLIENT: `SET-${DEPENDENCY.REDIS_CLIENT}`,
+ SET_APIS: `SET-${DEPENDENCY.APIS}`,
 }
 
 const useReducer = (reducer,initialState)=>{
@@ -29,74 +35,91 @@ const useReducer = (reducer,initialState)=>{
 }
 
 var [dependencies,dispatch] = useReducer((state,action)=>{
- switch(action.type){
- case TYPES.SET_DB:{
- return { [DEPENDENCY.DB]: action.payload, ...state};}
- case TYPES.SET_REDIS_CLIENT:{
- return { [DEPENDENCY.REDIS_CLIENT]: action.payload, ...state};} 
- default: return {...state}; 
- }
+   switch(action.type){
+      case TYPES.SET_DB:{
+         return { [DEPENDENCY.DB]: action.payload, ...state};}
+      case TYPES.SET_REDIS_CLIENT:{
+         return { [DEPENDENCY.REDIS_CLIENT]: action.payload, ...state};} 
+      case TYPES.SET_APIS:
+         return {[DEPENDENCY.APIS]:action.payload, ...state}      
+      default: return {...state};   
+   }
 },{});
  
 /**
- * Async calls, prepare depedencies here
+ * Async calls, prepare depedencies here,
+ * Conditionals so that we can turn off dependencies, by commenting DEPENDENCY['KEY']
  */
+if(DEPENDENCY.DB){
+   (async function(){
+      try {
+       let client = new MongoClient(process.env.MONGODB_URI,{useNewUrlParser:true});
+     
+       client.on('serverClosed',()=>{
+        console.log('Close Triggered');
+        dispatch({type: TYPES.SET_DB,payload:null});
+       });
+     
+       //listen to server events heres...
+     
+       await client.connect();
+     
+       dispatch({type: TYPES.SET_DB,payload: client.db(process.env.MONGODB_DBNAME)});
+      } catch (error) {
+       //??? NOTE: client won't reconnect on MongoNetworkError first attempt(intended behavious as per Mongodb driver doc)
+       // Server must be restarted manually.
+     
+       console.log('Logging MongodbError',error);
+      }
+     })();
+}
 
-(async function(){
- try {
-  let client = new MongoClient(process.env.MONGODB_URI,{useNewUrlParser:true});
+if(DEPENDENCY.REDIS_CLIENT){
+   (async function(){
+      try {
+       const OPTIONS = {
+           // host: "127.0.0.1",
+           // port: 6379,
+           url: process.env.REDIS_URL
+       }
+       let redisClient = redis.createClient(OPTIONS);
+     
+       redisClient.on('ready',function(p){
+        dispatch({type: TYPES.SET_REDIS_CLIENT,payload: redisClient});
+       });
+     
+       //a MUST to catch the error,node would crash if redis-server is not started.
+       //this catches the error. Try catch block won't catch ECONNREFUSED error
+       redisClient.on('error',function(e){
+        if(e.code === 'ECONNREFUSED'){
+         //send email
+         console.log('Make Sure Redis Server is running!');
+        }
+        console.log('Error connecting to redis');
+       });
+     
+       redisClient.on('reconnecting',function(o){
+        console.log('Logging inside reconnecting',o);
+       });
+     
+      } catch (error) {
+         console.log(error);
+      }
+     })();
+}
 
-  client.on('serverClosed',()=>{
-   console.log('Close Triggered');
-   dispatch({type: TYPES.SET_DB,payload:null});
-  });
-
-  //listen to server events heres...
-
-  await client.connect();
-
-  dispatch({type: TYPES.SET_DB,payload: client.db(process.env.MONGODB_DBNAME)});
- } catch (error) {
-  //??? NOTE: client won't reconnect on MongoNetworkError first attempt(intended behavious as per Mongodb driver doc)
-  // Server must be restarted manually.
-
-  console.log('Logging MongodbError',error);
- }
-})();
-
-
-
-(async function(){
- try {
-  const OPTIONS = {
-      // host: "127.0.0.1",
-      // port: 6379,
-      url: process.env.REDIS_URL
-  }
-  let redisClient = redis.createClient(OPTIONS);
-
-  redisClient.on('ready',function(p){
-   dispatch({type: TYPES.SET_REDIS_CLIENT,payload: redisClient});
-  });
-
-  //a MUST to catch the error,node would crash if redis-server is not started.
-  //this catches the error. Try catch block won't catch ECONNREFUSED error
-  redisClient.on('error',function(e){
-   if(e.code === 'ECONNREFUSED'){
-    //send email
-    console.log('Make Sure Redis Server is running!');
-   }
-   console.log('Error connecting to redis');
-  });
-
-  redisClient.on('reconnecting',function(o){
-   console.log('Logging inside reconnecting',o);
-  });
-
- } catch (error) {
-    console.log(error);
- }
-})();
+if(DEPENDENCY.APIS){
+   (async function(){
+      try {
+         let readdir = promisify(fs.readdir);
+         let files = await readdir(path.resolve(__dirname,'apis'));
+         dispatch({type:TYPES.SET_APIS,payload: files});
+      } catch (error) {
+         dispatch({type:TYPES.SET_APIS,payload:null});
+         console.log('dependencyManager : ',error);
+      }
+   })()
+}
 
 
 /**
@@ -107,12 +130,19 @@ const isReady = ()=>{
  //enumerate on DEPENDENCY values which are the property names of dependencies object.
  //check if all of the "dependencies" properties are set(with truthy values).
  //redis must be connected
- return Object.values(DEPENDENCY).every( key=> Boolean(dependencies[key])) 
- && dependencies[DEPENDENCY.REDIS_CLIENT].connected;
+ return Object.values(DEPENDENCY).every( key=> {
+   if(key === 'REDIS_CLIENT'){
+      // If redis client is one of the dependencies,make sure it's connected
+      return Boolean(dependencies[key]) && dependencies[key].connected; 
+   }
+   return Boolean(dependencies[key]);
+ }) 
+//  && (dependencies[DEPENDENCY.REDIS_CLIENT] ? dependencies[DEPENDENCY.REDIS_CLIENT].connected : false);
  //Redis must not only exist but also connected
  //put this somewhere else, e.g. DEPEDENCY.ADDITIONAL CHECK FOR [DEPENDENCY.<NAME>]
  
 };
+
 
 
 /**

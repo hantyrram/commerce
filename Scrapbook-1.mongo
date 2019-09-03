@@ -1,4 +1,0 @@
-//Create Unique Index on "empID".
-db.employees.createIndex({empID:1},{unique:true});
-//Create Unique Index on "credential.username", sparse:true Some employees does not have credentials.
-db.employees.createIndex({"credential.username":1},{unique:true,sparse:true});

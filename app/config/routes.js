@@ -95,6 +95,13 @@ const employee = [
 //    schema: 'Role'
 //   }
  },
+ {
+    path: '/employees/:employeeId/roles/:roleName', method:'delete', serviceProvider: 'employee_roles_delete'
+ }
+]
+
+const etc = [
+   { path:'/search', method:'post', serviceProvider: 'search' }
 ]
 
 /**
@@ -113,6 +120,6 @@ function prefixPath(prefix,...routes){
   return allRoutes;
 }
 
-let routes = prefixPath(API_VERSION,authentication,access_control,employee);
+let routes = prefixPath(API_VERSION,authentication,access_control,employee,etc);
 
 module.exports = routes;
