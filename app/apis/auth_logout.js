@@ -1,7 +1,7 @@
 module.exports = {
    path : 'auth/logout',
    method: 'post',
-   resource: 'auth.logout',
-   action: 'exec',
+   resource: 'auth_logout',
+   op: 'exec',
    serviceProvider: 'app/services/auth/logout'
 }

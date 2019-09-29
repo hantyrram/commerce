@@ -3,7 +3,7 @@ const redis = require('redis');
 const fs = require('fs');
 const {promisify} = require('util');
 const path = require('path');
-
+global.DEPENDENCY_MANAGER_PATH = __filename;
 
 /**
  * Using Reducer to set dependencies. Each depedency MUST call dispatch with {type:TYPES.<prop>,payload:any}.

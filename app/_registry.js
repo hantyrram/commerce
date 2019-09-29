@@ -22,6 +22,8 @@ module.exports = {
       `${MIDDLEWARES_PATH}/authentication`,
       `${MIDDLEWARES_PATH}/authorization`,
       `${MIDDLEWARES_PATH}/validateSchema`,
+      `${MIDDLEWARES_PATH}/schemaValidator`,
+
    ],
    
    

@@ -1,7 +1,13 @@
 module.exports = {
-   path : 'employees',
-   method: 'update',
+   path : 'employees/:employee',
+   method: 'patch',
    resource: 'employee',
-   action: 'patch',
-   serviceProvider: 'app/services/admin/employee/edit'
+   op: 'edit',
+   serviceProvider: 'app/services/employee/edit',
+   description: 'Edit Employee.',
+   use: ['schemaValidator'],
+   schemaValidator: {//schemaValidator options
+      schema: 'Employee',
+      op: 'edit',
+   }
 }

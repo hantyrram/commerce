@@ -1,0 +1,13 @@
+db.roles.updateOne(
+   {_id: ObjectId("5d7ad9c577bca40e681ac744")},
+   {
+      $set: {
+         "permissions.$[elem].employee.delete": 1
+      }
+   },
+   {
+      arrayFilters: [
+         {"elem.employee" : {$exists: true}}
+      ]
+   }
+)

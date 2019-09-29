@@ -1,1 +1,15 @@
-role_delete
+install new version of mongodb = DONE version 4.2
+Add Permission To ROle = DONE
+Add Role To Employee = DONE
+GET permissions = DONE
+Fetch All Roles = DONE
+Front end > View Role
+
+NEXT> Remove Role From Employee = DONE
+clean up code
+ - functions must not access other modules directly, use dependency injection
+ - delete unused functions
+
+ -continue working on Admin Features make it simple all non store should be on web admin feature
+
+   

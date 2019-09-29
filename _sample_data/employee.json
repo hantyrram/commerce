@@ -1,0 +1,11 @@
+{
+   "employeeId":"employeeOne",
+	"identity":{
+		"firstname":"Ronskie",
+		"middlename":"Ramskie",
+		"lastname":"male",
+		"dateOfBirth":"0001-01-01"
+	},
+	"joiningDate": "2019-01-01",
+	"tinNo": "12345645646"
+}

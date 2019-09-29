@@ -1,7 +1,7 @@
 module.exports = {
    path : 'auth/login',
    method: 'post',
-   resource: 'auth.login',
-   action: 'exec',
+   resource: 'auth_login',
+   op: 'exec',
    serviceProvider: 'app/services/auth/login'
 }

@@ -18,4 +18,4 @@ module.exports = employee_browse = async (req,res,next)=>{
  // next({type:'UNHANDLED_SERVER_ERROR'});
 }
 
-module.exports.label = 'Create New Employee Profile';
+
