@@ -40,17 +40,9 @@
             }
          },
          "additionalProperties": false,
-         "if" : {
-            "properties": { "_op" : {"const": "edit"} }
-         },
-         "then": {
-            "required": []
-         },
-         "else": {
-            "required": [
-               "firstname","middlename","lastname","dateOfBirth","gender"
-            ]
-         }                
+         "required": [
+            "firstname","middlename","lastname","dateOfBirth","gender"
+         ]            
       },
       "credential": {
          "_op": {

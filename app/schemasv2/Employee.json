@@ -18,17 +18,31 @@
       "userAccount": {
          "$ref": "http://hantyr.com/schemas/definitions.json#/definitions/userAccount"
       },
+      "country":{
+         "type":"string"
+      },      
+      "city":{
+         "type":"string"
+      },      
+      "address":{
+         "type":"string"
+      },      
+      "zipcode":{
+         "type":"string"
+      },      
       "joiningDate": {
          "type":"string",
          "format": "date"
       },
-      "personalContactNo":{
+      "jobTitle":{
          "type":"string"
       },      
-      "personalEmail":{
+      "designation":{
          "type":"string"
-      },
-
+      },      
+      "department":{
+         "type":"string"
+      },      
       "sssNo": {
          "type":"string"
       },
@@ -38,6 +52,20 @@
       },
 
       "tinNo":{
+         "type":"string"
+      },
+      "mobileNo":{
+         "type":"string"
+      },
+      "email":{
+         "type":"string",
+         "format":"email"
+      },
+      "companyIssuedEmail":{
+         "type":"string",
+         "format":"email"
+      },
+      "companyIssuedMobileNo":{
          "type":"string"
       }
       
@@ -49,7 +77,8 @@
             "properties": { "_op" : {"const": "edit"} }
          },
          "then": {
-            "required": []
+            "required": ["_id","employeeId","identity","country",
+               "city","joiningDate","jobTitle","designation","department","mobileNo"]
          }
          
       },
@@ -58,7 +87,18 @@
             "properties": { "_op" : {"const": "create_empidManual"} }
          },
          "then": {
-            "required": ["employeeId","identity","joiningDate","tinNo"]
+            "required": ["employeeId","identity","country",
+               "city","joiningDate","jobTitle","designation","department","mobileNo"]
+         }
+         
+      },
+      {
+         "if" : {
+            "properties": { "_op" : {"const": "create"} }
+         },
+         "then": {
+            "required": ["identity","country",
+               "city","joiningDate","jobTitle","designation","department","mobileNo"]
          }
          
       }

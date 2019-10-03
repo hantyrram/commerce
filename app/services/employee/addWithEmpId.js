@@ -10,9 +10,15 @@ module.exports = employee_addEidManual = async (req,res,next)=>{
    
    let { db } = dependencies;
 
-   await db.collection('employees').insertOne(req.body);
+   let {result,insertedId} = await db.collection('employees').insertOne(req.body);
    
-   res.json({ok:1, text:'Adding employee manually'});
+   res.status(201).json({
+      ok: result.ok,
+      resource: { _id: insertedId },
+      resourceHref: '/employees/' + insertedId,
+      resourceType: 'Employee',
+      code: 201,
+   })
 }
 
 

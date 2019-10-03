@@ -52,8 +52,8 @@ module.exports = schemaValidator = (req,res,next)=>{
          entity = { _op: req.currentApi.schemaValidator.op, ...req.body }
       }
       let valid = validate(entity);
-      if(!valid){
-         res.json({errors:validate.errors,schema:validate.schema});
+      if(!valid){        
+         res.json({ error: { type: 'VALIDATION_ERROR', text: JSON.stringify(validate.errors) }});
          return;
       }
    }

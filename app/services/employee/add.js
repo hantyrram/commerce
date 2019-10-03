@@ -71,7 +71,10 @@ module.exports = employee_add = async (req,res,next)=>{
         code: 201
   
      };
-     res.json(artifact);
+     res.json({
+        ok:1,
+        resource
+     });
    } catch (error) {
     console.log(error);
     next(error);
