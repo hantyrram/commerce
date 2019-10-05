@@ -4,24 +4,24 @@
 
 const ObjectId = require('mongodb').ObjectId;
 
-module.exports = credential_create_auto = async(req,res,next)=>{
-   // let employee = req.preLoadedResource['Employee'];
+module.exports = userAccount_create = async(req,res,next)=>{
+   //create's userAccount.credential
+   let {db} = hantyr.dependencyManager.dependencies;
 
-   let employee = await db.collection('employee').findOne(
-      { _id:ObjectId(req.preLoadedResource['Employee']._id) },
-      {
-         projection: {
-            "userAccount": 1
-         }
-      }
-   );
+   try {
+      await db.collection('employees').find({
+         employeeId: req.body.employeeId
+      });
+   } catch (error) {
+      
+   }
 
    if(employee.userAccount && employee.userAccount.credential){
       res.json({error: {type: 'INVALID_OPERATION',text: 'User Account has existing credential!'}});
       return;
    }
 
-   let {db} = hantyr.dependencyManager.dependencies;
+   
    let credential = {  temp: true , ...req.body };
    let filter = { _id: ObjectId(employee._id)};
    let update = { $set: {  "userAccount.credential" : credential} };

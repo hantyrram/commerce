@@ -7,6 +7,9 @@
       "_op": {
          "$ref": "http://hantyr.com/schemas/definitions.json#/definitions/_op"
       },
+      "_id":{
+         "type":"string"
+      },
       "employeeId":{
          "type":"string",
          "minLength":6,

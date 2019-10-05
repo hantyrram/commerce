@@ -9,7 +9,6 @@
       },
 
       "identity": {
-        
          "type":"object",
          "properties": {
             "_op": {
@@ -19,13 +18,19 @@
                "type":"string"
             },
             "firstname": {
-               "type":"string"
+               "type":"string",
+               "minLength":3,
+               "maxLength": 50
             },
             "middlename": {
-               "type":"string"
+               "type":"string",
+               "minLength":3,
+               "maxLength": 50
             },
             "lastname": {
-               "type":"string"
+               "type":"string",
+               "minLength":3,
+               "maxLength": 50
             },
             "dateOfBirth": {
                "type":"string",
@@ -49,10 +54,13 @@
             "$ref": "#/definitions/_op"
          },
          "username": {
-            "type":"string"
+            "type":"string",
+            "minLength":6,
+            "maxLength":20
          },
          "password": {
-            "type":"string"
+            "type":"string",
+            "minLength":8            
          }
       },
       "userAccount":{
