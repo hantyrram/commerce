@@ -3,7 +3,7 @@ module.exports = {
    method: 'patch',
    resource: 'role',
    op: 'edit',
-   serviceProvider: 'app/services/admin/role/edit',
+   serviceProvider: 'app/services/role/edit',
    description: 'Updates Role',
    // use: ['schemaValidator'],
    // schemaValidator: {

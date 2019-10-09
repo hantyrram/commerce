@@ -3,6 +3,6 @@ module.exports = {
    method: 'get',
    resource: 'role',
    op: 'read',
-   serviceProvider: 'app/services/admin/role/read',
+   serviceProvider: 'app/services/role/read',
    description: 'Get a single Role.',
 }

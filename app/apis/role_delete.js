@@ -3,7 +3,7 @@ module.exports = {
    method: 'delete',
    resource: 'role',
    op: 'delete',
-   serviceProvider: 'app/services/admin/role/delete',
+   serviceProvider: 'app/services/role/delete',
    description: 'Remove Role',
    // use: ['schemaValidator'],
    // schemaValidator: {

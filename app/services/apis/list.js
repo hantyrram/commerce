@@ -8,7 +8,7 @@
  * @memberof Services
  * @desc Creates a new Employee Profile
  */
-module.exports = role_list = async (req,res,next)=>{ 
+module.exports = api_list = async (req,res,next)=>{ 
    
    let apis = req.app.get('apis');
 

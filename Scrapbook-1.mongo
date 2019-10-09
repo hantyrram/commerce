@@ -1,9 +1,10 @@
-db.roles.updateOne({_id:ObjectId("5d7ad9c577bca40e681ac744")},{
-   $addToSet: {
-      permissions: {
-         "employee.credential": {
-            read:1,write:1,list:1,revoke:1
-         }
+db.employees.aggregate([
+   {
+      $match : {
+         "userAccount": {"$exists": true}
       }
+   },
+   {
+      "$replaceWith": { $mergeObjects: [{ _id: "$_id", credential:null, roles: null},"$userAccount"]}
    }
-})
+])

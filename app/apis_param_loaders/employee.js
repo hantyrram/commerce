@@ -8,12 +8,10 @@ module.exports.callback = async function(req,res,next,id){
    const {dependencies} = require('../dependencyManager');
 
    if(ObjectId.isValid(id)){
-      let filter = {_id: ObjectId(id)};
+      let filter = {employeeId:id };
       let options = { 
          projection: {
-            userAccount: 0,
-            roles: 0,
-            _metadata:0,
+            "userAccount.credential.password": 0
          }
       };
 

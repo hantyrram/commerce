@@ -3,7 +3,7 @@ module.exports = {
    method: 'get',
    resource: 'role_permissions',
    op: 'read',
-   serviceProvider: 'app/services/admin/role/permissions/list',
+   serviceProvider: 'app/services/role/permissions/list',
    description: 'Fetch A Role\'s Permissions',
    
 }

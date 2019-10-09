@@ -66,6 +66,7 @@ for(let api of apis){
    try {
        serviceProvider = require(path.resolve(process.cwd(),api.serviceProvider));   
    } catch (error) {
+      console.log(api);
       console.log(error);
       if(error.code === 'MODULE_NOT_FOUND'){
          //skip

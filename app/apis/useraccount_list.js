@@ -3,6 +3,6 @@ module.exports = {
    method: 'get',
    resource: 'userAccount',
    op: 'list',
-   serviceProvider: 'app/services/admin/useraccount/list',
-   description: 'List User Accounts',
+   serviceProvider: 'app/services/useraccount/list',
+   description: 'List All User Accounts',
 }

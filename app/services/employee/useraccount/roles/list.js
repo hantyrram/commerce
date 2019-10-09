@@ -7,7 +7,7 @@ const ObjectId = require('mongodb').ObjectId;
 /**
  * Adds role to employee's user account.
  */
-module.exports = employee_roles_add = async(req,res,next)=>{
+module.exports = employee_roles_list = async(req,res,next)=>{
 
    let {db} = hantyr.dependencyManager.dependencies;
 

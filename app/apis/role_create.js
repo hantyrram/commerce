@@ -3,7 +3,7 @@ module.exports = {
    method: 'post',
    resource: 'role',
    op: 'create',
-   serviceProvider: 'app/services/admin/role/create',
+   serviceProvider: 'app/services/role/create',
    description: 'Creates a new Role',
    use: ['schemaValidator'],
    schemaValidator: {

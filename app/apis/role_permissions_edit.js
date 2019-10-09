@@ -3,7 +3,7 @@ module.exports = {
    method: 'put',
    resource: 'role_permissions',
    op: 'edit',
-   serviceProvider: 'app/services/admin/role/permissions/edit',
+   serviceProvider: 'app/services/role/permissions/edit',
    description: 'Adds Permission to Role',
    use: ['schemaValidator'],
    schemaValidator: {

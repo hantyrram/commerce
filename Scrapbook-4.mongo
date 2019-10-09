@@ -1,9 +1,0 @@
-db.roles.update({
-   _id: ObjectId("5d7ad9c577bca40e681ac744")
-},
-{
-   $set: {
-      "`permissions.$[]."
-   }
-}
-)

@@ -3,6 +3,6 @@ module.exports = {
    method: 'get',
    resource: 'roles',
    op: 'list',
-   serviceProvider: 'app/services/admin/role/list',
+   serviceProvider: 'app/services/role/list',
    description: 'List All Roles',
 }

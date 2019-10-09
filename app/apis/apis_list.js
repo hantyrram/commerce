@@ -3,5 +3,5 @@ module.exports = {
    method: 'get',
    resource: 'api',
    op: 'read',
-   serviceProvider: 'app/services/admin/apis/list'
+   serviceProvider: 'app/services/apis/list'
 }

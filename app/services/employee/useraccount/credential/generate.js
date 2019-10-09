@@ -9,18 +9,31 @@ const { dependencies } = require(`${APP_ROOT }/dependencyManager`);
  * @memberof Services
  * @desc Generates A Temporary Credential. This does not assign or save the credential.
  */
-module.exports = credential_generate = async (req,res,next)=>{
+module.exports = employee_userAccount_credential_generate = async (req,res,next)=>{
 //requires empID from param
  let { db } = dependencies;
 
  let employees = db.collection('employees');
-
-
  
  //Determine the last used username
- const QUERY = { "userAccount.credential": { $exists: true } };
- const OPTIONS = { projection: { "credential.username": 1 } };
- const SORT = { "credential.username": -1 } 
+ const QUERY =  {
+   "$and": 
+      [
+         {
+            "userAccount.credential.username": {
+               "$exists": true
+            }
+         },
+         {
+            "userAccount.credential.username": {
+               "$regex": `^${USERNAME_PREFIX}`
+            }
+         }
+      ]
+   };
+
+ const OPTIONS = { projection: { "userAccount.credential.username": 1 } };
+ const SORT = { "UserAccount.credential.username": -1 } 
  let username;
  let cursor = await employees.find(QUERY,OPTIONS).sort(SORT).limit(1);
  if(! await cursor.hasNext()){
@@ -28,7 +41,8 @@ module.exports = credential_generate = async (req,res,next)=>{
   username = `${USERNAME_PREFIX}${String(START).padStart(5,"0")}`;
  }else{
   let employee = await cursor.next();
-  lastEmployeeNumber = Number(employee.credential.username.replace(USERNAME_PREFIX,""));
+  console.log(employee);
+  lastEmployeeNumber = Number(employee.userAccount.credential.username.replace(USERNAME_PREFIX,""));
   username = `${USERNAME_PREFIX}${String(lastEmployeeNumber + 1).padStart(5,"0")}`;
  }
  //--

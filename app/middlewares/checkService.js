@@ -1,6 +1,6 @@
 
-const config = require('../config');
-const getRoute = require('../functions/getRoute');
+// const config = require('../config');
+// const getRoute = require('../functions/getRoute');
 /**
  *
  * @function checkService

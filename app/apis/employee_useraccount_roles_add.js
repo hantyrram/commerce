@@ -3,7 +3,7 @@ module.exports = {
    method: 'put',
    resource: 'employee_userAccount_roles',
    op: 'add',
-   serviceProvider: 'app/services/employee/useraccount/roles_add',
+   serviceProvider: 'app/services/employee/useraccount/roles/add',
    description: 'Adds Role to Employee',
    use: ['schemaValidator'],
    schemaValidator: {

@@ -35,6 +35,7 @@ schemas['Credential'] = Credential;
  * 
  */
 module.exports = schemaValidator = (req,res,next)=>{
+   
    if(req.currentApi.schemaValidator && req.currentApi.schemaValidator.schema){
       // const schema = require(path.resolve(SCHEMAS_PATH,req.currentApi.schemaValidator.schema))
       const ajv = new Ajv(
@@ -44,6 +45,8 @@ module.exports = schemaValidator = (req,res,next)=>{
             ]
          }
       );
+      console.log('Validating ',req.currentApi.schemaValidator.schema,'...');
+      console.log('Validating Input ',req.body);
       // let validate = ajv.addSchema(definitions).compile(schema);
       let validate = ajv.compile(schemas[req.currentApi.schemaValidator.schema]);
       let entity = req.body;
