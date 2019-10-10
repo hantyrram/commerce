@@ -10,26 +10,25 @@ const ObjectId = require('mongodb').ObjectId;
 module.exports = employee_roles_list = async(req,res,next)=>{
 
    let {db} = hantyr.dependencyManager.dependencies;
-
    
    let employee = req.preLoadedResource['Employee'];
   
-   let {userAccount} = await db.collection('employees').findOne(
-      {
-         _id: ObjectId(employee._id)
-      },
-      {
-         projection: {
-            "userAccount.roles": 1
-         }
-      }  
-   );
+   // let {userAccount} = await db.collection('employees').findOne(
+   //    {
+   //       _id: ObjectId(employee._id)
+   //    },
+   //    {
+   //       projection: {
+   //          "userAccount.roles": 1
+   //       }
+   //    }  
+   // );
 
-   console.log(userAccount.roles.map(role=> 
-      {
-      return ObjectId(role.role_id)
-      }
-   ));
+   // console.log(userAccount.roles.map(role=> 
+   //    {
+   //    return ObjectId(role.role_id)
+   //    }
+   // ));
 
    //aggregate returns a cursor
 

@@ -1,11 +1,10 @@
 db.employees.aggregate([
       {
-        $match: {
-           userAccount: {
-              "$exists": true
-           }
-        }
+         $match: {
+            _id: ObjectId("5d800d142f29ff2727f33f02")
+         }
       },
+      //perform a join op
       {
          "$lookup": {
             from: "roles",
@@ -22,7 +21,7 @@ db.employees.aggregate([
       },
       {
          $replaceWith : {
-            $mergeObjects: [{_owner: "$employeeId",credential:null,roles:[]},"$userAccount"]
+            $mergeObjects: [{_owner: "$employeeId",credential:null,roles:null},"$userAccount"]
          }
       }
    ]).pretty()

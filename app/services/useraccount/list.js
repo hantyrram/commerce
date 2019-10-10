@@ -2,6 +2,7 @@
 
 const { dependencies } = require(`${APP_ROOT}/dependencyManager`);
 
+
 /**
  * @type {HT~service}
  * @func useraccount_list
@@ -10,40 +11,23 @@ const { dependencies } = require(`${APP_ROOT}/dependencyManager`);
  */
 module.exports = useraccount_list = async (req,res,next)=>{ 
    const { db } = dependencies;
+   
    try {
-      let aggregationCursor = await db.collection('employees').aggregate(
-         [
-            { 
-               $match : {
-                  userAccount: {
-                     $exists: true
-                  }
-               } 
-            },
-            {
-               $project : {
-                  userAccount: 1,
-                  employeeId: 1
-               }
-            },
-            {
-               //merges {_id : employee._id, remove} deconstructs $userAccount to the first array element consisting same prop
-               "$replaceWith": { $mergeObjects: [{ _owner: "$employeeId", credential:null, roles: null },"$userAccount"]}
-            }
-         ]
-      );
+      const userAccounts = require(`${APP_ROOT}/mongodb_op_docs/aggregate/userAccounts`);
 
-      let userAccounts = await aggregationCursor.toArray();
+      let aggregationCursor = await db.collection('employees').aggregate(userAccounts());
+
+      let resource = await aggregationCursor.toArray();
 
       res.json({
          ok: 1,
-         resource: userAccounts,
+         resource,
          resourceType: 'Array',
          resourceArrayItemType: 'UserAccount'
       })
       
    } catch (error) {
-      console.log('Err: useraccount_list ',error);
+      console.log(error);
       res.json({
          error: {
             type: 'SERVER_ERROR',

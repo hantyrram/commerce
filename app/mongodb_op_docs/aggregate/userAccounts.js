@@ -1,4 +1,10 @@
-db.employees.aggregate([
+/**
+ * Retreive All User Accounts, with UserAccount.Roles hydrated from Roles collection, using
+ * left outer join ($lookup)
+ * 
+ */
+module.exports = ()=>{
+   return [
       {
         $match: {
            userAccount: {
@@ -25,4 +31,5 @@ db.employees.aggregate([
             $mergeObjects: [{_owner: "$employeeId",credential:null,roles:[]},"$userAccount"]
          }
       }
-   ]).pretty()
+   ]
+}
