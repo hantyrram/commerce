@@ -26,7 +26,7 @@ module.exports = employee_useraccount_roles_add = async(req,res,next)=>{
       return;
    }
    let filter = { "userAccount.credential.username": username};   
-   let update = { $addToSet: {  "userAccount.roles": { role_id: ObjectId(req.body._id) } } } ;
+   let update = { $addToSet: {  "userAccount.roles": { role_id: ObjectId(req.body._id)} } } ;
    let options = {
       projection: {
          "userAccount.roles": 1
