@@ -15,7 +15,7 @@ module.exports = employee_useraccount_roles_remove = async(req,res,next)=>{
    let role = req.preLoadedResource['Role'];
 
    let filter = { _id: ObjectId(employee._id) };   
-   let update = { $pull: {  "userAccount.roles": { role_id: ObjectId(role._id)} } };
+   let update = { $pull: {  "userAccount.roles": { role_id: {$eq:ObjectId(role._id)}} } };
   
    let result = await db.collection('employees').findOneAndUpdate(filter,update);
 
