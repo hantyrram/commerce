@@ -16,7 +16,7 @@ require('./_globals');
 
 const server = express();
 const app = express();
-const PORT = process.env.PORT || 1234;
+const PORT = process.env.PORT || 8080;
 
 global.APP_ROOT = __dirname;
 global.SCHEMAS_PATH = __dirname + '/schemasv2';
@@ -31,7 +31,8 @@ let apiParamLoadersFilenames = fs.readdirSync(path.resolve(__dirname,'apis_param
 console.log(chalk.yellow(`${new Date} : [APP INIT] Found ${apiFilenames.length} API definitions.` ));
 console.log(chalk.yellow(`${new Date} : [APP INIT] Parsing api files...`));
 console.log(chalk.yellow(`${new Date} : [APP INIT] Initializing middlewares...`));
-const middlewares = _registry.middlewares.map(rm => require(path.resolve('.',rm)));
+console.log(chalk.red(process.cwd()));
+const middlewares = _registry.middlewares.map(rm => require(path.resolve(process.cwd(),rm)));
 
 /*** app use ***/
 
@@ -127,7 +128,7 @@ server.use(app);
 
 
 server.listen(PORT,function(){
-   console.log(`${new Date} : [SERVER START_UP] Server started on port ${process.env.PORT || 1234}`);
+   console.log(`${new Date} : [SERVER START_UP] Server started on port ${PORT}`);
    console.log(`${new Date} : [SERVER START_UP] Server is on "${process.env.NODE_ENV}" mode`);
 });
 
