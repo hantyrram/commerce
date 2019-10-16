@@ -1,7 +1,7 @@
 module.exports = {
    path : 'admin/resources',
    method: 'get',
-   resource: 'resource',
+   resource: 'Resource',
    op: 'list',
    serviceProvider: 'app/services/resource/list',
    description: 'Resource List',

@@ -1,7 +1,7 @@
 module.exports = {
    path : 'admin/permissions',
    method: 'get',
-   resource: 'permission',
+   resource: 'Permission',
    op: 'list',
    serviceProvider: 'app/services/permission/list',
    description: 'List Permissions',

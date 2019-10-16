@@ -20,7 +20,8 @@ module.exports = employee_verify = async (req,res,next)=>{
                employeeId:1,
                "identity.firstname": 1,
                "identity.middlename": 1,
-               "identity.lastname": 1
+               "identity.lastname": 1,
+               "userAccount.credential.username": 1
 
             }
          }

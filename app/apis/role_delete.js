@@ -1,7 +1,7 @@
 module.exports = {
    path : 'admin/roles/:role',
    method: 'delete',
-   resource: 'role',
+   resource: 'Role',
    op: 'delete',
    serviceProvider: 'app/services/role/delete',
    description: 'Remove Role',

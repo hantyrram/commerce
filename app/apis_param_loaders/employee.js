@@ -3,12 +3,12 @@ const ObjectId = require('mongodb').ObjectId;
 
 module.exports.params = ['employee'];
 
-module.exports.callback = async function(req,res,next,id){
+module.exports.callback = async function(req,res,next,_id){
    
    const {dependencies} = require('../dependencyManager');
-
-   if(ObjectId.isValid(id)){
-      let filter = {employeeId:id };
+   console.log(ObjectId.isValid(_id));
+   if(ObjectId.isValid(_id)){
+      let filter = { _id : ObjectId(_id) };
       let options = { 
          projection: {
             "userAccount.credential.password": 0

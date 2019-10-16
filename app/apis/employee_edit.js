@@ -1,7 +1,7 @@
 module.exports = {
    path : 'employees/:employee',
    method: 'patch',
-   resource: 'employee',
+   resource: 'Employee',
    op: 'edit',
    serviceProvider: 'app/services/employee/edit',
    description: 'Edit Employee.',

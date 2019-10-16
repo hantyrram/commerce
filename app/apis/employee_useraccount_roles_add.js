@@ -1,7 +1,7 @@
 module.exports = {
    path : 'employees/:employee/useraccount/roles',
    method: 'put',
-   resource: 'employee_userAccount_roles',
+   resource: 'Employee$UserAccount$Roles',
    op: 'add',
    serviceProvider: 'app/services/employee/useraccount/roles/add',
    description: 'Adds Role to Employee',

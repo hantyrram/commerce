@@ -1,7 +1,7 @@
 module.exports = {
    path : 'admin/roles/:role',
    method: 'patch',
-   resource: 'role',
+   resource: 'Role',
    op: 'edit',
    serviceProvider: 'app/services/role/edit',
    description: 'Updates Role',

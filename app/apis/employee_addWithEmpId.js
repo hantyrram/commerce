@@ -1,7 +1,7 @@
 module.exports = {
    path : 'employees/empid_manual',
    method: 'post',
-   resource: 'employee',
+   resource: 'Employee',
    op: 'create_empidManual',
    serviceProvider: 'app/services/employee/addWithEmpId',
    use: ['schemaValidator'],

@@ -1,7 +1,7 @@
 module.exports = {
    path : 'admin/apis',
    method: 'get',
-   resource: 'api',
+   resource: 'Api',
    op: 'read',
    serviceProvider: 'app/services/apis/list'
 }

@@ -1,7 +1,7 @@
 module.exports = {
    path : 'employees',
    method: 'post',
-   resource: 'employee',
+   resource: 'Employee',
    op: 'create',
    serviceProvider: 'app/services/employee/add',
    use: ['schemaValidator'],

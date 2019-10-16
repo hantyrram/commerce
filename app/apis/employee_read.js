@@ -1,7 +1,7 @@
 module.exports = {
    path : 'employees/:employee',
    method: 'get',
-   resource: 'employee',
+   resource: 'Employee',
    op: 'read',
    serviceProvider: 'app/services/employee/read'
 }
