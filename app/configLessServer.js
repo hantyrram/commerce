@@ -90,6 +90,7 @@ for(let api of apis){
          if(found){
             apiMiddlewares.push(found);
          }
+   
       });
    }
 
