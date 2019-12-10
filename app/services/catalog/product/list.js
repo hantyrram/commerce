@@ -1,14 +1,14 @@
 const {dependencies} = require(DEPENDENCY_MANAGER_PATH);
 
-module.exports = employee_list = async (req,res,next)=>{
+module.exports = product_list = async (req,res,next)=>{
    let {db} = dependencies;
    try {
-      let productCategories = await db.collection('productCategories').find({}).toArray();  
+      let products = await db.collection('products').find({}).toArray();  
       res.json({ 
          ok:1, 
-         resource: productCategories,
+         resource: products,
          resourceType: 'Array',
-         resourceItemType: 'ProductCategory'
+         resourceItemType: 'Product'
       });
 
    } catch (error) {

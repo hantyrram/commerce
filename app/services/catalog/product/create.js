@@ -3,19 +3,19 @@ const {dependencies} = require(`${APP_ROOT}/dependencyManager`);
 
 /**
  * @type {HT~service}
- * @func productCategory_create
+ * @func product_create
  * @memberof Services
  * @desc Creates a new Employee Profile
  */
-module.exports = productCategory_create = async (req,res,next)=>{ 
+module.exports = product_create = async (req,res,next)=>{ 
    
    let {db} = dependencies;
    
    try {
 
-      await db.collection('productCategories').createIndex({"name" : 1, "parent":1},{unique: 1});
+      await db.collection('products').createIndex({"name" : 1},{unique: 1});
 
-      let insertOneWriteOpResultObject = await db.collection('productCategories').insertOne(req.body);
+      let insertOneWriteOpResultObject = await db.collection('products').insertOne(req.body);
 
       let {
          result,
@@ -26,10 +26,10 @@ module.exports = productCategory_create = async (req,res,next)=>{
       res.json({
          ok: result.ok,
          resource: ops[0],
-         resourceType: 'ProductCategory',
+         resourceType: 'Product',
          message: {
             type: 'SUCCESS',
-            text: ops[0].name + ' Category Added.'
+            text: ops[0].name + ' Product Added.'
          }
       })
 
@@ -47,7 +47,7 @@ module.exports = productCategory_create = async (req,res,next)=>{
       res.json({
          error: {
             type: 'SERVER_ERROR',
-            text: 'Error Creating Category. Contact Admin.'
+            text: 'Error Creating Product. Contact Admin.'
          }
       })
    }

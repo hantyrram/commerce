@@ -7,17 +7,18 @@
         "$ref": "http://hantyr.com/schemas/definitions.json#/definitions/_op"
      },
      "_id": {
-        "type": "string"
+         "type": "string"  
      },
      "name": {
-        "type":"string",
-        "minLength": 3,
-        "maxLength": 60
+         "type":"string",
+         "pattern": "^[a-zA-Z\\s]+$",
+         "minLength": 3,
+         "maxLength": 60
      },
       "parent": {
          "type":"string",
-        "minLength": 3,
-        "maxLength": 60
+         "minLength": 3,
+         "maxLength": 60
      }   
   },
   "allOf": [
