@@ -17,6 +17,7 @@ const Employee = require(path.resolve(SCHEMAS_PATH,'Employee.json'));
 const Credential = require(path.resolve(SCHEMAS_PATH,'Credential.json'));
 const Permissions = require(path.resolve(SCHEMAS_PATH,'Permissions.json'));
 const ProductCategory = require(path.resolve(SCHEMAS_PATH,'ProductCategory.json'));
+const Product = require(path.resolve(SCHEMAS_PATH,'Product.json'));
 
 const schemas = [];//so that we can easily reference which schema to compile based on the schema defined on the api.
 schemas['definitions'] = definitions;
@@ -26,6 +27,7 @@ schemas['Role'] = Role;
 schemas['Employee'] = Employee;
 schemas['Credential'] = Credential;
 schemas['ProductCategory'] = ProductCategory;
+schemas['Product'] = Product;
 
 /**
  * @memberof middlewares

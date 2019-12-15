@@ -99,6 +99,7 @@ for(let api of apis){
       console.log(chalk.green(`${new Date} : [APP INIT] ${api.method}:/${apiPath} can now accept requests!`));
       continue;
    }
+
    app[api.method](apiPath,reqAttachments,serviceProvider);
    console.log(chalk.green(`${new Date} : [APP INIT] ${api.method}:/${apiPath} can now accept requests!`));
 }

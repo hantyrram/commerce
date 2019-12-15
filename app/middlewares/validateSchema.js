@@ -13,6 +13,7 @@ const PATTERNS = {
 
 
 /**
+ * @deprecated
  * @memberof middlewares
  * @type {typedefs~middleware}
  * @function validateSchema

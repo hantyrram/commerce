@@ -15,6 +15,10 @@ module.exports = product_create = async (req,res,next)=>{
 
       await db.collection('products').createIndex({"name" : 1},{unique: 1});
 
+      if(!req.body.type){
+         req.body.type = 'standard';
+      }
+
       let insertOneWriteOpResultObject = await db.collection('products').insertOne(req.body);
 
       let {

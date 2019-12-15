@@ -5,9 +5,9 @@ module.exports = {
    op: 'create',
    serviceProvider: 'app/services/catalog/product/create',
    description: 'Create New Product',
-   // use: ['schemaValidator'],
-   // schemaValidator: {
-   //    schema: 'ProductCategory',
-   //    op: 'create'
-   // }
+   use: ['schemaValidator'],
+   schemaValidator: {
+      schema: 'Product',
+      op: 'create'
+   }
 }

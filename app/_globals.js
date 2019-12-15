@@ -25,7 +25,10 @@ global.hantyr = {
    flatten : require('./functions/flatten'),
    getPermissions: require('./functions/getPermissions'),
    randomStrGenerator: require('./functions/randomStrGenerator'),
-   createHref: createHref
+   createHref: createHref,
+   function : {
+      flatten : require('./functions/flatten')
+   }
 }
 
 global.hantyr.paths = [];
