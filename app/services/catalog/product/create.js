@@ -19,6 +19,10 @@ module.exports = product_create = async (req,res,next)=>{
          req.body.type = 'standard';
       }
 
+      if(!req.body.type){
+         req.body.inStock = false;
+      }
+
       let insertOneWriteOpResultObject = await db.collection('products').insertOne(req.body);
 
       let {

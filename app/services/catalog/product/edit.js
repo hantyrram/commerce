@@ -35,6 +35,8 @@ module.exports = product_edit = async (req,res,next)=>{
          if(nModified === 0){
             res.json({
                ok,
+               resource: req.body,
+               resourceType: 'Product',
                message: {
                   type: 'INFO',text: 'No changes made.'
                }
