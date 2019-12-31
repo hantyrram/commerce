@@ -13,8 +13,8 @@ module.exports = employee_useraccount_roles_add = async(req,res,next)=>{
    let {db} = hantyr.dependencyManager.dependencies;
    
    let username = req.params.username;
-
-   if(!ObjectId.isValid(req.body._id)){ //
+   
+   if(!ObjectId.isValid(_id)){ //
       res.json({error: {type: 'RESOURCE_NOT_FOUND',text: 'Role not found!'}});
       return;
    }
@@ -40,7 +40,7 @@ module.exports = employee_useraccount_roles_add = async(req,res,next)=>{
       res.json({
          ok: 1,
          resource : role,
-         resourceType: 'Role',
+         resourceType: 'Employee.UserAccount.Role',
          message: {
             type: 'SUCCESS',
             text: 'Role Added To User Account.'

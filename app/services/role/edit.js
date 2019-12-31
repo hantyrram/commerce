@@ -14,7 +14,7 @@ module.exports = role_edit = async (req,res,next)=>{
    
    console.log('Dating Role',req.preLoadedResource['Role']);
    console.log('Role Na Ni Sumbit',req.body);
-   
+   console.log('Service Not Yet Implemented')
    // res.json({
    //    ok:1,
    //    resource: req.body,
@@ -24,7 +24,7 @@ module.exports = role_edit = async (req,res,next)=>{
    res.json({
       error: {
          type: 'ROLE_EDIT_FAILED',
-         text: 'Test Error'
+         text: 'Service Not Yet Implemented'
       }
    })
 }

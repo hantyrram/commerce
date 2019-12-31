@@ -1,6 +1,12 @@
+const excel = require('xlsx');
+const path = require('path');
+let workbook = excel.readFile(path.join(process.cwd(),'assets/PSGCPublication.xlsx'));
+let data = excel.utils.sheet_to_json(workbook.Sheets["PSGC"]);
 module.exports = function servicetwo_read(req,res,next){
-
-   res.json({service: 'servicetwo_read'});
+   console.log(data)
+   res.json({
+      data
+   });
 }
 
 
