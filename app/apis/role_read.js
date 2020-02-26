@@ -1,5 +1,5 @@
 module.exports = {
-   path : 'admin/roles/:role',
+   path : 'roles/:role',
    method: 'get',
    resource: 'Role',
    op: 'read',

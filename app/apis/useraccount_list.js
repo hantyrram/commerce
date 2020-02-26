@@ -1,5 +1,5 @@
 module.exports = {
-   path : 'admin/useraccounts',
+   path : 'useraccounts',
    method: 'get',
    resource: 'UserAccount',
    op: 'list',

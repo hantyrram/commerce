@@ -12,7 +12,7 @@ const ObjectId = require('mongodb').ObjectId;
 module.exports = attribute_addTerm = async (req,res,next)=>{ 
    
    let {db} = dependencies;
-
+   console.log(req.params.id);
    console.log(ObjectId.isValid(req.params.id));
    console.log(req.body)
 
@@ -44,6 +44,7 @@ module.exports = attribute_addTerm = async (req,res,next)=>{
 
       res.status(200).json({
          ok: result.ok,
+         resource: {_id},
          message: {
             type: 'MESSAGE',
             text: `${req.body.term} term deleted.`

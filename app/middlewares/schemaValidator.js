@@ -68,6 +68,10 @@ module.exports = schemaValidator = (req,res,next)=>{
    next();
 }
 
+//schemas = array of {name:'SchemaName', schema:schema}
+module.exports = init = (schemas)=>{
+   forEach()
+}
 /**
  * @typedef {Object} MiddlewareOptions~validateSchemaOptions
  * @property {String} schema The name of the schema

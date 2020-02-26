@@ -1,5 +1,5 @@
 module.exports = {
-   path : 'catalog/attributes',
+   path : 'productattributes',
    method: 'get',
    resource: 'Attribute',
    op: 'list',

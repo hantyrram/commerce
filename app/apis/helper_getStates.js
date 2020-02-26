@@ -1,5 +1,5 @@
 module.exports = {
-   path : 'helpers/getStates/:country',
+   path : 'helpers/getStates/:country?',
    method: 'get',
    resource: 'States',   
    op: 'list',

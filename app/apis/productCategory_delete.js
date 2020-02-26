@@ -1,5 +1,5 @@
 module.exports = {
-   path : 'catalog/productcategories/:productCategory',
+   path : 'productcategories/:productCategory',
    method: 'delete',
    resource: 'ProductCategory',
    op: 'delete',

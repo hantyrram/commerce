@@ -1,6 +1,6 @@
 module.exports = {
-   path : 'admin/roles/:role/permissions',
-   method: 'put',
+   path : 'roles/:role/permissions',
+   method: 'patch',
    resource: 'Role$Permissions',
    op: 'edit',
    serviceProvider: 'app/services/role/permissions/edit',

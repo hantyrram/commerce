@@ -1,5 +1,5 @@
 module.exports = {
-   path : 'catalog/attributes/:id/terms',
+   path : 'productattributes/:id/terms/add',
    method: 'patch',
    resource: 'Attribute$Terms',
    op: 'edit',

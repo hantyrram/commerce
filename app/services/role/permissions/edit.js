@@ -2,6 +2,10 @@
 const {dependencies} = require(`${APP_ROOT}/dependencyManager`);
 const ObjectId = require('mongodb').ObjectId;
 
+/**
+ * WE TRIED TO MOVE THIS TO ROLE EDIT , BUT THIS COULD WORK IF WE WANT TO SEPARATE ROLE$PERMISSIONS EDIT TO
+ * ROLE EDIT
+ */
 
 /**
  * Removes action property if the value is 0. This is to reduce the size of the Permission Object/Document.

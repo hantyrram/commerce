@@ -1,0 +1,22 @@
+{
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "$id": "http://hantyr.com/schemas/Employee$UserAccount.json",
+   "type":"object",
+   "properties": {           
+      "_op": {
+         "$ref": "http://hantyr.com/schemas/definitions.json#/definitions/_op"
+      },
+      "_id":{
+         "type":"string"
+      },
+      "roles": {
+         "type":"array",
+         "items":{
+            "$ref": "http://hantyr.com/schemas/Role.json"
+         }
+      },
+      "credential": {
+        "$ref": "http://hantyr.com/schemas/Credential.json"
+      }
+   }
+}

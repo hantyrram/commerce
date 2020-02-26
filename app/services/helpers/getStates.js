@@ -13,14 +13,25 @@ const ObjectId = require('mongodb').ObjectId;
 const https = require('https');
 
 module.exports = getStates = async (req,res,next)=>{ 
-   
+
+   if(!req.params.country){
+      res.json({});
+      return;
+   }
+
+   let country = req.params.country === 'United States' ? 'United States': req.params.country;
+
+   let states = [];
    
    try {
       
       let {db} = dependencies;
-      let states = await db.collection('states').find({}).toArray();
+
+      let helpers_data = await db.collection('helpers_data').find({}).toArray();
       
-      if(states.length === 0){
+      states = helpers_data && helpers_data[0] ?helpers_data[0].states : null;
+
+      if(!states || !states[country.toUpperCase()]){
          
          let getaccesstokenOptions = {
             headers: {
@@ -29,21 +40,6 @@ module.exports = getStates = async (req,res,next)=>{
                "user-email": "rongrammer@hotmail.com"
             }
          }
-
-         // https.get("https://www.universal-tutorial.com/api/getaccesstoken",getaccesstokenOptions, getResponse=>{
-         //    let auth_token_json_string = ""; //is json string
-
-         //    getResponse.on('data', d =>{
-         //       console.log(d.toString());
-         //       auth_token_json_string = auth_token_json_string.concat(d.toString());
-         //    });
-
-         //    getResponse.on('end',()=>{
-         //       // res.json({ok:1,data:  JSON.parse(auth_token)})
-          
-         //       res.json({ok:auth_token_json_string});
-         //    });
-         // });
 
          let auth_token = await new Promise((resolve,rej)=>{
             https.get("https://www.universal-tutorial.com/api/getaccesstoken",getaccesstokenOptions, getResponse=>{
@@ -69,43 +65,51 @@ module.exports = getStates = async (req,res,next)=>{
             }
          }
 
-         let states = await new Promise((resolve,rej)=>{
-            https.get(`https://www.universal-tutorial.com/api/states/${req.params.country || 'United States'}`,requestOptions,(getResponse)=>{
-
-               let states = ""; //is json string
-   
-               getResponse.on('data', d =>{
-                  
-                  states = states.concat(d.toString());
-               });
-   
-               getResponse.on('end',()=>{
-                  // res.json({ok:1,data:  JSON.parse(auth_token)})
-                  let at = JSON.parse(states);
-                  resolve(at);
-               });
-            });
-         });
-
-         await db.collection('helpers_data').updateOne({},{
-            $set: {
-               states
-            }
-         },{
-            upsert: true
-         })
-
-         
-         res.json({states});
-         // https.get(`https:"https://www.universal-tutorial.com/api/countries"'}`,(getResponse)=>{
-
-         //    getResponse.pipe(res);
-         // });
-         return;
-      }
-      res.json({ok:1,resource: states})
-   } catch (error) {
+         //states promise try catch block - start
+         try { // states promise try catch block
+            states = await new Promise((resolve,rej)=>{
+                  https.get(`https://www.universal-tutorial.com/api/states/${country}`,requestOptions,(getResponse)=>{
+                  let statesJson = ""; //is json string
       
+                  getResponse.on('data', d =>{
+                     
+                     statesJson = statesJson.concat(d.toString());
+                  });
+                  getResponse.on('end',()=>{
+                     console.log(statesJson);
+                     if(getResponse.statusCode !== 200){
+                        reject({statusCode: getResponse.statusCode});
+                        return;
+                     }
+                     
+                     resolve(JSON.parse(statesJson));
+                  });
+               });
+            });   
+         } catch (error) { //reject state promise
+            res.json({
+               [country] : [] //just return empty array
+            })
+            return;
+         }
+         //states promise try catch block - end
+
+         if(states.length !== 0){ //only cache on db, country with states. 
+            await db.collection('helpers_data').updateOne({},{
+               $set: {
+                  [`states.${country.toUpperCase()}`]: states
+               }
+            },{
+               upsert: true
+            })
+         }
+      }
+
+      // {"United States": [] }
+      res.json( { [country] : states[country.toUpperCase()]} ); //country name as key
+
+   } catch (error) {
+      console.log(error);  
    }
    
    

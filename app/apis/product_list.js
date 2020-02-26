@@ -1,5 +1,5 @@
 module.exports = {
-   path : 'catalog/products',
+   path : 'products',
    method: 'get',
    resource: 'Product',
    op: 'list',

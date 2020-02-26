@@ -1,5 +1,5 @@
 module.exports = {
-   path : 'admin/roles/:role',
+   path : 'roles/:role',
    method: 'patch',
    resource: 'Role',
    op: 'edit',

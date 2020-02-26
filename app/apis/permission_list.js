@@ -1,5 +1,5 @@
 module.exports = {
-   path : 'admin/permissions',
+   path : 'permissions',
    method: 'get',
    resource: 'Permission',
    op: 'list',

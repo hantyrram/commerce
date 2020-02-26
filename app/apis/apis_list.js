@@ -1,5 +1,5 @@
 module.exports = {
-   path : 'admin/apis',
+   path : 'apis',
    method: 'get',
    resource: 'Api',
    op: 'list',
