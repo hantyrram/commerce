@@ -54,7 +54,7 @@ module.exports = productCategory_create = async (req,res,next)=>{
 }
 
 module.exports.api = {
-   path : 'catalog/productcategories',
+   path : 'productcategories',
    method: 'post',
    resource: 'ProductCategory',
    op: 'create',

@@ -28,10 +28,17 @@ module.exports = employee_useraccount_credential_read = async(req,res,next)=>{
 
 }
 
-module.exports.api = {
+
+
+module.exports = {
    path : 'employees/:employee/useraccount/credential',
    method: 'get',
    resource: 'Employee$UserAccount$Credential',
    op: 'read',
-   description: 'Fetch UserAccount Credential.'
+   description: 'Fetch useraccount credential',
+   use: ['schemaValidator'],
+   schemaValidator: {
+      schema: 'Credential',
+      op: 'read'
+   }
 }

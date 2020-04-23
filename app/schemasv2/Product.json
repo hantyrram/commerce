@@ -20,7 +20,15 @@
             "properties": { "_op" : {"const": "create"} }
          },
          "then": {
-            "required": ["name","netCost"]
+            "required": ["name","netCost","slug"]
+         }
+      },
+      {
+         "if" : {
+            "properties": { "_op" : {"const": "edit"} }
+         },
+         "then": {
+            "minProperties": 2
          }
       }
    ]

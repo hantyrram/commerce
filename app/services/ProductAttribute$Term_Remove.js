@@ -75,11 +75,17 @@ module.exports = attribute_addTerm = async (req,res,next)=>{
 }
 
 
+
 module.exports.api = {
-   path : 'catalog/attributes/:id/terms',
-   method: 'delete',
+   path : 'productattributes/:id/terms/remove',
+   method: 'patch',
    resource: 'Attribute$Terms',
-   op: 'delete',
+   op: 'edit',
    serviceProvider: 'app/services/catalog/attribute/deleteTerm',
    desciption: 'Removes a term',
+   // use: ['schemaValidator'],
+   // schemaValidator: {
+   //    schema: 'Employee',
+   //    op: 'create'
+   // }
 }

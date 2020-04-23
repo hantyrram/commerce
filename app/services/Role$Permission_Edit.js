@@ -100,14 +100,11 @@ module.exports = role_permissions_edit = async (req,res,next)=>{
 }
 
 
-
-
 module.exports.api = {
-   path : 'admin/roles/:role/permissions',
-   method: 'put',
+   path : 'roles/:role/permissions',
+   method: 'patch',
    resource: 'Role$Permissions',
    op: 'edit',
-   serviceProvider: 'app/services/role/permissions/edit',
    description: 'Adds Permission to Role',
    use: ['schemaValidator'],
    schemaValidator: {

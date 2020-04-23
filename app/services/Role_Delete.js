@@ -51,5 +51,10 @@ module.exports.api = {
    method: 'delete',
    resource: 'Role',
    op: 'delete',
-   description: 'Remove Role'
+   description: 'Remove Role',
+   // use: ['schemaValidator'],
+   // schemaValidator: {
+   //    schema: 'Role',
+   //    op:'edit'
+   // }
 }

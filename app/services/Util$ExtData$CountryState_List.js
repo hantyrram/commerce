@@ -12,7 +12,7 @@ const {dependencies} = require(APP_ROOT + '/dependencyManager');
 const ObjectId = require('mongodb').ObjectId;
 const https = require('https');
 
-module.exports = getStates = async (req,res,next)=>{ 
+module.exports =  async (req,res,next)=>{ 
 
    if(!req.params.country){
       res.json({});
@@ -20,7 +20,7 @@ module.exports = getStates = async (req,res,next)=>{
    }
 
    let country = req.params.country === 'United States' ? 'United States': req.params.country;
-
+   
    let states = [];
    
    try {
@@ -46,7 +46,6 @@ module.exports = getStates = async (req,res,next)=>{
                let auth_token_json_string = ""; //is json string
    
                getResponse.on('data', d =>{
-                  console.log(d.toString());
                   auth_token_json_string = auth_token_json_string.concat(d.toString());
                });
    
@@ -117,10 +116,10 @@ module.exports = getStates = async (req,res,next)=>{
 }
 
 
-module.exports = {
+module.exports.api = {
    path : 'util/extdata/states/:country?',
    method: 'get',
-   resource: 'CountryStates',   
+   resource: 'CountryState',   
    op: 'list',
    description: 'Fetch country states list.',
 }

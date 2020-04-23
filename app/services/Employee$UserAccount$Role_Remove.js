@@ -28,10 +28,16 @@ module.exports = employee_useraccount_roles_remove = async(req,res,next)=>{
 
 }
 
+
 module.exports.api = {
    path : 'employees/:employee/useraccount/roles/:role',
    method: 'delete',
    resource: 'Employee$UserAccount$Roles',
    op: 'remove',
-   description: 'Remove Role from Employee\'s User Account.' 
+   description: 'Remove Role from Employee\'s User Account.' ,
+   // use: ['schemaValidator'],
+   // schemaValidator: {
+   //    schema: 'Role',
+   //    op: 'delete'
+   // }
 }

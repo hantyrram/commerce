@@ -3,7 +3,7 @@ module.exports = logout = (req,res,next)=>{
 }
 
 module.exports.api = {
-   path: '/admin/auth/login',
+   path: '/auth/login',
    method: 'post',
    op: 'login'
 }

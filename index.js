@@ -1,4 +1,4 @@
 global.SERVER_ROOT = __dirname;
 
 // require('./app');
-require('./app/configLessServer.js');
+require('./app/configLessServer2.js');

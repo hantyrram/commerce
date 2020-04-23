@@ -24,9 +24,15 @@ module.exports = attribute_list = async (req,res,next)=>{
 }
 
 module.exports.api = {
-   path : 'catalog/productattributes',
+   path : 'productattributes',
    method: 'get',
-   resource: 'ProductAttribute',
+   resource: 'Attribute',
    op: 'list',
-   desciption: 'Retrieve Product Attributes'
+   serviceProvider: 'app/services/catalog/attribute/list',
+   desciption: 'Retrieve Product Attributes',
+   // use: ['schemaValidator'],
+   // schemaValidator: {
+   //    schema: 'Employee',
+   //    op: 'create'
+   // }
 }

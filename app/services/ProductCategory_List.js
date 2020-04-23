@@ -20,14 +20,10 @@ module.exports = productcategory_list = async (req,res,next)=>{
          }
       })
    }
-   
-
- 
-
 }
 
 module.exports.api = {
-   path : 'catalog/productcategories',
+   path : 'productcategories',
    method: 'get',
    resource: 'ProductCategory',
    op: 'list',

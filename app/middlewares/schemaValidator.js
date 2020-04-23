@@ -18,6 +18,7 @@ const Credential = require(path.resolve(SCHEMAS_PATH,'Credential.json'));
 const Permissions = require(path.resolve(SCHEMAS_PATH,'Permissions.json'));
 const ProductCategory = require(path.resolve(SCHEMAS_PATH,'ProductCategory.json'));
 const Product = require(path.resolve(SCHEMAS_PATH,'Product.json'));
+const ShippingZone = require(path.resolve(SCHEMAS_PATH,'ShippingZone.json'));
 
 const schemas = [];//so that we can easily reference which schema to compile based on the schema defined on the api.
 schemas['definitions'] = definitions;
@@ -28,6 +29,7 @@ schemas['Employee'] = Employee;
 schemas['Credential'] = Credential;
 schemas['ProductCategory'] = ProductCategory;
 schemas['Product'] = Product;
+schemas['ShippingZone'] = ShippingZone;
 
 /**
  * @memberof middlewares
@@ -39,7 +41,7 @@ schemas['Product'] = Product;
  * 
  */
 module.exports = schemaValidator = (req,res,next)=>{
-   
+   console.log('Validating...');
    if(req.currentApi.schemaValidator && req.currentApi.schemaValidator.schema){
       // const schema = require(path.resolve(SCHEMAS_PATH,req.currentApi.schemaValidator.schema))
       const ajv = new Ajv(
@@ -65,6 +67,7 @@ module.exports = schemaValidator = (req,res,next)=>{
          return;
       }
    }
+   console.log('Validated!!!');
    next();
 }
 

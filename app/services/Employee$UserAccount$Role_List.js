@@ -79,6 +79,6 @@ module.exports = {
    method: 'get',
    resource: 'Employee$UserAccount$Role',
    op: 'list',
-   serviceProvider: 'app/services/employee/useraccount/roles/list',
    description: 'Fetch Employee\'s User Account Roles.',
 }
+

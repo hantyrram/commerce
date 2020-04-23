@@ -1,5 +1,5 @@
 module.exports = {
-   path : 'helpers/getCountries',
+   path : 'util/extdata/countries',
    method: 'get',
    resource: 'Countries',   
    op: 'list',

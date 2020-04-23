@@ -17,11 +17,13 @@ module.exports = {
       //to use the middleware define it on the route
       // `${MIDDLEWARES_PATH}/_app`,
       `${MIDDLEWARES_PATH}/logger`,
+      `${MIDDLEWARES_PATH}/bodylogger`,
       `${MIDDLEWARES_PATH}/handleNonXHR`,
       `${MIDDLEWARES_PATH}/checkService`,
       `${MIDDLEWARES_PATH}/authentication`,
       `${MIDDLEWARES_PATH}/authorization`,
       `${MIDDLEWARES_PATH}/schemaValidator`,
+
 
    ],
    

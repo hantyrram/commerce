@@ -38,7 +38,7 @@ module.exports = employee_edit = async (req,res,next)=>{
       res.json({
          ok,
          message: {
-            type: 'SUCCESS', text: `${employee._id} update success!`
+            type: 'SUCCESS', text: `Employee ${employee.employeeId} update success.`
          }
       });
    }
@@ -47,6 +47,7 @@ module.exports = employee_edit = async (req,res,next)=>{
 
    
 }
+
 
 module.exports.api = {
    path : 'employees/:employee',

@@ -1,4 +1,4 @@
-
+ 
 const {dependencies} = require(`${APP_ROOT}/dependencyManager`);
 const ObjectId = require('mongodb').ObjectId;
 /**
@@ -15,43 +15,40 @@ module.exports = product_edit = async (req,res,next)=>{
 
       await db.collection('products').createIndex({"name" : 1},{unique: 1});
 
-      console.log(req.body);
-
-      let product = Object.assign({},req.body);
-
-      delete product._id;
-
-      let result = await db.collection('products').updateOne(
-         { _id:ObjectId(req.body._id)},
-         {
-            $set: hantyr.function.flatten(product)
-         }
-      );
-      console.log(result);
-  
-      let {nModified,ok} = result.result;
-
-      if(ok){
-         if(nModified === 0){
+      if(req.body.category_id){
+         let category = await db.collection('productCategories').findOne({_id: ObjectId(req.body.category_id)});
+         if(!category){
             res.json({
-               ok,
-               resource: req.body,
-               resourceType: 'Product',
-               message: {
-                  type: 'INFO',text: 'No changes made.'
+               error: {
+                  type: 'INVALID_REFERENCE',
+                  message: 'Category Id does not exist.'
                }
-            });
+            })
             return;
          }
-         res.json({
-            ok,
-            resource: req.body,
-            resourceType: 'Product',
-            message: {
-               type: 'SUCCESS', text: `${req.body._id} update success!`
-            }
-         });
       }
+
+      let product = hantyr.function.flatten(req.body);
+
+      let { ok, value: updatedProduct } = await db.collection('products').findOneAndUpdate(
+         {
+            _id: ObjectId(req.params.product_id)
+         },
+         {
+            $set: product
+         },
+         {
+            returnOriginal: false
+         }
+
+      )
+
+
+      res.json({
+         ok,
+         resource: updatedProduct,
+         resourceType: 'Product'
+      })
 
    } catch (error) {
       console.log(error);

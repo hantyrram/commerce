@@ -1,13 +1,13 @@
 module.exports = {
-   path : 'catalog/products',
+   path : 'products/:product_id',
    method: 'patch',
    resource: 'Product',
    op: 'edit',
    serviceProvider: 'app/services/catalog/product/edit',
    description: 'Update Single Product',
-   // use: ['schemaValidator'],
-   // schemaValidator: {
-   //    schema: 'ProductCategory',
-   //    op: 'create'
-   // }
+   use: ['schemaValidator'],
+   schemaValidator: {
+      schema: 'Product',
+      op: 'edit'
+   }
 }

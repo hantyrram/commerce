@@ -8,7 +8,7 @@ const ObjectId = require('mongodb').ObjectId;
  * @memberof Services
  * @desc Adds a Term to an existing attribute.
  */
-module.exports = async (req,res,next)=>{ 
+module.exports = attribute_addTerm = async (req,res,next)=>{ 
    
    let {db} = dependencies;
 
@@ -76,8 +76,17 @@ module.exports = async (req,res,next)=>{
    }
 }
 
+
 module.exports.api = {
-   path : 'catalog/attributes/:id/terms',
+   path : 'productattributes/:id/terms/add',
    method: 'patch',
+   resource: 'Attribute$Terms',
+   op: 'edit',
+   serviceProvider: 'app/services/catalog/attribute/addTerm',
    desciption: 'Add new Term to the Attribute',
+   // use: ['schemaValidator'],
+   // schemaValidator: {
+   //    schema: 'Employee',
+   //    op: 'create'
+   // }
 }

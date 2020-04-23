@@ -15,7 +15,7 @@ module.exports = permission_list = async (req,res,next)=>{
 }
 
 module.exports.api = {
-   path : 'admin/permissions',
+   path : 'permissions',
    method: 'get',
    resource: 'Permission',
    op: 'list',

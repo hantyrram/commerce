@@ -5,6 +5,7 @@ module.exports = employee_read = async (req,res,next)=>{
    delete employee.userAccount;
    delete employee._metadata;
 
+   console.log(employee);
    res.json({
       ok:1,
       resource: employee,
@@ -18,3 +19,4 @@ module.exports.api = {
    resource: 'Employee',
    op: 'read'
 }
+

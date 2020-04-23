@@ -24,11 +24,10 @@ module.exports = employee_useraccount_read = async(req,res,next)=>{
    })
 
 }
-
 module.exports.api = {
-   path : 'admin/useraccounts/:employeeId',
+   path : 'useraccounts/:employeeId',
    method: 'get',
    resource: 'Employee$UserAccount',
    op: 'read',
-   description: 'Fetch Employee\'s User Account',
+   description: 'Gets The Employee\'s User Account',
 }

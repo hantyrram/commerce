@@ -54,4 +54,15 @@ module.exports = role_permissions_list = async (req,res,next)=>{
    
 }
 
+module.exports.api = {
+   path : 'roles/:role/permissions',
+   method: 'get',
+   resource: 'Role$Permissions',
+   op: 'read',
+   description: 'Fetch A Role\'s Permissions',
+   
+}
+
+
+
 

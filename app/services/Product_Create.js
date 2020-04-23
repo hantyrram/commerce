@@ -61,6 +61,7 @@ module.exports = product_create = async (req,res,next)=>{
    }
 }
 
+
 module.exports.api = {
    path : 'catalog/products',
    method: 'post',

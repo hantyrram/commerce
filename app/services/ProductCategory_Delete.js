@@ -46,7 +46,7 @@ module.exports = productCategory_delete = async (req,res,next)=>{
 }
 
 module.exports.api = {
-   path : 'catalog/productcategories/:productCategory',
+   path : 'productcategories/:productCategory',
    method: 'delete',
    resource: 'ProductCategory',
    op: 'delete',

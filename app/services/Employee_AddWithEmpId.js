@@ -21,7 +21,6 @@ module.exports = employee_addEidManual = async (req,res,next)=>{
    })
 }
 
-
 module.exports.api = {
    path : 'employees/empid_manual',
    method: 'post',

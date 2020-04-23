@@ -12,4 +12,8 @@ clean up code
 
  -continue working on Admin Features make it simple all non store should be on web admin feature
 
+
+ product /edit 
+   - Promise all add response after update
+
    

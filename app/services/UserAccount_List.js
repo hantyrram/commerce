@@ -40,7 +40,7 @@ module.exports = useraccount_list = async (req,res,next)=>{
 
 
 module.exports.api = {
-   path : 'admin/useraccounts',
+   path : 'useraccounts',
    method: 'get',
    resource: 'UserAccount',
    op: 'list',

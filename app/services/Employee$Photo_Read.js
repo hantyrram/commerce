@@ -57,3 +57,4 @@ module.exports.api = {
    op: 'read',
    description: 'Fetch Employee\'s Photo'
 }
+

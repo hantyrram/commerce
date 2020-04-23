@@ -1,5 +1,5 @@
 module.exports = {
-   path : 'admin/useraccounts/:employeeId',
+   path : 'useraccounts/:employeeId',
    method: 'get',
    resource: 'Employee$UserAccount',
    op: 'read',

@@ -60,10 +60,16 @@ module.exports = employee_verify = async (req,res,next)=>{
   
 }
 
-module.exports = {
+
+module.exports.api = {
    path : 'employees/verify',
    method: 'post',
-   resource: 'Employee$Verify',
+   resource: 'Employee$verify',
    op: 'exec',
-   description: 'Verifies If The Employee Id Exist or Valid',
+   description: 'Verifies If The Employee Id Exist or Valid' ,
+   // use: ['schemaValidator'],
+   // schemaValidator: {
+   //    schema: 'Role',
+   //    op: 'delete'
+   // }
 }

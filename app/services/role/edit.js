@@ -93,8 +93,8 @@ module.exports = role_edit = async (req,res,next)=>{
 
    let update = {
       $set : {
-         label: role.name,
-         description: role.description,
+         label: req.body.label,
+         description: req.body.description,
          permissions: role.permissions
       }
    }
@@ -105,8 +105,13 @@ module.exports = role_edit = async (req,res,next)=>{
       ok:1,
       resource: role,
       resourceType: 'Role',
-      resourceHref: '/apiv1/admin/roles/' + req.preLoadedResource['Role']._id
-   })
+      resourceHref: '/apiv1/roles/' + req.preLoadedResource['Role']._id,
+      message: {
+         type: 'SUCCESS',
+         text: 'Role updated.'
+      }
+   }
+)
 
    // res.json({
    //    error: {

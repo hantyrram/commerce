@@ -18,8 +18,9 @@ module.exports = role_list = async (req,res,next)=>{
 }
 
 
-module.exports.api = {
-   path : 'admin/roles',
+
+module.exports.api= {
+   path : 'roles',
    method: 'get',
    resource: 'Role',
    op: 'list',

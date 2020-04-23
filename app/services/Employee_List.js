@@ -8,19 +8,17 @@ module.exports = employee_list = async (req,res,next)=>{
       ok:1, 
       resource: employees,
       resourceType: 'Array',
-      resourceItemType: 'Employee',
-      message : {
-         type: 'INFO',
-         text: 'Showing Employees'
-      }
+      resourceItemType: 'Employee'
    });
 
 }
+
 
 module.exports.api = {
    path : 'employees',
    method: 'get',
    resource: 'Employee',
    op: 'list',
+   serviceProvider: 'app/services/employee/list',
    description: 'List Employees.'
 }

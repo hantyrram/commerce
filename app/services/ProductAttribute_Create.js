@@ -7,11 +7,13 @@ const {dependencies} = require(`${APP_ROOT}/dependencyManager`);
  * @memberof Services
  * @desc Creates a new Employee Profile
  */
-module.exports = attribute_create = async (req,res,next)=>{ 
+module.exports = async (req,res,next)=>{ 
    
    let {db} = dependencies;
    
    try {
+
+      
 
       await db.collection('attributes').createIndex({"name" : 1},{unique: 1});
 
@@ -57,10 +59,15 @@ module.exports = attribute_create = async (req,res,next)=>{
 
 
 module.exports.api = {
-   path : 'catalog/productattributes',
+   path : 'productattributes',
    method: 'post',
    resource: 'ProductAttribute',
    op: 'create',
    serviceProvider: 'app/services/catalog/attribute/create',
    desciption: 'Create a new Product Attribute',
+   // use: ['schemaValidator'],
+   // schemaValidator: {
+   //    schema: 'Employee',
+   //    op: 'create'
+   // }
 }

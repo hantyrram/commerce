@@ -67,7 +67,6 @@ module.exports.api = {
    method: 'put',
    resource: 'Employee$UserAccount$Roles',
    op: 'add',
-   serviceProvider: 'app/services/employee/useraccount/roles/add',
    description: 'Add Role to User Account',
    use: ['schemaValidator'],
    schemaValidator: {
@@ -75,3 +74,4 @@ module.exports.api = {
       op: 'assign'
    }
 }
+

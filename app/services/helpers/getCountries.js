@@ -55,7 +55,12 @@ module.exports = getCountries = async (req,res,next)=>{
          
       }
 
-      res.json( countries ); //country name as key
+      res.json( {
+         ok: 1,
+         resource: countries,
+         resourceType: 'Array',
+         resourceItemType: 'Country'
+      } ); //country name as key
 
    } catch (error) {
       console.log(error);

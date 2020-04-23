@@ -11,7 +11,7 @@
 const https = require('https');
 const {dependencies} = require(APP_ROOT + '/dependencyManager');
 
-module.exports = getCountries = async (req,res,next)=>{ 
+module.exports = async (req,res,next)=>{ 
    
   
    let countries = [];
@@ -22,7 +22,6 @@ module.exports = getCountries = async (req,res,next)=>{
 
       let helpers_data = await db.collection('helpers_data').find({}).toArray();
       
-      console.log(helpers_data);
       countries = helpers_data && helpers_data[0] ? helpers_data[0].countries : null;
 
       if(!countries || countries.length === 0){
@@ -65,7 +64,7 @@ module.exports = getCountries = async (req,res,next)=>{
 }
 
 
-module.exports = {
+module.exports.api = {
    path : 'util/extdata/countries',
    method: 'get',
    resource: 'Countries',   
