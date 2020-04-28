@@ -13,7 +13,7 @@ global.DEPENDENCY_MANAGER_PATH = __filename;
  */
 const DEPENDENCY = {
  DB: 'db',
-//  REDIS_CLIENT: 'redisClient',
+ REDIS_CLIENT: 'redisClient',
  APIS: 'apis'
 }
 

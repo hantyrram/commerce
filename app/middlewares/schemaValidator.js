@@ -19,6 +19,7 @@ const Permissions = require(path.resolve(SCHEMAS_PATH,'Permissions.json'));
 const ProductCategory = require(path.resolve(SCHEMAS_PATH,'ProductCategory.json'));
 const Product = require(path.resolve(SCHEMAS_PATH,'Product.json'));
 const ShippingZone = require(path.resolve(SCHEMAS_PATH,'ShippingZone.json'));
+const ShippingMethod = require(path.resolve(SCHEMAS_PATH,'ShippingMethod.json'));
 
 const schemas = [];//so that we can easily reference which schema to compile based on the schema defined on the api.
 schemas['definitions'] = definitions;
@@ -30,6 +31,7 @@ schemas['Credential'] = Credential;
 schemas['ProductCategory'] = ProductCategory;
 schemas['Product'] = Product;
 schemas['ShippingZone'] = ShippingZone;
+schemas['ShippingMethod'] = ShippingMethod;
 
 /**
  * @memberof middlewares
@@ -63,7 +65,7 @@ module.exports = schemaValidator = (req,res,next)=>{
       let valid = validate(entity);
       console.log(validate.errors);
       if(!valid){        
-         res.json({ error: { type: 'VALIDATION_ERROR', text: JSON.stringify(validate.errors) }});
+         res.status(400).json({ error: { type: 'VALIDATION_ERROR', text: JSON.stringify(validate.errors) }});
          return;
       }
    }
@@ -72,7 +74,7 @@ module.exports = schemaValidator = (req,res,next)=>{
 }
 
 //schemas = array of {name:'SchemaName', schema:schema}
-module.exports = init = (schemas)=>{
+module.exports.init = (schemas)=>{
    forEach()
 }
 /**

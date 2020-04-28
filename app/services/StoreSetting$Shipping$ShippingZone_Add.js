@@ -59,10 +59,10 @@ module.exports.api = {
    method: 'post',
    resource: 'STORESETTING$SHIPPING$SHIPPINGZONE',
    op: 'add',
-   description: 'Add Shipping Zone'
-   // use: ['schemaValidator'],
-   // schemaValidator: {//schemaValidator options
-   //    schema: 'Employee',
-   //    op: 'edit',
-   // }
+   description: 'Add Shipping Zone',
+   use: ['schemaValidator'],
+   schemaValidator: {//schemaValidator options
+      schema: 'ShippingZone',
+      op: 'add',
+   }
 }

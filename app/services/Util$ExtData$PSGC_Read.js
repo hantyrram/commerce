@@ -12,6 +12,7 @@ const {dependencies} = require(APP_ROOT + '/dependencyManager');
 const ObjectId = require('mongodb').ObjectId;
 const http = require('http');
 const https = require('https');
+const PSGC_URL = 'http://localhost:8085/';
 
 module.exports = async (req,res,next)=>{ 
 
@@ -31,7 +32,7 @@ module.exports = async (req,res,next)=>{
    path += queryString && queryString.length > 0 ? `?${queryString}` : '';
    try{
 
-      let url = `http://localhost:8085/`;
+      let url = PSGC_URL;
       
       if(param && param.length >0){
          url += param; //e.g. /regions, /municipalities

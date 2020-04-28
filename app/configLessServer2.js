@@ -21,7 +21,7 @@ const services = require('./services');
 
 
 global.APP_ROOT = __dirname;
-global.SCHEMAS_PATH = __dirname + '/schemasv2';
+global.SCHEMAS_PATH = __dirname + '/schemas';
 
 console.log(chalk.bgYellowBright.black(`${new Date} : [SERVER STARTUP]: Starting Server!`));
 console.log(chalk.yellow(`${new Date} : [APP INIT] Fetching Apis...`));

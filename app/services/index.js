@@ -46,6 +46,8 @@ const Util$ExtData$PSGC_Read = require('./Util$ExtData$PSGC_Read');
 const StoreSetting$Shipping$ShippingOrigin_Edit = require('./StoreSetting$Shipping$ShippingOrigin_Edit');
 const StoreSetting$Shipping$ShippingZone_List = require('./StoreSetting$Shipping$ShippingZone_List');
 const StoreSetting$Shipping$ShippingZone_Edit = require('./StoreSetting$Shipping$ShippingZone_Edit');
+const StoreSetting$Shipping$ShippingZone$ShippingMethod_Add  = require('./StoreSetting$Shipping$ShippingZone$ShippingMethod_Add');
+const Search_Exec = require('./Search_Exec');
 module.exports = [
    Api_List,
    Auth$Login_Exec,
@@ -93,8 +95,9 @@ module.exports = [
    StoreSetting$Shipping$ShippingZone_Add,
    StoreSetting$Shipping$ShippingZone_Edit,
    StoreSetting$Shipping$ShippingZone_List,
-
+   StoreSetting$Shipping$ShippingZone$ShippingMethod_Add,
    Util$ExtData$PSGC_Read,
-   StoreSetting$Shipping$ShippingOrigin_Edit
+   StoreSetting$Shipping$ShippingOrigin_Edit,
+   Search_Exec
   ]
   
