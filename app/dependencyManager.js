@@ -95,6 +95,7 @@ if(DEPENDENCY.REDIS_CLIENT){
          //send email
          console.log('Make Sure Redis Server is running!');
         }
+        console.log(e);
         console.log('Error connecting to redis');
        });
      

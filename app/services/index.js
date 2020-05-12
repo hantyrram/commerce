@@ -1,6 +1,7 @@
 const Api_List = require('./Api_List');
 const Auth$Login_Exec = require('./Auth$Login_Exec');
 const Auth$Logout_Exec = require('./Auth$Logout_Exec');
+const Auth$Authenticate_Exec = require('./Auth$Authenticate_Exec');
 const Employee_Add = require('./Employee_Add')
 const Employee_List = require('./Employee_List');
 const Employee_Edit = require('./Employee_Edit');
@@ -21,6 +22,9 @@ const Permission_List = require('./Permission_List');
 const Product_Create = require('./Product_Create');
 const Product_Edit = require('./Product_Edit');
 const Product_List = require('./Product_List');
+const Product$Images_Add = require('./Product$Images_Add');
+const Product$Images_Delete = require('./Product$Images_Delete');
+const Product$Images_Read = require('./Product$Images_Read');
 const ProductAttribute_Create = require('./ProductAttribute_Create');
 const ProductAttribute_Delete = require('./ProductAttribute_Delete');
 const ProductAttribute_List = require('./ProductAttribute_List');
@@ -47,11 +51,14 @@ const StoreSetting$Shipping$ShippingOrigin_Edit = require('./StoreSetting$Shippi
 const StoreSetting$Shipping$ShippingZone_List = require('./StoreSetting$Shipping$ShippingZone_List');
 const StoreSetting$Shipping$ShippingZone_Edit = require('./StoreSetting$Shipping$ShippingZone_Edit');
 const StoreSetting$Shipping$ShippingZone$ShippingMethod_Add  = require('./StoreSetting$Shipping$ShippingZone$ShippingMethod_Add');
+const StoreSetting$Shipping$ShippingZone$ShippingMethod_Delete = require('./StoreSetting$Shipping$ShippingZone$ShippingMethod_Delete');
+const StoreSetting$Shipping$ShippingZone_Delete = require('./StoreSetting$Shipping$ShippingZone_Delete');
 const Search_Exec = require('./Search_Exec');
 module.exports = [
    Api_List,
    Auth$Login_Exec,
    Auth$Logout_Exec,
+   Auth$Authenticate_Exec,
    Employee_List,
    Employee_Add,
    Employee_Edit,
@@ -72,6 +79,9 @@ module.exports = [
    Product_Create,
    Product_Edit,
    Product_List,
+   Product$Images_Add,
+   Product$Images_Delete,
+   Product$Images_Read,
    ProductAttribute_Create,
    ProductAttribute_Delete,
    ProductAttribute_List,
@@ -95,7 +105,9 @@ module.exports = [
    StoreSetting$Shipping$ShippingZone_Add,
    StoreSetting$Shipping$ShippingZone_Edit,
    StoreSetting$Shipping$ShippingZone_List,
+   StoreSetting$Shipping$ShippingZone_Delete,
    StoreSetting$Shipping$ShippingZone$ShippingMethod_Add,
+   StoreSetting$Shipping$ShippingZone$ShippingMethod_Delete,
    Util$ExtData$PSGC_Read,
    StoreSetting$Shipping$ShippingOrigin_Edit,
    Search_Exec

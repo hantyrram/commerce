@@ -1,9 +1,15 @@
-module.exports = logout = (req,res,next)=>{
-   res.json({action:'logging out'});
+module.exports = (req,res,next)=>{
+   console.log('Logout Reached');
+   req.logout();
+   res.clearCookie('U_SID');
+   // res.json({status:'ok',source:'logout',message:'You have been logged out!'});
+   res.json({
+      ok: 1
+   });
 }
 
 module.exports.api = {
-   path: '/auth/login',
+   path: 'auth/logout',
    method: 'post',
-   op: 'login'
+   op: 'exec'
 }

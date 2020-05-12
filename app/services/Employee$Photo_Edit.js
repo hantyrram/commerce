@@ -14,7 +14,7 @@ const upload = multer();
  * @desc Changes the photo of the employee.
  */
 
-module.exports = employee_photo_edit = [
+module.exports = [
   
    upload.single('employeeAvatar'),
 
@@ -33,6 +33,8 @@ module.exports = employee_photo_edit = [
       });
       return;
    }
+   
+   //filter
    let index = (req.file.originalname.toLowerCase().search(/.jpg|.jpeg|.png$/));
 
    if(index === -1){
@@ -69,6 +71,61 @@ module.exports = employee_photo_edit = [
 
       let e = await deletePhotoPromise;
       console.log(e);
+      let fileExtension = req.file.originalname.substring(index);
+
+      let fileName = `${employee}-avatar${fileExtension}`; ///??? * put on settings
+      
+      // use PassThrough to engulp file buffer and pipe to bucket upload stream
+      let readableStream = new PassThrough();
+
+      readableStream.end(req.file.buffer); 
+
+      readableStream
+         .pipe(bucket.openUploadStreamWithId(employee,fileName))
+            .on('error',function(error){
+               console.log('Error Saving Photo',error);
+               if(error){
+                  res.json({
+                     error: {
+                        type: 'WRITE_FILE_ERROR',
+                        text: 'There was an error saving the image. Contact Administrator.'
+                     }
+                  })
+                  return;
+               }
+               
+               
+            })
+            .on('finish',function(){
+               //set employee.photo field
+               (async function(){
+                  let photo = null;
+                  let cursor = await bucket.find({_id: employee});
+                  if(await cursor.hasNext()){
+                     photo = await cursor.next();
+                     await db.collection('employees').updateOne(
+                        {_id: ObjectId(employee)},
+                        {
+                           $set : {
+                              photo: photo
+                           }
+                        }
+                     )
+                  }
+
+                  res.json({
+                     ok:1,
+                     message: {
+                        type: 'SUCCESS',
+                        text: 'Employee Photo Was Changed.'
+                     },
+                     resource: photo,
+                     type: 'Photo'
+                  });
+
+               })(); 
+            
+            });
 
    } catch (error) {
       console.log('Delete Photo Error : ', error);
@@ -82,62 +139,7 @@ module.exports = employee_photo_edit = [
 
    
 
-   let fileExtension = req.file.originalname.substring(index);
-
-   let fileName = `${employee}-avatar${fileExtension}`; ///??? * put on settings
    
-   // use PassThrough to engulp file buffer and pipe to bucket upload stream
-   let readableStream = new PassThrough();
-
-   readableStream.end(req.file.buffer); 
-
-   readableStream
-      .pipe(bucket.openUploadStreamWithId(employee,fileName))
-         .on('error',function(error){
-            console.log('Error Saving Photo',error);
-            if(error){
-               res.json({
-                  error: {
-                     type: 'WRITE_FILE_ERROR',
-                     text: 'There was an error saving the image. Contact Administrator.'
-                  }
-               })
-               return;
-            }
-            
-            
-         })
-         .on('finish',function(){
-            //set employee.photo field
-            (async function(){
-               let photo = null;
-               let cursor = await bucket.find({_id: employee});
-               if(await cursor.hasNext()){
-                  photo = await cursor.next();
-                  await db.collection('employees').updateOne(
-                     {_id: ObjectId(employee)},
-                     {
-                        $set : {
-                           photo: photo
-                        }
-                     }
-                  )
-               }
-
-               res.json({
-                  ok:1,
-                  message: {
-                     type: 'SUCCESS',
-                     text: 'Employee Photo Was Changed.'
-                  },
-                  resource: photo,
-                  type: 'Photo'
-               });
-
-            })(); 
-           
-         });
-
       
    }
 ]

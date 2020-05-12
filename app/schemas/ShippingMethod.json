@@ -11,8 +11,8 @@
      },
      "title":{
          "type":"string",
-         "minLength": "4",
-         "maxLength": "50"
+         "minLength": 4,
+         "maxLength": 50
      },
      "cost":{
          "type":"string",
@@ -20,7 +20,7 @@
      },
      "description": {
         "type":"string",
-        "maxLength": "100"
+        "maxLength": 100
      }
   },
   "allOf": [

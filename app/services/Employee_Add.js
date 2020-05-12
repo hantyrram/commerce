@@ -1,5 +1,5 @@
 
-const {dependencies} = require(`${APP_ROOT}/dependencyManager`);
+const {dependencies} = require(`${global.APP_ROOT}/dependencyManager`);
 
 const EMP_ID_PREFIX = "100";//company 1,company 2 = 200
 const GENESIS = 1000;//should not be assigned to anyone
