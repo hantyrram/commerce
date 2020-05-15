@@ -19,7 +19,7 @@ module.exports = function(app){
                _id,employeeId,userAccount,photo
             });
          } catch (error) {
-            console.log(error);
+            console.log(`@__initAuthentication: 22`,error);
          }
          
          

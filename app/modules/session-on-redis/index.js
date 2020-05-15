@@ -59,7 +59,7 @@ module.exports = ({redisClient,cookie,store})=>{
         session.save();
         req.session = session;
       } catch (error) {
-        console.log({sor:error});
+        console.log('@session-on-redis/index:62 ', {sor:error});
         next(error);
       }
       next();
@@ -80,7 +80,7 @@ module.exports = ({redisClient,cookie,store})=>{
         req.session.save();
       }
     } catch (error) {
-      console.log({sor:error});
+      console.log('@session-on-redis/index:83 ',{sor:error});
       next(error);
     }
     next();

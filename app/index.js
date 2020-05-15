@@ -12,8 +12,6 @@ const chalk = require('chalk');
 const sessionOnRedis = require('./modules/session-on-redis');
 const cookieParser = require('cookie-parser');
 const dependencyManager = require('./dependencyManager');
-const authentication = require('./modules/authentication');
-const ObjectId = require('mongodb').ObjectId;
 const server = express();
 const app = express();
 const PORT = process.env.PORT || 8080;
@@ -41,15 +39,12 @@ function start(app){
       req.preLoadedResource = [];
       next();
    });
-   console.log(chalk.bgYellowBright.black(`${new Date} : [SERVER STARTUP]: Starting Server!`));
-   console.log(chalk.yellow(`${new Date} : [APP INIT] Fetching Apis...`));
-   console.log(chalk.yellow(`${new Date} : [APP INIT] Parsing api files...`));
-   console.log(chalk.yellow(`${new Date} : [APP INIT] Initializing middlewares...`));
+   
+   
    __initParamLoaders(app);
    __initAuthentication(app);
    __defineApis(app);
 }
-
 
 
 /**

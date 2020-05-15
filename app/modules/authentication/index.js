@@ -96,7 +96,7 @@ module.exports.init = (options = {})=>{
          // let artifact = new Artifact(Artifact.NOK,'login',error);
          // next({status:'nok',source:'login',type:'AUTHENTICATION_ERROR',errMsg:errMsg});
          // next(artifact);
-         next({
+         res.status(401).json({
             nok: 1,
             error: errMsg,
             failureRedirect: loginURL

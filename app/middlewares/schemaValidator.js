@@ -43,7 +43,7 @@ schemas['ShippingMethod'] = ShippingMethod;
  * 
  */
 module.exports = schemaValidator = (req,res,next)=>{
-   console.log('Validating...');
+   console.log('@schemaValidator:46 Validating...');
    if(req.currentApi.schemaValidator && req.currentApi.schemaValidator.schema){
       // const schema = require(path.resolve(SCHEMAS_PATH,req.currentApi.schemaValidator.schema))
       const ajv = new Ajv(
@@ -53,8 +53,8 @@ module.exports = schemaValidator = (req,res,next)=>{
             ]
          }
       );
-      console.log('Validating ',req.currentApi.schemaValidator.schema,'...');
-      console.log('Validating Input ',req.body);
+      console.log('@schemaValidator:56 Validating ',req.currentApi.schemaValidator.schema,'...');
+      console.log('@schemaValidator:57 Validating Input ',req.body);
       // let validate = ajv.addSchema(definitions).compile(schema);
       let validate = ajv.compile(schemas[req.currentApi.schemaValidator.schema]);
       let entity = req.body;
@@ -63,13 +63,13 @@ module.exports = schemaValidator = (req,res,next)=>{
          entity = { _op: req.currentApi.schemaValidator.op, ...req.body }
       }
       let valid = validate(entity);
-      console.log(validate.errors);
+      console.log('@schemaValidator:66',validate.errors);
       if(!valid){        
          res.status(400).json({ error: { type: 'VALIDATION_ERROR', text: JSON.stringify(validate.errors) }});
          return;
       }
    }
-   console.log('Validated!!!');
+   console.log('@schemaValidator:72 Validated!!!');
    next();
 }
 

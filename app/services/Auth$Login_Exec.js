@@ -20,7 +20,7 @@ module.exports = async (req,res,next)=>{
 
     // let user = await req.app.get('db').collection('users').findOne(QUERY,OPTIONS);
     let foundEmployee = await aggregationCursor.next();
-    console.log(foundEmployee);
+    console.log('Auth$Login:23 Found Employee',foundEmployee);
     if(foundEmployee){
       // Borrows Employee._id as Authentication's Users user._id
       // let user = { _id: foundEmployee._id ,username: foundEmployee.credential.username };
