@@ -3,7 +3,6 @@
  * @module htcommerce
  * @author Ronaldo Ramano
  */
-require('dotenv').config();
 const os = require('os');
 const express = require('express');
 const fs = require('fs');
