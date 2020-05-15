@@ -4,6 +4,8 @@ const ROUTES_PATH =  path.join(__dirname,'app/routes');
 const SERVICES_PATH = path.join(__dirname,'app/services');
 const MIDDLEWARES_PATH = path.join(__dirname,'app/middlewares');
 
+console.log(MIDDLEWARES_PATH);
+
 module.exports = {
    routes: [
       `${ROUTES_PATH}/_all`,
