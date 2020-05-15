@@ -5,7 +5,7 @@ const path = require('path');
 
 module.exports = function(app){
 
-   const middlewares = _registry.middlewares.map(rm => require(path.resolve(process.cwd(),rm)));
+   const middlewares = _registry.middlewares.map(rm => require(rm));
    
    let apis = [];
 
