@@ -1,10 +1,10 @@
 const path = require('path');
 
-const ROUTES_PATH =  path.join(__dirname,'app/routes');
-const SERVICES_PATH = path.join(__dirname,'app/services');
-const MIDDLEWARES_PATH = path.join(__dirname,'app/middlewares');
+const ROUTES_PATH =  path.join(__dirname,'routes');
+const SERVICES_PATH = path.join(__dirname,'services');
+const MIDDLEWARES_PATH = path.join(__dirname,'middlewares');
 
-console.log(MIDDLEWARES_PATH);
+console.log('@_registry:7',MIDDLEWARES_PATH);
 
 module.exports = {
    routes: [
