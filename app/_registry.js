@@ -1,6 +1,8 @@
-const ROUTES_PATH =  'app/routes';
-const SERVICES_PATH = 'app/services';
-const MIDDLEWARES_PATH = 'app/middlewares';
+const path = require('path');
+
+const ROUTES_PATH =  path.join(__dirname,'app/routes');
+const SERVICES_PATH = path.join(__dirname,'app/services');
+const MIDDLEWARES_PATH = path.join(__dirname,'app/middlewares');
 
 module.exports = {
    routes: [
