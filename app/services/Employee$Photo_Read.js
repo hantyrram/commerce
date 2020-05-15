@@ -38,7 +38,7 @@ module.exports = employee_photo_read = async (req,res,next)=>{
       let bucket = new GridFSBucket(db, {bucketName: 'employees-photo'}); //??? put bucketName on employee module settings file
       let stream  = new PassThrough();
       console.log('Employee Id', employee);
-      let defaultAvatarRS = await fs.createReadStream(path.join(process.cwd(),'assets/images/AvatarBlue.png'));
+      let defaultAvatarRS = await fs.createReadStream(path.join(SERVER_ROOT,'assets/images/AvatarBlue.png'));
       let cursor = await bucket.find({_id: employee }); //id does not require ObjectId wrapper
       if(await cursor.hasNext()){
          console.log('Has Next',await cursor.hasNext());
