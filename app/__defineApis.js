@@ -12,7 +12,8 @@ module.exports = function(app){
    //define apis on app
    for(let service of services.filter( service => Boolean(service.api) && Boolean(service.api.path))){
       // console.log(chalk.red(`${new Date} : [APP INIT] ${error.code} Error in Retrieving ${api.serviceProvider} defined in ${filename}. Skipping api definition!`));
-      let apiPath = path.join(`/apiv${service.api.apiVersion || 1}`,service.api.path);
+      //NOTE: apiVersion must be separated by _ not by . e.g. 1_2 instead of 1.2
+      let apiPath = path.join(`/apiv${service.api.apiVersion || 1}/cbo/`,service.api.path);
       const reqAttachments = (req,res,next)=>{
          req.currentApi = service.api;//attaches the current api definition handling the request
          next();
