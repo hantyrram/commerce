@@ -1,5 +1,5 @@
 
-const { Rule } = require('../../../local_modules/authorization');
+const { Rule } = require('../../modules/authorization');
 
 /**
  * 
