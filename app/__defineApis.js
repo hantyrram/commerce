@@ -13,7 +13,8 @@ module.exports = function(app){
    for(let service of services.filter( service => Boolean(service.api) && Boolean(service.api.path))){
       // console.log(chalk.red(`${new Date} : [APP INIT] ${error.code} Error in Retrieving ${api.serviceProvider} defined in ${filename}. Skipping api definition!`));
       //NOTE: apiVersion must be separated by _ not by . e.g. 1_2 instead of 1.2
-      let apiPath = path.join(`/apiv${service.api.apiVersion || 1}/cbo/`,service.api.path);
+      let apiPath = path.join(`/cbo/apiv${service.api.apiVersion || 1}/`,service.api.path);
+      console.log(apiPath);
       const reqAttachments = (req,res,next)=>{
          req.currentApi = service.api;//attaches the current api definition handling the request
          next();
@@ -32,11 +33,11 @@ module.exports = function(app){
 
       if(apiMiddlewares.length > 0){
          app[service.api.method](apiPath,reqAttachments,apiMiddlewares,service);   
-         console.log(chalk.green(`${new Date} : [APP INIT] ${service.api.method}:/${apiPath} can now accept requests!`));
+         console.log(chalk.green(`${new Date} : [APP INIT] ${service.api.method}:/${apiPath} endpoint added.`));
          continue;
       }
 
       app[service.api.method](apiPath,reqAttachments,service);
-      console.log(chalk.green(`${new Date} : [APP INIT] ${service.api.method}:/${apiPath} can now accept requests!`));
+      console.log(chalk.green(`${new Date} : [APP INIT] ${service.api.method}:/${apiPath} endpoint added.`));
    }
 }
