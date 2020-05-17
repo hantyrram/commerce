@@ -9,9 +9,9 @@ const multer = require('multer');
 const upload = multer();
 /**
  * @type {HT~service}
- * @func employee_photo_edit
+ * @func _id_photo_edit
  * @memberof Services
- * @desc Changes the photo of the employee.
+ * @desc Changes the photo of the _id.
  */
 
 module.exports = [
@@ -19,10 +19,10 @@ module.exports = [
    upload.single('employeeAvatar'),
 
   async (req,res,next)=>{ 
-   let { employee } = req.params; // employee = _id
+   let { _id } = req.params; // _id = _id
    let { db } = dependencies;
 
-   let bucket = new GridFSBucket(db,{bucketName: 'employees-photo'});//??? put bucketName on employee module settings file
+   let bucket = new GridFSBucket(db,{bucketName: 'employees-photo'});//??? put bucketName on _id module settings file
 
    if(!req.file){
       res.json({
@@ -50,10 +50,11 @@ module.exports = [
    //delete photo if it exist
    let deletePhotoPromise = new Promise(function(resolve,reject){
       (async function(){
-         let cursor = await bucket.find({_id: employee }); //id does not require ObjectId wrapper
+         let cursor = await bucket.find({_id: _id }); //id does not require ObjectId wrapper
+
          if(await cursor.hasNext()){
             console.log('Has Photo');
-            bucket.delete(employee,function(error){
+            bucket.delete( _id, function(error){
                if(error){
                   console.log(error);
                   reject(error);
@@ -61,6 +62,7 @@ module.exports = [
                }
                resolve('photo-delete-ok');
             });
+            return;
          }
 
          resolve('photo-delete-ok'); //resolve if _id does not yet exist, this op will add photo
@@ -73,7 +75,7 @@ module.exports = [
       console.log(e);
       let fileExtension = req.file.originalname.substring(index);
 
-      let fileName = `${employee}-avatar${fileExtension}`; ///??? * put on settings
+      let fileName = `${_id}-avatar${fileExtension}`; ///??? * put on settings
       
       // use PassThrough to engulp file buffer and pipe to bucket upload stream
       let readableStream = new PassThrough();
@@ -81,7 +83,7 @@ module.exports = [
       readableStream.end(req.file.buffer); 
 
       readableStream
-         .pipe(bucket.openUploadStreamWithId(employee,fileName))
+         .pipe(bucket.openUploadStreamWithId(_id,fileName))
             .on('error',function(error){
                console.log('Error Saving Photo',error);
                if(error){
@@ -97,14 +99,14 @@ module.exports = [
                
             })
             .on('finish',function(){
-               //set employee.photo field
+               //set _id.photo field
                (async function(){
                   let photo = null;
-                  let cursor = await bucket.find({_id: employee});
+                  let cursor = await bucket.find({_id: _id});
                   if(await cursor.hasNext()){
                      photo = await cursor.next();
-                     await db.collection('employees').updateOne(
-                        {_id: ObjectId(employee)},
+                     await db.collection('_ids').updateOne(
+                        {_id: ObjectId(_id)},
                         {
                            $set : {
                               photo: photo
@@ -145,7 +147,7 @@ module.exports = [
 ]
 
 module.exports.api = {
-   path : 'employees/:employee/photo',
+   path : 'employees/:_id/photo',
    method: 'post',
    resource: 'Employee$Photo',
    op: 'edit',

@@ -31,18 +31,17 @@ const path = require('path');
 //    res.json({ok:1})
 // }
 
-module.exports = employee_photo_read = async (req,res,next)=>{ 
-      let { employee } = req.params;
+module.exports = async (req,res,next)=>{ 
+      let { _id } = req.params;
       let { db } = dependencies;
       // res.set('Content-Type','image/png');
       let bucket = new GridFSBucket(db, {bucketName: 'employees-photo'}); //??? put bucketName on employee module settings file
       let stream  = new PassThrough();
-      console.log('Employee Id', employee);
       let defaultAvatarRS = await fs.createReadStream(path.join(SERVER_ROOT,'assets/images/AvatarBlue.png'));
-      let cursor = await bucket.find({_id: employee }); //id does not require ObjectId wrapper
+      let cursor = await bucket.find({ _id: _id  }); //id does not require ObjectId wrapper
       if(await cursor.hasNext()){
-         console.log('Has Next',await cursor.hasNext());
-         await bucket.openDownloadStream(employee).pipe(res);
+         console.log('@Employee$Photo_Read:44 Has Next =',await cursor.hasNext());
+         await bucket.openDownloadStream( _id ).pipe(res);
          return ;
 
       }
@@ -51,7 +50,7 @@ module.exports = employee_photo_read = async (req,res,next)=>{
    }
 
 module.exports.api = {
-   path : 'employees/:employee/photo',
+   path : 'employees/:_id/photo',
    method: 'get',
    resource: 'Employee$Photo',
    op: 'read',
