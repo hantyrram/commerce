@@ -1,2 +1,0 @@
-User must have roles
-User must be saved on the request object
