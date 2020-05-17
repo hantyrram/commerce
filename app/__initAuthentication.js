@@ -2,6 +2,7 @@
 const authentication = require('./modules/authentication');
 const ObjectId = require('mongodb').ObjectId;
 const { dependencies }  = require('./dependencyManager');
+
 module.exports = function(app){
    const { db } = dependencies;
    authentication.serializeUser(function(user,done){
@@ -30,11 +31,14 @@ module.exports = function(app){
    if(process.env.NODE_ENV === 'development'){
       if(process.env.DEV_AUTHENTICATION === 'enabled'){
          ////turn on authentication module during development if DEV_AUTHENTICATION is set
-         app.use(authentication.init({ 
-               
-                  loginURL:`/apiv1/auth/login`, logoutURL: '/apiv1/auth/logout', useInternalLoginService: false
-              
-               })); 
+         app.use(authentication.init(
+            {                
+                  loginURL:`/cbo/apiv1/auth/login`, 
+                  logoutURL: '/cbo/apiv1/auth/logout', 
+                  successRedirect: '/',
+                  useInternalLoginService: false              
+            }
+         )); 
       }else{
          app.use((req,res,next)=>{
             //attach a dummy user on development mode.
