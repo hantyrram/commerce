@@ -4,7 +4,7 @@ module.exports = function(){
    // global.APP_ROOT = __dirname;
    global.SCHEMAS_PATH = __dirname + '/schemas';
    global.hantyr = {
-      DOMAIN:`http://localhost:${process.env.PORT || 1234}`,
+      DOMAIN:`http://localhost:${process.env.PORT || 8080}`,
       APP_ROOT: `${__dirname}`,
       dependencyManager: require('./dependencyManager'),
       flatten : require('./functions/flatten'),
