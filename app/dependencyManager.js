@@ -12,22 +12,20 @@ global.DEPENDENCY_MANAGER_PATH = __filename;
  * The dependencies object is populated asynchronously.
  */
 const DEPENDENCY = {
- DB: 'db',
- REDIS_CLIENT: 'redisClient',
- APIS: 'apis'
+   DB: 'db',
+   REDIS_CLIENT: 'redisClient'
 }
 
 const TYPES = {
- SET_DB: `SET-${DEPENDENCY.DB}`,
- SET_REDIS_CLIENT: `SET-${DEPENDENCY.REDIS_CLIENT}`,
- SET_APIS: `SET-${DEPENDENCY.APIS}`,
+   SET_DB: `SET-${DEPENDENCY.DB}`,
+   SET_REDIS_CLIENT: `SET-${DEPENDENCY.REDIS_CLIENT}`
 }
 
 const useReducer = (reducer,initialState)=>{
- var state = initialState;
+   var state = initialState;
 
- let dispatch = (action)=>{
-  Object.assign(state,reducer(state,action));
+   let dispatch = (action)=>{
+   Object.assign(state,reducer(state,action));
  }
 
  return [state,dispatch];
@@ -40,8 +38,6 @@ var [dependencies,dispatch] = useReducer((state,action)=>{
          return { [DEPENDENCY.DB]: action.payload, ...state};}
       case TYPES.SET_REDIS_CLIENT:{
          return { [DEPENDENCY.REDIS_CLIENT]: action.payload, ...state};} 
-      case TYPES.SET_APIS:
-         return {[DEPENDENCY.APIS]:action.payload, ...state}      
       default: return {...state};   
    }
 },{});
@@ -49,6 +45,10 @@ var [dependencies,dispatch] = useReducer((state,action)=>{
 /**
  * Async calls, prepare depedencies here,
  * Conditionals so that we can turn off dependencies, by commenting DEPENDENCY['KEY']
+ */
+
+/**
+ * Initialize DB
  */
 if(DEPENDENCY.DB){
    (async function(){
@@ -107,19 +107,6 @@ if(DEPENDENCY.REDIS_CLIENT){
          console.log(error);
       }
      })();
-}
-
-if(DEPENDENCY.APIS){
-   (async function(){
-      try {
-         let readdir = promisify(fs.readdir);
-         let files = await readdir(path.resolve(__dirname,'apis'));
-         dispatch({type:TYPES.SET_APIS,payload: files});
-      } catch (error) {
-         dispatch({type:TYPES.SET_APIS,payload:null});
-         console.log('dependencyManager : ',error);
-      }
-   })()
 }
 
 
