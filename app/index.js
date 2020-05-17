@@ -22,7 +22,7 @@ const __initParamLoaders = require('./__initParamLoaders');
 const __initAuthentication = require('./__initAuthentication');
 const __defineApis = require('./__defineApis');
 
-
+const DEPENDENCY_CHECK_RETRIES = 50;
 
 /**
  * 
@@ -45,17 +45,28 @@ function start(app){
    __defineApis(app);
 }
 
+let counter = 0;
+
+let clear = setInterval(function(){
+   counter += 1;
+   if(dependencyManager.isReady() && counter !== DEPENDENCY_CHECK_RETRIES){
+      clearInterval(clear);
+      start(app);
+   }
+},1000);
+
 
 /**
  * Server Middleware. Check if dependencyManager.isReady.
  */
 server.use((req,res,next)=>{
    if(!dependencyManager.isReady()){
+      console.log('@app/index:61 Request recieved while dependencies aren\'r ready');
       res.status(500).json({type:'SERVER_ERROR',text:'Please try again later!'});
       return;
    }
-   start(app);
-   console.log(chalk.yellow(`${new Date} : [SERVER START_UP] Dependencies are Ready! Server can now now accept requests!`));
+   // start(app);
+   // console.log(chalk.yellow(`${new Date} : [SERVER START_UP] Dependencies are Ready! Server can now now accept requests!`));
    next();
 });
 
