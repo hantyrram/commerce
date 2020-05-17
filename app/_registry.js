@@ -24,8 +24,8 @@ module.exports = {
       `${MIDDLEWARES_PATH}/bodylogger`,
       `${MIDDLEWARES_PATH}/handleNonXHR`,
       `${MIDDLEWARES_PATH}/checkService`,
-      `${MIDDLEWARES_PATH}/authentication`,
-      `${MIDDLEWARES_PATH}/authorization`,
+      // `${MIDDLEWARES_PATH}/authentication`,
+      // `${MIDDLEWARES_PATH}/authorization`,
       `${MIDDLEWARES_PATH}/schemaValidator`,
 
 
