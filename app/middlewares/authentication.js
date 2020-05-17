@@ -1,4 +1,4 @@
-const authenticationModule = require('../../local_modules/authentication');
+const authenticationModule = require('../modules/authentication');
 const {dependencies} = require('../dependencyManager');
 
 authenticationModule.serializeUser(function(user,done){

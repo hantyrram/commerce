@@ -67,8 +67,8 @@ module.exports.deserializeUser = (fn)=>{
 module.exports.init = (options = {})=>{
  //save the authenticatedUser,nope?
  let {Artifact} = options;
- let loginURL = options.loginURL || '/apiv1/auth/login';
- let logoutURL = options.logoutURL || '/apiv1/auth/logout';
+ let loginURL = options.loginURL || '/login';
+ let logoutURL = options.logoutURL || '/logout';
  let successRedirect = options.successRedirect || '/';
  let useInternalLoginService = options.useInternalLoginService || false;
 
