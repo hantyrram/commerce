@@ -1,5 +1,5 @@
 const {serviceUsePolicy} = require('../policies');
-const authorizationModule = require('../../local_modules/authorization');
+const authorizationModule = require('../modules/authorization');
 const {dependencies} = require('../dependencyManager');
 authorizationModule.deserializeUserRoles(function(currentLoggedInUser,done){
    let {db} = dependencies;
