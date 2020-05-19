@@ -14,6 +14,7 @@ const dependencyManager = require('./dependencyManager');
 const server = express();
 const app = express();
 const PORT = process.env.PORT || 8080;
+console.log(process.env);
 
 const __defineGlobals = require('./__defineGlobals');
 __defineGlobals();
