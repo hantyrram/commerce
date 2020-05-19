@@ -1,8 +1,5 @@
 const MongoClient = require('mongodb').MongoClient;
 const redis = require('redis');
-const fs = require('fs');
-const {promisify} = require('util');
-const path = require('path');
 global.DEPENDENCY_MANAGER_PATH = __filename;
 
 /**
@@ -63,7 +60,7 @@ if(DEPENDENCY.DB){
        //listen to server events heres...
      
        await client.connect();
-     
+       console.log(`@dependencyManager: Logging MONGODB_DBNAME`,process.env.MONGODB_DBNAME);
        dispatch({type: TYPES.SET_DB,payload: client.db(process.env.MONGODB_DBNAME)});
       } catch (error) {
        //??? NOTE: client won't reconnect on MongoNetworkError first attempt(intended behavious as per Mongodb driver doc)
@@ -121,6 +118,7 @@ const isReady = ()=>{
  return Object.values(DEPENDENCY).every( key=> {
    if(key === 'REDIS_CLIENT'){
       // If redis client is one of the dependencies,make sure it's connected
+      console.log('@dependencyManager: Checking if redis is connected: status = ', Boolean(dependencies[key]) && dependencies[key].connected);
       return Boolean(dependencies[key]) && dependencies[key].connected; 
    }
    return Boolean(dependencies[key]);
