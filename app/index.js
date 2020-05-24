@@ -30,6 +30,9 @@ const DEPENDENCY_CHECK_RETRIES = 50;
  * Sets up, the app, call after when dependencyManager.isRead.
  */
 function start(app){
+   //where using apiv1 only to catch this on proxy_pass on nginx
+   //we should make an entry on nginx for /static instead perhaps point to separate static webserver
+   app.use('/cbo/apiv1/static',express.static(path.join(__dirname,'../public')));
    app.use(express.json());
    app.use(cookieParser());
    app.use(sessionOnRedis({redisClient:dependencyManager.dependencies.redisClient}));
