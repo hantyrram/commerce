@@ -22,6 +22,7 @@ const Permission_List = require('./Permission_List');
 const Product_Create = require('./Product_Create');
 const Product_Edit = require('./Product_Edit');
 const Product_List = require('./Product_List');
+const Product$Category_Edit = require('./Product$Category_Edit');
 const Product$Images_Add = require('./Product$Images_Add');
 const Product$Images_Delete = require('./Product$Images_Delete');
 const Product$Images_Read = require('./Product$Images_Read');
@@ -44,6 +45,7 @@ const StoreSetting$Tax_Edit = require('./StoreSetting$Tax_Edit');
 const Util$ExtData$Country_List = require('./Util$ExtData$Country_List');
 const Util$ExtData$CountryState_List = require('./Util$ExtData$CountryState_List');
 const Util$ExtData$CountryCity_List = require('./Util$ExtData$CountryCity_List');
+const UserAccount_List = require('./UserAccount_List');
 const StoreSetting_List = require('./StoreSetting_List');
 const StoreSetting$Shipping$ShippingZone_Add = require('./StoreSetting$Shipping$ShippingZone_Add');
 const Util$ExtData$PSGC_Read = require('./Util$ExtData$PSGC_Read');
@@ -53,6 +55,7 @@ const StoreSetting$Shipping$ShippingZone_Edit = require('./StoreSetting$Shipping
 const StoreSetting$Shipping$ShippingZone$ShippingMethod_Add  = require('./StoreSetting$Shipping$ShippingZone$ShippingMethod_Add');
 const StoreSetting$Shipping$ShippingZone$ShippingMethod_Delete = require('./StoreSetting$Shipping$ShippingZone$ShippingMethod_Delete');
 const StoreSetting$Shipping$ShippingZone_Delete = require('./StoreSetting$Shipping$ShippingZone_Delete');
+const Setting$Store$General_Edit = require('./Setting$Store$General_Edit');
 const Search_Exec = require('./Search_Exec');
 module.exports = [
    Api_List,
@@ -79,6 +82,7 @@ module.exports = [
    Product_Create,
    Product_Edit,
    Product_List,
+   Product$Category_Edit,
    Product$Images_Add,
    Product$Images_Delete,
    Product$Images_Read,
@@ -102,12 +106,14 @@ module.exports = [
    Util$ExtData$Country_List,
    Util$ExtData$CountryState_List,
    Util$ExtData$CountryCity_List,
+   UserAccount_List,
    StoreSetting$Shipping$ShippingZone_Add,
    StoreSetting$Shipping$ShippingZone_Edit,
    StoreSetting$Shipping$ShippingZone_List,
    StoreSetting$Shipping$ShippingZone_Delete,
    StoreSetting$Shipping$ShippingZone$ShippingMethod_Add,
    StoreSetting$Shipping$ShippingZone$ShippingMethod_Delete,
+   Setting$Store$General_Edit,
    Util$ExtData$PSGC_Read,
    StoreSetting$Shipping$ShippingOrigin_Edit,
    Search_Exec

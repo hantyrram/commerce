@@ -14,13 +14,54 @@ const https = require('https');
 
 module.exports =  async (req,res,next)=>{ 
 
+   /**
+    * Constants used for adjustments with countries from RESTCOUNTRIES api that have long country names.
+    * Those country names does not work with universal-tutorial api.
+    */
+   const UNITED_STATES = 'United States';
+   const UNITED_KINGDOM = 'United Kingdom';
+   const VENEZUELA = 'Venezuela';
+   const TANZANIA = 'Tanzania';
+   const KOREA = 'Korea';
+   const MACEDONIA = 'Macedonia';
+
+
    if(!req.params.country){
       res.json({});
       return;
    }
 
-   let country = req.params.country === 'United States' ? 'United States': req.params.country;
+   let country = req.params.country.includes('United States')  ? 'United States': req.params.country;
    
+   if(country.includes(UNITED_STATES)){
+      country = UNITED_STATES;
+   }
+
+   if(country.includes(UNITED_KINGDOM)){
+      country = UNITED_KINGDOM;
+   }
+
+   if(country.includes(VENEZUELA)){
+      country = VENEZUELA;
+   }
+
+   if(country.includes(TANZANIA)){
+      country = TANZANIA;
+   }
+
+   if(country.includes(KOREA)){
+      country = KOREA;
+   }
+
+   if(country.includes(MACEDONIA)){
+      country = MACEDONIA;
+   }
+
+
+
+
+   
+
    let states = [];
    
    try {

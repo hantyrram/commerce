@@ -65,6 +65,7 @@ module.exports = async (req,res,next)=>{
 
 
 module.exports.api = {
+   type: 'public',
    path : 'util/extdata/countries',
    method: 'get',
    resource: 'Countries',   

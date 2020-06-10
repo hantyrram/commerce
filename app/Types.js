@@ -2,6 +2,32 @@
  * @namespace typedefs
  */
 
+/**
+ * A function that handles a route.
+ * 
+ * @typedef { function } RouteHandler
+ * @param {Object} req
+ * @param {Object} res
+ */ 
+
+/**
+ * Defines the properties of a Service
+ * @typedef { object } ServiceApi
+ * @property { string } path - The api endpoint
+ * @property { string } [ type = secure]  -  The type of the api, secure or public. Public api does not require authentication.
+ * @property { string } method - The http method.
+ * @property { string } resource - The type of resource.
+ * @property { string } op - The operation performed by the service on the identified resource.
+ * @property { string } [description] - The description of the service.
+ */
+
+
+
+/**
+ * The service that handles a particular api endpoint.
+ * @typedef { ( Array | RouteHandler ) } Service 
+ * @prop { ServiceApi } api 
+ */
 
 /**
  * @typedef {function} typedefs~service - A service responds to api requests.

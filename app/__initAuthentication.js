@@ -40,6 +40,8 @@ module.exports = function(app){
             }
          )); 
       }else{
+
+         //DEVELOPMENT MODE && !DEV_AUTHENTICATION
          app.use((req,res,next)=>{
             //attach a dummy user on development mode.
             req.user = {
