@@ -24,6 +24,6 @@
     "xlsx": "^0.17.0"
   },
   "devDependencies": {
-    "chalk": "^2.4.2"
+    "chalk": "^4.1.2"
   }
 }
